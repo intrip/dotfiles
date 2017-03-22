@@ -114,3 +114,9 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export GOPATH=$HOME/gocode
 export PATH="$HOME/gocode/bin:$PATH"
+
+###
+# Vim and Tmux intergration
+###
+
+alias tmux="TERM=screen-256color-bce tmux"
