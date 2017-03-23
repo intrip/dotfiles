@@ -6,7 +6,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="cloud-custom"
-ZSH_THEME="cloud"
+ZSH_THEME="robbyrussell"
 
 # CASE_SENSITIVE="true"
 
@@ -121,3 +121,4 @@ export PATH="$HOME/gocode/bin:$PATH"
 ###
 
 alias tmux="TERM=screen-256color-bce tmux"
+
