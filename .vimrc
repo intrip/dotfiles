@@ -217,7 +217,7 @@ endif
 " CTRL+SHIFT+] to jump to linked file such as CTRL+Click remember to rebuild CTAGS when needed with <Leader> rt
 " CTRL+o for snippets
 " Tab for autocomplete
-" SHIFT+L clears search
+" SHIFT+L clears search (nohls)
 " <Leader><Leader>s to search in all the visible part of the file up and down with EasyMotion
 
 
