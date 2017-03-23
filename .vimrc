@@ -42,6 +42,8 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'valloric/youcompleteme'
 " Rspec integration
 Plugin 'thoughtbot/vim-rspec'
+" Tmux and Rspec integration
+Bundle 'jgdavey/tslime.vim'
 " Error checking
 Plugin 'vim-syntastic/syntastic'
 " Automatic end complete
@@ -169,17 +171,20 @@ map <Leader>a :call RunAllSpecs()<CR>
 " Sets the global RSpec command
 " If a vagrant_spec file exists sets up the command to run the spec with
 " vagrant using as path the string given inside the file
-function! SetRSpecCommand()
-  if !empty(glob("vagrant_spec"))
-    let s:path =  join(readfile("vagrant_spec"), "\n")
-    let s:vagrant_cmd = 'cd '. s:path . '; bundle exec rspec --tag @focus -I . {spec}'
-    let g:rspec_command =  '!vagrant ssh -- -t "' . s:vagrant_cmd . '"'
-  else
-    let g:rspec_command = '!bundle exec rspec --tag @focus -I . {spec}'
-  endif
-  echo 'New RSpec run command: ' . g:rspec_command
-endfunction
-map <Leader>tr :call SetRSpecCommand()<CR>
+"function! SetRSpecCommand()
+  "if !empty(glob("vagrant_spec"))
+    "let s:path =  join(readfile("vagrant_spec"), "\n")
+    "let s:vagrant_cmd = 'cd '. s:path . '; bundle exec rspec --tag @focus -I . {spec}'
+    "let g:rspec_command =  '!vagrant ssh -- -t "' . s:vagrant_cmd . '"'
+  "else
+    "let g:rspec_command = '!bundle exec rspec --tag @focus -I . {spec}'
+  "endif
+  "echo 'New RSpec run command: ' . g:rspec_command
+"endfunction
+"map <Leader>tr :call SetRSpecCommand()<CR>
+" Rspec and Tmux setup, the first time will ask you for the session id to
+" attach
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 " ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
