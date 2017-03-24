@@ -154,14 +154,17 @@ set laststatus=2                                          " Status bar always vi
 set cursorline                                            " Highlight current cursor line
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
 
-" Snipmate settings
+" Snipmate
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 
-" YouCompleteMe settings
+" YouCompleteMe
 let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+
+" Vim Markdown
+let g:vim_markdown_folding_disabled = 1
 
 " Rspec
 map <Leader>t :call RunCurrentSpecFile()<CR>
@@ -224,7 +227,6 @@ endif
 " Tab for autocomplete
 " SHIFT+L clears search (nohls)
 " <Leader><Leader>s to search in all the visible part of the file up and down with EasyMotion
-
 
 " Setup notes:
 " - you need vim with python support
