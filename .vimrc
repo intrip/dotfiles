@@ -43,7 +43,9 @@ Plugin 'valloric/youcompleteme'
 " Rspec integration
 Plugin 'thoughtbot/vim-rspec'
 " Tmux and Rspec integration
-Bundle 'jgdavey/tslime.vim'
+Plugin 'jgdavey/tslime.vim'
+" Tmux pane easy navigation
+Plugin 'christoomey/vim-tmux-navigator'
 " Error checking
 Plugin 'vim-syntastic/syntastic'
 " Automatic end complete
