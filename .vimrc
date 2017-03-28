@@ -207,9 +207,12 @@ let g:syntastic_check_on_wq = 0
 
 " Buffer commands
 nnoremap <Leader>e :buffers<CR>:buffer<Space>
-map <C-h> :bprevious!<CR>
-map <C-l> :bnext!<CR>
-map <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
+" Map Alt + j
+nmap ª :bprevious!<CR>
+" Map Alt + k
+nmap º :bnext!<CR>
+nmap eader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
+
 
 " Swap files
 :set noswapfile             "disable swap files
