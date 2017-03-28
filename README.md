@@ -1,2 +1,6 @@
 # dotfiles
-Collection of various dotfiles
+My personal collection of dotfiles
+
+- Oh my Zsh
+- Tmux
+- Vim
