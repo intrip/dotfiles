@@ -208,9 +208,9 @@ let g:syntastic_check_on_wq = 0
 " Buffer commands
 nnoremap <Leader>e :buffers<CR>:buffer<Space>
 " Map Alt + j
-nmap ª :bprevious!<CR>
+nmap ∆ :bprevious!<CR>
 " Map Alt + k
-nmap º :bnext!<CR>
+nmap ¬ :bnext!<CR>
 nmap eader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 
 
