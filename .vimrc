@@ -189,7 +189,7 @@ map <Leader>a :call RunAllSpecs()<CR>
 "map <Leader>tr :call SetRSpecCommand()<CR>
 " Rspec and Tmux setup, the first time will ask you for the session id to
 " attach
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec --tag @focus -I . {spec}\n")'
 
 " ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
@@ -211,7 +211,7 @@ nnoremap <Leader>e :buffers<CR>:buffer<Space>
 nmap ∆ :bprevious!<CR>
 " Map Alt + k
 nmap ¬ :bnext!<CR>
-nmap eader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
+nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 
 
 " Swap files
