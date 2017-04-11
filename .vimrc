@@ -150,7 +150,7 @@ set shiftwidth=2                                          " Use 2 space tabs by 
 set softtabstop=2
 set list                                                  " show invisible chars
 set listchars=""                                          " Reset listchars
-set list listchars=tab:»·,trail:·                         " Set listchars for tabs and trailing spacesa
+"set list listchars=tab:»·,trail:·                         " Set listchars for tabs and trailing spacesa
 set expandtab                                             " Expand tabs into spaces
 set laststatus=2                                          " Status bar always visible
 set cursorline                                            " Highlight current cursor line
@@ -236,3 +236,7 @@ endif
 " Setup notes:
 " - you need vim with python support
 " - you need to install CMake and then run cd ~/.vim/bundle/YouCompleteMe; ./install.py in order to install correctly YouCompleteMe
+"
+" Tips:
+" to do find and replace: ag -l pattern | xargs -o vim   # and then do your
+" bufdo %s/pattern/replace/gc | update
