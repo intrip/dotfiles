@@ -121,7 +121,8 @@ if executable('ag')
   " bind , (backward slash) to grep shortcut
   command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
-
+" Ctrl+P ignore
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.jpeg,*.pdf,*.swf,*.bson
 
 """""""""""""""""""""""
 " VIM OPTIONS BEGIN
@@ -212,7 +213,7 @@ nmap ∆ :bprevious!<CR>
 " Map Alt + k
 nmap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
-
+map <Leader>c :!echo % \| pbcopy                         " Copy file name to clipboard
 
 " Swap files
 :set noswapfile             "disable swap files
@@ -224,6 +225,9 @@ nnoremap <silent> <S-L> :nohlsearch<CR>
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
+
+" Tmux copy & paste MacOSX
+set clipboard=unnamed
 
 " Useful keywords to remember associated to Plugins:
 " CTRL+p easy search for file names
