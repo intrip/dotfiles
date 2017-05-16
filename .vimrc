@@ -39,7 +39,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 " Pops autocomplete instantly
 " NOTE: remember to install the required libs
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
 " Rspec integration
 Plugin 'thoughtbot/vim-rspec'
 " Tmux and Rspec integration
@@ -66,8 +66,10 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'easymotion/vim-easymotion'
 " Easy quote and parenthesis
 Plugin 'tpope/vim-surround'
-" Sublime text like multiple selection
-Plugin 'terryma/vim-multiple-cursors'
+" Vim method navigation with CTAGS
+Plugin 'majutsushi/tagbar'
+" JSON formatting
+Plugin 'elzr/vim-json'
 
 " All of your Plugins must be kadded before the following line
 call vundle#end()            " required
@@ -147,15 +149,17 @@ set showcmd                                               " Show current cursor 
 set mouse=n                                               " Enable mouse movement Tabs and spaces
 set nowrap                                                " no wrap spaces
 set list                                                  " show invisible chars
-set shiftwidth=2                                          " Use 2 space tabs by default
-set softtabstop=2
 set list                                                  " show invisible chars
 set listchars=""                                          " Reset listchars
-"set list listchars=tab:»·,trail:·                         " Set listchars for tabs and trailing spacesa
+highlight ExtraWhitespace ctermbg=red guibg=red           " Highilight trailing whitespaces
+match ExtraWhitespace /\s\+$/
 set expandtab                                             " Expand tabs into spaces
 set laststatus=2                                          " Status bar always visible
-set cursorline                                            " Highlight current cursor line
+"set cursorline                                            " Highlight current cursor line
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
+set shiftwidth=2                                          " Use 2 space tabs by default
+set softtabstop=2
+syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 
 " Snipmate
 let g:UltiSnipsExpandTrigger="<Tab>"
@@ -205,6 +209,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
 
 " Buffer commands
 nnoremap <Leader>e :buffers<CR>:buffer<Space>
