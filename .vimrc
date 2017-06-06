@@ -54,6 +54,9 @@ Plug 'elzr/vim-json'
 " Golang extension
 Plug 'fatih/vim-go'
 
+" set no compatibilty mode
+set nocp
+
 " Pops autocomplete instantly
 " NOTE: remember to install the required libs
 Plug 'Valloric/YouCompleteMe', { 'on': [] }
@@ -111,21 +114,23 @@ set autoindent                                            " Automatically guess 
 set smartindent
 set showcmd                                               " Show current cursor info
 set mouse=a                                               " Enable mouse movement Tabs and spaces
-set nowrap                                                " no wrap spaces
+set nowrap                                                " no wrap lines
 " set list                                                " show invisible chars such as tabs and end of line
 " set listchars="tab:->"                                  " Better looking tabs
 highlight ExtraWhitespace ctermbg=red guibg=red           " Highilight trailing whitespaces
 match ExtraWhitespace /\s\+$/
 set expandtab                                             " Expand tabs into spaces
 set laststatus=2                                          " Status bar always visible
-"set cursorline                                           " Highlight current cursor line
+set cursorline                                           " Highlight current cursor line
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
+set incsearch                                             " Makes search act like search in modern browsers
 set shiftwidth=2                                          " Use 2 space tabs by default
 set softtabstop=2
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 set encoding=utf-8                                        " Uses utf-8 encoding
+set lazyredraw                                            " Don't redraw while executing macros (good performance config)
 
-" identantion spaces length
+" identantion spaces length depending on file format
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd filetype crontab setlocal nobackup nowritebackup
 
@@ -189,6 +194,18 @@ endif
 
 " Tmux copy & paste MacOSX and share clipboard
 set clipboard=unnamed
+
+" Move a line of text using <Leader>+[jk]
+nnoremap <Leader>j :m .+1<CR>==
+nnoremap <Leader>k :m .-2<CR>==
+inoremap <Leader>j <Esc>:m .+1<CR>==gi
+inoremap <Leader>k <Esc>:m .-2<CR>==gi
+vnoremap <Leader>j :m '>+1<CR>gv=gv
+vnoremap <Leader>k :m '<-2<CR>gv=gv
+
+" easy way to edit reload .vimrc
+nmap <leader>V :source $MYVIMRC<cr>
+nmap <leader>v :vsp $MYVIMRC<cr>
 
 " Useful keywords to remember associated to Plugins:
 " CTRL+p easy search for file names
