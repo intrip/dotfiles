@@ -1,109 +1,71 @@
-""""""""""""""""""
-" Vundle options
-"""""""""""""""""
+" VimPlugged automatic install
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
-:let mapleader = "-"          " Maps - as leader character
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Navigation tree enhanced
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Ctrl+p to search in the folder
 " Remember to install the_silver_searcher
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Status bar
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 " Status bar custom colors
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 " Git integration
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Custom color schemes
-Plugin 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 " Solarized color scheme
-Plugin 'altercation/vim-colors-solarized'
-" Ruby extension, CTRL+N CTRL+P for autocomplete
-Plugin 'vim-ruby/vim-ruby'
+Plug 'altercation/vim-colors-solarized'
+" Ruby extension
+Plug 'vim-ruby/vim-ruby'
 " Javascript syntax
-Plugin 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
+" Rspec integration
+Plug 'thoughtbot/vim-rspec'
+" Tmux and Rspec integration
+Plug 'jgdavey/tslime.vim'
+" Tmux pane easy navigation
+Plug 'christoomey/vim-tmux-navigator'
+" Error checking
+Plug 'vim-syntastic/syntastic'
+" Automatic end complete
+Plug 'tpope/vim-endwise'
+" Haml and Scss
+Plug 'tpope/vim-haml'
+" Better Comment handling
+Plug 'scrooloose/nerdcommenter'
+" Vim snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+" Syntax highlighting, matching rules and mappings for Markdown files
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+" Easy quote and parenthesis
+Plug 'tpope/vim-surround'
+" Vim method navigation with CTAGS
+Plug 'majutsushi/tagbar'
+" JSON formatting
+Plug 'elzr/vim-json'
+" Golang extension
+Plug 'fatih/vim-go'
+
 " Pops autocomplete instantly
 " NOTE: remember to install the required libs
-"Plugin 'valloric/youcompleteme'
-" Rspec integration
-Plugin 'thoughtbot/vim-rspec'
-" Tmux and Rspec integration
-Plugin 'jgdavey/tslime.vim'
-" Tmux pane easy navigation
-Plugin 'christoomey/vim-tmux-navigator'
-" Error checking
-Plugin 'vim-syntastic/syntastic'
-" Automatic end complete
-Plugin 'tpope/vim-endwise'
-" Haml and Scss
-Plugin 'tpope/vim-haml'
-" Better Comment handling
-Plugin 'scrooloose/nerdcommenter'
-" Vim snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-" Syntax highlighting, matching rules and mappings for Markdown files
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-" Faster motion movement with vim
-Plugin 'easymotion/vim-easymotion'
-" Easy quote and parenthesis
-Plugin 'tpope/vim-surround'
-" Vim method navigation with CTAGS
-Plugin 'majutsushi/tagbar'
-" JSON formatting
-Plugin 'elzr/vim-json'
+Plug 'Valloric/YouCompleteMe', { 'on': [] }
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| autocmd! load_us_ycm
+augroup END
+" Initialize plugin system
+call plug#end()
 
-" All of your Plugins must be kadded before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" Themes carousel
-map <F4> :call NextDemoingSlide()<CR>
-map <F3> :call PreviousDemoingSlide()<CR>
-
-function! Carousel()
-  for theme in split(globpath(&runtimepath, 'colors/*.vim'), '\n')
-    let t = fnamemodify(theme, ':t:r')
-    try
-      execute 'colorscheme '.t
-      echo t
-    catch
-    finally
-    endtry
-    sleep 4
-    redraw
-  endfor
-endfunction
-map <silent> <Leader>tc :call Carousel()<cr>
+:let mapleader = "-"          " Maps - as leader character
 
 " The silver searcher
 " use :Ag text path to search
@@ -129,9 +91,10 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.jpeg,*.pdf,*.swf,*.bson
 """""""""""""""""""""""
 " VIM OPTIONS BEGIN
 """""""""""""""""""""""
+
+" Colorscheme
 syntax enable                                             " Enables syntax highlight
-" colorscheme molokai                                      " Color scheme
-let g:solarized_termcolors=256                             " Solarized scheme
+"let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal
 colorscheme solarized
 set background=light
 
@@ -142,30 +105,34 @@ let g:airline#extensions#tabline#enabled = 1              " Enable the list of b
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
 
 " Hisory, cursor, rules
-set number                                                "  to show the current line number
-set ruler                                                 "  to show the rulers
+set number                                                " to show the current line number
+set ruler                                                 " to show the rulers
 set autoindent                                            " Automatically guess the indentation given the previous line inden
+set smartindent
 set showcmd                                               " Show current cursor info
-set mouse=n                                               " Enable mouse movement Tabs and spaces
+set mouse=a                                               " Enable mouse movement Tabs and spaces
 set nowrap                                                " no wrap spaces
-set list                                                  " show invisible chars
-set list                                                  " show invisible chars
-set listchars=""                                          " Reset listchars
+" set list                                                " show invisible chars such as tabs and end of line
+" set listchars="tab:->"                                  " Better looking tabs
 highlight ExtraWhitespace ctermbg=red guibg=red           " Highilight trailing whitespaces
 match ExtraWhitespace /\s\+$/
 set expandtab                                             " Expand tabs into spaces
 set laststatus=2                                          " Status bar always visible
-"set cursorline                                            " Highlight current cursor line
+"set cursorline                                           " Highlight current cursor line
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
 set shiftwidth=2                                          " Use 2 space tabs by default
 set softtabstop=2
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
+set encoding=utf-8                                        " Uses utf-8 encoding
 
-" Snipmate
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
+" identantion spaces length
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd filetype crontab setlocal nobackup nowritebackup
 
+" UtilSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " YouCompleteMe
 let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
@@ -173,33 +140,22 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 " Vim Markdown
 let g:vim_markdown_folding_disabled = 1
 
+" NERDTree triggered with F9, use q to quit
+map <F9> :NERDTree<cr>
+
 " Rspec
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
-" Sets the global RSpec command
-" If a vagrant_spec file exists sets up the command to run the spec with
-" vagrant using as path the string given inside the file
-"function! SetRSpecCommand()
-  "if !empty(glob("vagrant_spec"))
-    "let s:path =  join(readfile("vagrant_spec"), "\n")
-    "let s:vagrant_cmd = 'cd '. s:path . '; bundle exec rspec --tag @focus -I . {spec}'
-    "let g:rspec_command =  '!vagrant ssh -- -t "' . s:vagrant_cmd . '"'
-  "else
-    "let g:rspec_command = '!bundle exec rspec --tag @focus -I . {spec}'
-  "endif
-  "echo 'New RSpec run command: ' . g:rspec_command
-"endfunction
-"map <Leader>tr :call SetRSpecCommand()<CR>
 " Rspec and Tmux setup, the first time will ask you for the session id to
 " attach
 let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec --tag @focus -I . {spec}\n")'
 
-" ctags
+" Ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
 
-" Build ctags for ruby
+" Build Ctags for ruby
 function! BuildCtags()
   !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
 endfunction
@@ -210,7 +166,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-" Tagbar
+" Tagbar triggered with F8
 nmap <F8> :TagbarToggle<CR>
 
 " Buffer commands
@@ -219,11 +175,9 @@ nnoremap <Leader>e :buffers<CR>:buffer<Space>
 nmap ∆ :bprevious!<CR>
 " Map Alt + k
 nmap ¬ :bnext!<CR>
-nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
+nmap <Leader>q :bp\|bd #<CR>                             " Closes buffer without closing the split view
 map <Leader>c :!echo % \| pbcopy                         " Copy file name to clipboard
-
-" Swap files
-:set noswapfile             "disable swap files
+map <Leader>w :w<CR>                                     " Fast file save
 
 " Use <S-L> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-L> :nohlsearch<CR>
@@ -233,20 +187,23 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
-" Tmux copy & paste MacOSX
+" Tmux copy & paste MacOSX and share clipboard
 set clipboard=unnamed
 
 " Useful keywords to remember associated to Plugins:
 " CTRL+p easy search for file names
 " CTRL+SHIFT+] to jump to linked file such as CTRL+Click remember to rebuild CTAGS when needed with <Leader> rt
-" CTRL+o for snippets
-" Tab for autocomplete
+" Tab for snippetsautocomplete
 " SHIFT+L clears search (nohls)
 " <Leader><Leader>s to search in all the visible part of the file up and down with EasyMotion
+" F8 to navigate methods
+" F9 for NERDTree
+" <Leader>ci to toggle comment
 
 " Setup notes:
 " - you need vim with python support
 " - you need to install CMake and then run cd ~/.vim/bundle/YouCompleteMe; ./install.py in order to install correctly YouCompleteMe
+" - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
