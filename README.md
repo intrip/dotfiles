@@ -5,3 +5,4 @@ My personal collection of dotfiles
 - Tmux
 - Vim
 - MacVim
+- GemRc
