@@ -129,6 +129,30 @@ set softtabstop=2
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 set encoding=utf-8                                        " Uses utf-8 encoding
 set lazyredraw                                            " Don't redraw while executing macros (good performance config)
+set lbr                                                   " Enables line break
+set tw=200                                                " Breaks line at 200 chars
+set noswapfile                                            " Disable swap file
+
+" Remember things between sessions
+"
+" '20  - remember marks for 20 previous files
+" \"50 - save 50 lines for each register
+" :20  - remember 20 items in command-line history
+" /20  - remember 20 items in search history
+" %    - remember the buffer list (if vim started without a file arg)
+" n    - set name of viminfo file
+set viminfo='20,\"50,:20,/20,%,n~/.viminfo
+
+" Define what to save with :mksession
+" blank - empty windows
+" buffers - all buffers not only ones in a window
+" curdir - the current directory
+" folds - including manually created ones
+" help - the help window
+" options - all options and mapping
+" winsize - window sizes
+" tabpages - all tab pages
+set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
 " identantion spaces length depending on file format
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
@@ -205,7 +229,7 @@ vnoremap <Leader>k :m '<-2<CR>gv=gv
 
 " easy way to edit reload .vimrc
 nmap <leader>V :source $MYVIMRC<cr>
-nmap <leader>v :vsp $MYVIMRC<cr>
+nmap <leader>v :e $MYVIMRC<cr>
 
 " Useful keywords to remember associated to Plugins:
 " CTRL+p easy search for file names
