@@ -52,7 +52,7 @@ Plug 'majutsushi/tagbar'
 " JSON formatting
 Plug 'elzr/vim-json'
 " Golang extension
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 " set no compatibilty mode
 set nocp
@@ -190,13 +190,14 @@ nmap <F8> :TagbarToggle<CR>
 
 " Buffer commands
 nnoremap <Leader>e :buffers<CR>:buffer<Space>
-" Map Alt + j
-nmap ∆ :bprevious!<CR>
-" Map Alt + k
-nmap ¬ :bnext!<CR>
+" Map Alt + h
+nnoremap ∆ :bprevious!<CR>
+" Map Alt + l
+nnoremap ¬ :bnext!<CR>
 nmap <Leader>q :bp\|bd #<CR>                             " Closes buffer without closing the split view
-map <Leader>c :!echo % \| pbcopy                         " Copy file name to clipboard
-map <Leader>w :w<CR>                                     " Fast file save
+nnoremap <Leader>c :!echo % \| pbcopy                    " Copy file name to clipboard
+nnoremap <Leader>w :w<CR>                                " Fast file save
+inoremap <Leader>w <Esc>:w<CR>
 
 " Use <S-L> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-L> :nohlsearch<CR>
