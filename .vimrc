@@ -74,7 +74,7 @@ call plug#end()
 " use :Ag text path to search
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor\ --path-to-ignore\ $HOME/.agignore
+  set grepprg=ag\ --nogroup\ --nocolor\ --path-to-agignore\ $HOME/.agignore
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -97,7 +97,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.jpeg,*.pdf,*.swf,*.bson
 
 " Colorscheme
 syntax enable                                             " Enables syntax highlight
-"let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal
+"let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal e.g. Iterm
 colorscheme solarized
 set background=light
 
@@ -106,6 +106,7 @@ let g:airline_theme='simple'                              " Airline color scheme
 let g:airline#extensions#syntastic#enabled = 1            " Syntastic integration
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
+let g:syntastic_quiet_messages = { 'regex': 'SC2148' }    " Turn of some warnings, check out: https://stackoverflow.com/questions/28282315/how-can-i-turn-off-specific-messages-in-syntastic-vim
 
 " Hisory, cursor, rules
 set number                                                " to show the current line number
@@ -144,7 +145,7 @@ set noswapfile                                            " Disable swap file
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
-" identantion spaces length depending on file format
+" Identantion spaces length depending on file format
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd filetype crontab setlocal nobackup nowritebackup
 
