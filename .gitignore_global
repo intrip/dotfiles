@@ -1,0 +1,9 @@
+*~
+.DS_Store
+.idea/
+tags
+todo
+*.swo
+*.swn
+Session.vim
+.byebug_history
