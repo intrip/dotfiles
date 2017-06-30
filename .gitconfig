@@ -1,0 +1,11 @@
+[user]
+	name = Jacopo
+	email = beschi.jacopo@gmail.com
+[core]
+	filemode = false
+	excludesfile = /Users/intrip/.gitignore_global
+	filemode = false
+[color]
+	ui = true
+[push]
+	default = simple
