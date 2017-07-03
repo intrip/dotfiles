@@ -96,6 +96,7 @@ set noswapfile                                            " Disable swap file
 set nobackup                                              " Don't backup
 set nowritebackup                                         " Write file in place
 set autoread                                              " Automatically reload file changes
+set autowrite                                             " Automatically save changes before switching buffers
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 
@@ -127,6 +128,10 @@ set hlsearch                                              " Automatically highli
 set incsearch                                             " Makes search act like search in modern browsers
 set ignorecase                                            " Searches are case insensitive...
 set smartcase                                             " ... unless they contain at least one capital letter
+
+" highlight the 101 column
+set colorcolumn=101
+highlight ColorColumn ctermbg=236
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Identantion spaces length depending on file format
@@ -160,7 +165,6 @@ nnoremap ∆ :bprevious!<CR>
 nnoremap ¬ :bnext!<CR>
 nmap <Leader>q :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nnoremap <Leader>c :!echo % \| pbcopy                    " Copy file name to clipboard
-map <Esc><Esc> :update<CR>                               " Fast save with <Esc><Esc>
 
 " Use <S-L> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-L> :nohlsearch<CR>
