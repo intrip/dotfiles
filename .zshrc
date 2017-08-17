@@ -45,25 +45,22 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails)
+plugins=(git rails tmux)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/opt/local/bin:$PATH:/Users/jbeschi/.rvm/gems/ruby-2.1.5/bin:/Users/jbeschi/.rvm/gems/ruby-2.1.5@global/bin:/Users/jbeschi/.rvm/rubies/ruby-2.1.5/bin:/opt/local/sbin:/usr/local/mysql/bin:/Users/jbeschi/Documents/Tools/PHP/vendor/bin:/usr/local/lib/node_modules/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/jbeschi/.rvm/bin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/Users/jbeschi/Documents/Progetti/elixir/Precompiled/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=it_IT.UTF-8
 
-# Editor
-alias vi='vim'
 # Preferred editor for local and remote sessions
  if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vi'
+   export EDITOR='vim'
  else
-   export EDITOR='/opt/local/bin/vim'
+   export EDITOR='/usr/local/bin/vim'
  fi
 
 # Compilation flags
@@ -82,15 +79,10 @@ alias vi='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ###
-# PHP
-###
-alias p='phpunit'
-
-###
 # GIT
 ###
 
-# push current branch
+# push current branch
 alias gph='git push origin HEAD'
 # auto push to all remotes branches
 git_push_all() {
@@ -122,3 +114,23 @@ export PATH="$HOME/gocode/bin:$PATH"
 
 alias tmux="TERM=screen-256color-bce tmux"
 
+
+#####
+# MYSQL
+#####
+
+MYSQL=/usr/local/Cellar/mysql@5.6/5.6.37/bin
+export PATH=$PATH:$MYSQL
+
+###
+# Iubenda
+###
+
+export IPATH=$HOME/iubendacode
+
+
+###
+# Homebrew
+###
+
+export PATH=/usr/local/bin:$PATH
