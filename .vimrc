@@ -94,6 +94,7 @@ set nobackup                                              " Don't backup
 set nowritebackup                                         " Write file in place
 set autoread                                              " Automatically reload file changes
 set autowrite                                             " Automatically save changes before switching buffers
+autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 
@@ -146,6 +147,8 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " winsize - window sizes
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick commands
@@ -237,6 +240,9 @@ let g:syntastic_check_on_wq = 0
 
 " Tmux copy & paste MacOSX and share clipboard
 set clipboard=unnamed
+
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS
