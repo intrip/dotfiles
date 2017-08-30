@@ -148,8 +148,6 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
