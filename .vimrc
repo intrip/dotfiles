@@ -164,6 +164,12 @@ nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nnoremap <Leader>c :!echo % \| pbcopy                    " Copy file name to clipboard
 
+" Changes window with CTRL+H,J,K,L
+map <C-H> <C-W>h
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+
 " Use <S-L> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-L> :nohlsearch<CR>
 
@@ -189,6 +195,10 @@ nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
+
+" <F2> Copy the current line in normal mode and the selected text in visual mode
+nmap <F2> :.w !pbcopy<CR><CR>
+vmap <F2> :w !pbcopy<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
