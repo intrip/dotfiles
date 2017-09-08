@@ -25,12 +25,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'vim-ruby/vim-ruby'
 " Javascript syntax
 Plug 'pangloss/vim-javascript'
-" Rspec integration
-Plug 'thoughtbot/vim-rspec'
-" Tmux and Rspec integration
-Plug 'jgdavey/tslime.vim'
-" Tmux pane easy navigation
-Plug 'christoomey/vim-tmux-navigator'
 " Error checking
 Plug 'vim-syntastic/syntastic'
 " Automatic end complete
@@ -53,6 +47,10 @@ Plug 'majutsushi/tagbar'
 Plug 'elzr/vim-json'
 " Golang extension
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" Extension to vim session
+Plug 'tpope/vim-obsession'
+" Enables FocusLost and FocusGained events
+Plug 'sjl/vitality.vim'
 
 augroup END
 " Initialize plugin system
@@ -95,6 +93,7 @@ set nowritebackup                                         " Write file in place
 set autoread                                              " Automatically reload file changes
 set autowrite                                             " Automatically save changes before switching buffers
 autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
+autocmd FocusLost * silent! wall                          " Automatically save changes when losing focus, for example moving to aother ITerm split
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 
@@ -105,7 +104,8 @@ set number                                                " to show the current 
 set showcmd                                               " Show current cursor info
 set mouse=a                                               " Enable mouse movement Tabs and spaces
 set cursorline                                            " Highlight current cursor line
-set lazyredraw                                            " Don't redraw while executing macros (good performance config)
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"                  " Thin cursor shape in insert mode
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"                  " Fat cursor shape in normal mode
 
 " Tabs and white spaces
 set nowrap                                                " No wrap lines
@@ -161,7 +161,7 @@ nnoremap <Leader>e :buffers<CR>:buffer<Space>
 nnoremap ∆ :bprevious!<CR>
 " Map Alt + l
 nnoremap ¬ :bnext!<CR>
-nmap <Leader>q :bp\|bd #<CR>                             " Closes buffer without closing the split view
+nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nnoremap <Leader>c :!echo % \| pbcopy                    " Copy file name to clipboard
 
 " Use <S-L> to clear the highlighting of :set hlsearch.
@@ -200,6 +200,8 @@ let g:airline#extensions#syntastic#enabled = 1            " Syntastic integratio
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
 let g:syntastic_quiet_messages = { 'regex': 'SC2148' }    " Turn of some warnings, check out: https://stackoverflow.com/questions/28282315/how-can-i-turn-off-specific-messages-in-syntastic-vim
+" Prepend a '$' when obsession is enabled (origin)
+let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
 
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -215,13 +217,6 @@ map <F9> :NERDTreeToggle<cr>
 " Tagbar triggered with F8
 nmap <F8> :TagbarToggle<CR>
 
-" Rspec
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-" Rspec and Tmux setup, the first time will ask you for the session id to attach
-let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec --tag @focus -I . {spec}\n")'
-
 " Ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
 
@@ -236,12 +231,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-" Tmux copy & paste MacOSX and share clipboard
-set clipboard=unnamed
-
-" Write all buffers before navigating from Vim to tmux pane
-let g:tmux_navigator_save_on_switch = 2
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -253,7 +242,7 @@ let g:tmux_navigator_save_on_switch = 2
 " F8 to navigate methods
 " F9 for NERDTree
 " F12 for line number
-" <Leader>ci to toggle comment
+" <Leader>ci or space to toggle comment
 " <Esc><Esc> to save file
 
 " Setup notes:
@@ -262,3 +251,6 @@ let g:tmux_navigator_save_on_switch = 2
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
 " bufdo %s/pattern/replace/gc | update
+" to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
+
+
