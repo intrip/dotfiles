@@ -93,7 +93,7 @@ set nowritebackup                                         " Write file in place
 set autoread                                              " Automatically reload file changes
 set autowrite                                             " Automatically save changes before switching buffers
 autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
-autocmd FocusLost * silent! wall                          " Automatically save changes when losing focus, for example moving to aother ITerm split
+autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
 
@@ -162,7 +162,8 @@ nnoremap ∆ :bprevious!<CR>
 " Map Alt + l
 nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
-nnoremap <Leader>c :!echo % \| pbcopy                    " Copy file name to clipboard
+" Copy file name to clipboard
+nnoremap <Leader>c :!echo -n % \| pbcopy<CR>
 
 " Changes window with CTRL+H,J,K,L
 map <C-H> <C-W>h
@@ -221,11 +222,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " Vim Markdown
 let g:vim_markdown_folding_disabled = 1
 
-" NERDTree triggered with F9
-map <F9> :NERDTreeToggle<cr>
+" NERDTree triggered with F8
+map <F8> :NERDTreeToggle<cr>
 
-" Tagbar triggered with F8
-nmap <F8> :TagbarToggle<CR>
+" Tagbar triggered with F9
+nmap <F9> :TagbarToggle<CR>
 
 " Ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
@@ -262,5 +263,3 @@ let g:syntastic_check_on_wq = 0
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
 " bufdo %s/pattern/replace/gc | update
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
-
-
