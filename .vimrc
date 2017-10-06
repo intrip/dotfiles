@@ -8,10 +8,13 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
-" Ctrl+p to search in the folder
-" Remember to install the_silver_searcher
-Plug 'ctrlpvim/ctrlp.vim'
-" Status bar
+" Fuzzy search finder
+Plug 'wincent/command-t', {
+    \   'do': 'cd ruby/command-t/ext/command-t && rvm use default && ruby extconf.rb && make'
+    \ }
+  call plug#end()
+"Plug 'ctrlpvim/ctrlp.vim'
+" Status bar, remember to install the patched powerline fonts: https://github.com/powerline/fonts
 Plug 'bling/vim-airline'
 " Status bar custom colors
 Plug 'vim-airline/vim-airline-themes'
@@ -51,39 +54,34 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'tpope/vim-obsession'
 " Enables FocusLost and FocusGained events
 Plug 'sjl/vitality.vim'
+" Ruby folding
+Plug 'bruno-/vim-ruby-fold'
+" Rspec integration
+Plug 'thoughtbot/vim-rspec'
+" Ag search like
+Plug 'mileszs/ack.vim'
+" Rails vim integration
+Plug 'tpope/vim-rails'
+" Allow to quick jump between files, use :A to jump to the spec for example
+Plug 'tpope/vim-projectionist'
+
+" TODO still to analyze
+Plug 'tpope/vim-dispatch'
 
 augroup END
 " Initialize plugin system
 call plug#end()
 
-:let mapleader = "-"          " Maps - as leader character
-
-" The silver searcher
-" use :Ag text path to search
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor\ -p\ $HOME/.agignore
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-
-  " bind , (backward slash) to grep shortcut
-  command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-endif
-" Ctrl+P ignore
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.jpeg,*.pdf,*.swf,*.bson
-
 """""""""""""""""""""""
 " VIM OPTIONS BEGIN
 """""""""""""""""""""""
 
+:let mapleader = "-"          " Maps - as leader character
+
 " Colorscheme
 "let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal e.g. Iterm
 colorscheme solarized
-set background=light
+set background=dark
 
 set nocp                                                  " Set no compatibilty mode
 set encoding=utf-8                                        " Uses utf-8 encoding
@@ -91,11 +89,16 @@ set noswapfile                                            " Disable swap file
 set nobackup                                              " Don't backup
 set nowritebackup                                         " Write file in place
 set autoread                                              " Automatically reload file changes
-set autowrite                                             " Automatically save changes before switching buffers
+set autowriteall                                          " Automatically save buffers.
 autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
+
+" Ruby folding
+let g:ruby_fold_lines_limit = 200   "limits max folding to 200
+" automatically unfolds all items on open
+autocmd BufWinEnter * normal zR
 
 " Hisory, cursor, rules
 set history=100                                           " Remember last 100 commands
@@ -131,6 +134,11 @@ set smartcase                                             " ... unless they cont
 "set colorcolumn=101
 "highlight ColorColumn ctermbg=236
 
+set undofile                " Save undos after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Identantion spaces length depending on file format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,12 +164,12 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 noremap <silent> <F12> :set number!<CR>
 
 " Buffer commands
-nnoremap <Leader>e :buffers<CR>:buffer<Space>
 " Map Alt + h
 nnoremap ∆ :bprevious!<CR>
 " Map Alt + l
 nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
+nmap <Leader>q :%bd\|e# <CR>                             " Closes all buffer except current
 " Copy file name to clipboard
 nnoremap <Leader>c :!echo -n % \| pbcopy<CR>
 
@@ -206,13 +214,12 @@ vmap <F2> :w !pbcopy<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " AirLine
-let g:airline_theme='simple'                              " Airline color scheme
+let g:airline_theme='solarized'                              " Airline color scheme
 let g:airline#extensions#syntastic#enabled = 1            " Syntastic integration
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
 let g:syntastic_quiet_messages = { 'regex': 'SC2148' }    " Turn of some warnings, check out: https://stackoverflow.com/questions/28282315/how-can-i-turn-off-specific-messages-in-syntastic-vim
-" Prepend a '$' when obsession is enabled (origin)
-let g:airline_section_z = airline#section#create(['%{ObsessionStatus(''$'', '''')}', 'windowswap', '%3p%% ', 'linenr', ':%3v '])
+let g:airline_powerline_fonts = 1                         " Allows the fancy powerline fonts
 
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -242,12 +249,26 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+" RSpec.vim mappings
+map <Leader>e :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+let g:rspec_command = ":w | !bundle exec rspec {spec}"        " the Rspec command to run
+let g:rspec_runner = "os_x_iterm2"                       " Uses the Iterm2 runner
+
+" Ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Useful keywords to remember associated to Plugins:
-" CTRL+p easy search for file names
+" <Leader>t easy search for file names
+" <Leader>b easy search inside open buffers
 " CTRL+SHIFT+] to jump to linked file such as CTRL+Click remember to rebuild CTAGS when needed with <Leader> rt, you can jump back with CTRL+SHIFT+[
 " SHIFT+L clears search (nohls)
 " F8 to navigate methods
@@ -255,9 +276,12 @@ let g:syntastic_check_on_wq = 0
 " F12 for line number
 " <Leader>ci or space to toggle comment
 " <Esc><Esc> to save file
+" gf to open the related file
+" :A or :AS to open/open in vsplit the alternate file for example the spec
 
 " Setup notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
+" - in order to have persistent undo run: mkdir ~/.vim/undo
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
