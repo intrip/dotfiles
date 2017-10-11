@@ -64,6 +64,8 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-rails'
 " Allow to quick jump between files, use :A to jump to the spec for example
 Plug 'tpope/vim-projectionist'
+" Easy jump between files in the current directory
+Plug 'tpope/vim-vinegar'
 
 " TODO still to analyze
 Plug 'tpope/vim-dispatch'
@@ -115,8 +117,8 @@ set nowrap                                                " No wrap lines
 set shiftwidth=2                                          " Use 2 space tabs by default
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
-highlight ExtraWhitespace ctermbg=red guibg=red           " Highilight trailing whitespaces
-match ExtraWhitespace /\s\+$/
+set listchars=eol:⏎,tab:␉·,trail:·,nbsp:⎵                 " Highligth special characters and trailing whitespaces
+set list                                                  " Activates highlight
 set tw=200                                                " Breaks line at 200 chars
 set lbr                                                   " Enables line break
 
@@ -231,9 +233,12 @@ let g:vim_markdown_folding_disabled = 1
 
 " NERDTree triggered with F8
 map <F8> :NERDTreeToggle<cr>
+" NERDTree in current directory triggered with F9
+map <F9> :NERDTreeFind<cr>
+let NERDTreeMapUpdir='-'
 
-" Tagbar triggered with F9
-nmap <F9> :TagbarToggle<CR>
+" Tagbar triggered with F10
+nmap <F10> :TagbarToggle<CR>
 
 " Ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
@@ -255,7 +260,9 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 let g:rspec_command = ":w | !bundle exec rspec {spec}"        " the Rspec command to run
-let g:rspec_runner = "os_x_iterm2"                       " Uses the Iterm2 runner
+"let g:rspec_command = ":w | Dispatch bundle exec rspec {spec}"
+
+let g:rspec_runner = "os_x_iterm2"                            " Uses the Iterm2 runner
 
 " Ack.vim
 if executable('ag')
@@ -271,8 +278,8 @@ endif
 " <Leader>b easy search inside open buffers
 " CTRL+SHIFT+] to jump to linked file such as CTRL+Click remember to rebuild CTAGS when needed with <Leader> rt, you can jump back with CTRL+SHIFT+[
 " SHIFT+L clears search (nohls)
-" F8 to navigate methods
-" F9 for NERDTree
+" F10 to navigate methods
+" F8 for NERDTree
 " F12 for line number
 " <Leader>ci or space to toggle comment
 " <Esc><Esc> to save file
