@@ -66,9 +66,8 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-projectionist'
 " Easy jump between files in the current directory
 Plug 'tpope/vim-vinegar'
-
-" TODO still to analyze
-Plug 'tpope/vim-dispatch'
+" Integrates bundler with Bopen or Bundle
+Plug 'tpope/vim-bundler'
 
 augroup END
 " Initialize plugin system
@@ -96,6 +95,7 @@ autocmd WinLeave * silent! wall                           " Automatically save c
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
+set lazyredraw                                            " Speedup buf loading
 
 " Ruby folding
 let g:ruby_fold_lines_limit = 200   "limits max folding to 200
@@ -260,9 +260,6 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 let g:rspec_command = ":w | !bundle exec rspec {spec}"        " the Rspec command to run
-"let g:rspec_command = ":w | Dispatch bundle exec rspec {spec}"
-
-let g:rspec_runner = "os_x_iterm2"                            " Uses the Iterm2 runner
 
 " Ack.vim
 if executable('ag')
