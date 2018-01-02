@@ -56,6 +56,8 @@ Plug 'tpope/vim-obsession'
 Plug 'sjl/vitality.vim'
 " Ruby folding
 Plug 'bruno-/vim-ruby-fold'
+" Rspec folding
+Plug 'rlue/vim-fold-rspec'
 " Rspec integration
 Plug 'thoughtbot/vim-rspec'
 " Ag search like
@@ -68,6 +70,10 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
 " Integrates bundler with Bopen or Bundle
 Plug 'tpope/vim-bundler'
+" Dim inactive windows
+Plug 'blueyed/vim-diminactive'
+" Autoclose HTML tags
+Plug 'alvan/vim-closetag'
 
 augroup END
 " Initialize plugin system
@@ -121,6 +127,7 @@ set listchars=eol:⏎,tab:␉·,trail:·,nbsp:⎵                 " Highligth sp
 set list                                                  " Activates highlight
 set tw=200                                                " Breaks line at 200 chars
 set lbr                                                   " Enables line break
+set splitright                                            " Always open vsplit to the right
 
 " Indentation
 set autoindent                                            " Automatically guess the indentation given the previous line inden
@@ -144,7 +151,11 @@ set undoreload=10000        " number of lines to save for undo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Identantion spaces length depending on file format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Go specific settings
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd FileType go set nolist
+
+" Crontab specific settings
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 " Define what to save with :mksession
@@ -158,6 +169,8 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
+" Vue JS syntax
+autocmd BufNewFile,BufRead *.vue set syntax=javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -181,6 +194,10 @@ map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
 
+" Next/prev result with up and down arrows
+map <down> :cn<CR>
+map <up> :cp<CR>
+
 " Use <S-L> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-L> :nohlsearch<CR>
 
@@ -198,14 +215,8 @@ vnoremap <Leader>j :m '>+1<CR>gv=gv
 vnoremap <Leader>k :m '<-2<CR>gv=gv
 
 " easy way to edit reload .vimrc
-nmap <leader>V :source $MYVIMRC<cr>
-nmap <leader>v :e $MYVIMRC<cr>
-
-" Force using hjkl, not arrows
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
+nmap <Leader>V :source $MYVIMRC<cr>
+nmap <Leader>v :e $MYVIMRC<cr>
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
 nmap <F2> :.w !pbcopy<CR><CR>
@@ -266,6 +277,18 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" Projectionist
+if exists("g:loaded_projectionist")
+  let g:projectionist_heuristics['*.go'] = {
+      \ '*.go': { 'alternate': '{}_test.go', 'type': 'source' },
+      \ '*_test.go': { 'alternate': '{}.go', 'type': 'test' }
+      \ }
+endif
+
+" Vim autoclose
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -273,7 +296,8 @@ endif
 " Useful keywords to remember associated to Plugins:
 " <Leader>t easy search for file names
 " <Leader>b easy search inside open buffers
-" CTRL+SHIFT+] to jump to linked file such as CTRL+Click remember to rebuild CTAGS when needed with <Leader> rt, you can jump back with CTRL+SHIFT+[
+" CTRL+] to jump to linked file such as CTRL+Click, remember to rebuild CTAGS when needed with <Leader> rt,
+" you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
 " SHIFT+L clears search (nohls)
 " F10 to navigate methods
 " F8 for NERDTree
@@ -282,6 +306,9 @@ endif
 " <Esc><Esc> to save file
 " gf to open the related file
 " :A or :AS to open/open in vsplit the alternate file for example the spec
+" <up> and <down> to move to prev and next searhc result with Ack
+" CTRL+O CTRL+I to move between cursor jumps
+" use * to go to next occurrence of the word under cursor
 
 " Setup notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
@@ -290,4 +317,6 @@ endif
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
 " bufdo %s/pattern/replace/gc | update
+" prepend with silent if you need to mass replace
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
+" rename tag: cstt
