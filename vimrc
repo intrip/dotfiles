@@ -319,4 +319,4 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 " bufdo %s/pattern/replace/gc | update
 " prepend with silent if you need to mass replace
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
-" rename tag: cstt
+" rename html tag: cstt
