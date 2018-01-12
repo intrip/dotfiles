@@ -45,7 +45,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails tmux)
+plugins=(git rails bundler)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -119,7 +119,8 @@ alias tmux="TERM=screen-256color-bce tmux"
 # MYSQL
 #####
 
-MYSQL=/usr/local/Cellar/mysql@5.6/5.6.37/bin
+#MYSQL=/usr/local/Cellar/mysql@5.5/5.5.57/bin
+MYSQL=/usr/local/Cellar/mysql/5.7.19/bin
 export PATH=$PATH:$MYSQL
 
 ###
@@ -134,3 +135,10 @@ export IPATH=$HOME/iubendacode
 ###
 
 export PATH=/usr/local/bin:$PATH
+
+
+###
+# High sierra forking fix: https://github.com/puma/puma/issues/1421
+###
+
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
