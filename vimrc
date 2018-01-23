@@ -8,12 +8,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
-" Fuzzy search finder
-Plug 'wincent/command-t', {
-    \   'do': 'cd ruby/command-t/ext/command-t && rvm use default && ruby extconf.rb && make'
-    \ }
-  call plug#end()
-"Plug 'ctrlpvim/ctrlp.vim'
+" Fuzzy searhc and Ag mappings
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 " Status bar, remember to install the patched powerline fonts: https://github.com/powerline/fonts
 Plug 'bling/vim-airline'
 " Status bar custom colors
@@ -277,6 +274,30 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" Searches word under cursor with Ack
+nnoremap <silent> K :call SearchWordWithAg()<CR>
+function! SearchWordWithAg()
+  execute 'Ack' expand('<cword>')
+endfunction
+
+" Fzf
+nmap <c-p> :Files<CR> "maps fuzzy search
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " Projectionist
 if exists("g:loaded_projectionist")
   let g:projectionist_heuristics['*.go'] = {
@@ -293,25 +314,27 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 " DOCS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" :Ack to search files, press up and down to swap between results
+" K to search with Ack the word under cursor
+" :Ag to search in files like with Ctrl+p
+" Ctrp+p for fuzzy search files from name
 " Useful keywords to remember associated to Plugins:
-" <Leader>t easy search for file names
-" <Leader>b easy search inside open buffers
 " CTRL+] to jump to linked file such as CTRL+Click, remember to rebuild CTAGS when needed with <Leader> rt,
 " you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
 " SHIFT+L clears search (nohls)
 " F10 to navigate methods
 " F8 for NERDTree
+" F9 for NERDTree in current buffer folder
 " F12 for line number
 " <Leader>ci or space to toggle comment
-" <Esc><Esc> to save file
 " gf to open the related file
-" :A or :AS to open/open in vsplit the alternate file for example the spec
-" <up> and <down> to move to prev and next searhc result with Ack
+" :A or :AV to open/open in vsplit the alternate file for example the spec
 " CTRL+O CTRL+I to move between cursor jumps
 " use * to go to next occurrence of the word under cursor
 
 " Setup notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
+" - you need to install the_silver_searcher
 " - in order to have persistent undo run: mkdir ~/.vim/undo
 "
 " Tips:
