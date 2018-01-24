@@ -120,7 +120,9 @@ set nowrap                                                " No wrap lines
 set shiftwidth=2                                          " Use 2 space tabs by default
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
-set listchars=eol:⏎,tab:␉·,trail:·,nbsp:⎵                 " Highligth special characters and trailing whitespaces
+" we use ascii chars because special chars are slow on OSX, ref: https://github.com/tpope/vim-sensible/issues/57
+"set listchars=eol:⏎,tab:␉·,trail:·,nbsp:⎵                 " Highligth special characters and trailing whitespaces
+set listchars=tab:>\ ,trail:-,nbsp:_,precedes:<           " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
 set tw=200                                                " Breaks line at 200 chars
 set lbr                                                   " Enables line break
