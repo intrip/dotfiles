@@ -102,6 +102,12 @@ alias gbc='git rev-parse --abbrev-ref HEAD | pbcopy'
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 ###
+# SPRING
+###
+
+export ENABLE_SPRING='1'
+
+###
 # GOLANG
 ####
 
