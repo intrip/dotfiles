@@ -148,3 +148,6 @@ export PATH=/usr/local/bin:$PATH
 ###
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# Dotfiles bin path
+export PATH=$PATH:~/.bin
