@@ -54,8 +54,10 @@ Plug 'sjl/vitality.vim'
 Plug 'bruno-/vim-ruby-fold'
 " Rspec folding
 Plug 'rlue/vim-fold-rspec'
-" Rspec integration
-Plug 'thoughtbot/vim-rspec'
+" Run async commands in the quickfix windows
+Plug 'skywind3000/asyncrun.vim'
+" Handles test interaction with many backends
+Plug 'janko-m/vim-test'
 " Ag search like
 Plug 'mileszs/ack.vim'
 " Rails vim integration
@@ -220,6 +222,35 @@ nmap <Leader>v :e $MYVIMRC<cr>
 nmap <F2> :.w !pbcopy<CR><CR>
 vmap <F2> :w !pbcopy<CR><CR>
 
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <F9> :call ToggleList("Quickfix List", 'c')<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -242,8 +273,8 @@ let g:vim_markdown_folding_disabled = 1
 
 " NERDTree triggered with F8
 map <F8> :NERDTreeToggle<cr>
-" NERDTree in current directory triggered with F9
-map <F9> :NERDTreeFind<cr>
+" NERDTree in current directory triggered with F7
+map <F7> :NERDTreeFind<cr>
 let NERDTreeMapUpdir='-'
 
 " Tagbar triggered with F10
@@ -264,11 +295,11 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " RSpec.vim mappings
-map <Leader>e :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-let g:rspec_command = ":w | !bundle exec rspec {spec}"        " the Rspec command to run
+map <Leader>e :TestFile <CR>
+map <Leader>s :TestNearest<CR>
+map <Leader>l :TestLast<CR>
+map <Leader>a :TestSuite<CR>
+let test#strategy = "asyncrun"
 
 " Ack.vim
 if executable('ag')
@@ -318,8 +349,9 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 " you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
 " SHIFT+L clears search (nohls)
 " F10 to navigate methods
+" F10 to toggle quickfix window
 " F8 for NERDTree
-" F9 for NERDTree in current buffer folder
+" F7 for NERDTree in current buffer folder
 " F12 for line number
 " <Leader>ci or space to toggle comment
 " gf to open the related file
