@@ -130,18 +130,10 @@ MYSQL=/usr/local/Cellar/mysql/5.7.19/bin
 export PATH=$PATH:$MYSQL
 
 ###
-# Iubenda
-###
-
-export IPATH=$HOME/iubendacode
-
-
-###
 # Homebrew
 ###
 
 export PATH=/usr/local/bin:$PATH
-
 
 ###
 # High sierra forking fix: https://github.com/puma/puma/issues/1421
@@ -151,3 +143,6 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Dotfiles bin path
 export PATH=$PATH:~/.bin
+
+# Local .bin/ folder for path
+export PATH=$PATH:./bin
