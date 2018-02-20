@@ -81,7 +81,7 @@ call plug#end()
 " VIM OPTIONS BEGIN
 """""""""""""""""""""""
 
-:let mapleader = "-"          " Maps - as leader character
+let mapleader = "-"          " Maps - as leader character
 
 " Colorscheme
 "let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal e.g. Iterm
