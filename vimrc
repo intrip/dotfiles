@@ -103,6 +103,7 @@ set lazyredraw                                            " Speedup buf loading
 
 " Ruby folding
 let g:ruby_fold_lines_limit = 200   "limits max folding to 200
+set foldmethod=syntax
 " automatically unfolds all items on open
 autocmd BufWinEnter * normal zR
 
@@ -260,7 +261,7 @@ let g:airline_theme='solarized'                              " Airline color sch
 let g:airline#extensions#syntastic#enabled = 1            " Syntastic integration
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
-let g:syntastic_quiet_messages = { 'regex': 'SC2148' }    " Turn of some warnings, check out: https://stackoverflow.com/questions/28282315/how-can-i-turn-off-specific-messages-in-syntastic-vim
+let g:syntastic_quiet_messages = { 'regex': 'SC2148', '!level': 'errors' }    " Turn of some warnings, check out: https://stackoverflow.com/questions/28282315/how-can-i-turn-off-specific-messages-in-syntastic-vim
 let g:airline_powerline_fonts = 1                         " Allows the fancy powerline fonts
 
 " UtilSnips
