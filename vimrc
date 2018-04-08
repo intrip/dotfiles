@@ -139,6 +139,7 @@ set hlsearch                                              " Automatically highli
 set incsearch                                             " Makes search act like search in modern browsers
 set ignorecase                                            " Searches are case insensitive...
 set smartcase                                             " ... unless they contain at least one capital letter
+set showmatch                                             " Shows the matching ()
 
 " highlight the 101 column
 "set colorcolumn=101
