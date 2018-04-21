@@ -52,8 +52,6 @@ Plug 'tpope/vim-obsession'
 Plug 'sjl/vitality.vim'
 " Ruby folding
 Plug 'bruno-/vim-ruby-fold'
-" Rspec folding
-Plug 'rlue/vim-fold-rspec'
 " Run async commands in the quickfix windows
 Plug 'skywind3000/asyncrun.vim'
 " Handles test interaction with many backends
@@ -99,8 +97,6 @@ autocmd WinLeave * silent! wall                           " Automatically save c
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
-set synmaxcol=128                                         " Speedup syntax highlight
-syntax sync minlines=256
 set lazyredraw                                            " Speedup buf loading
 
 " Ruby folding
@@ -198,6 +194,10 @@ map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
 
+" For scrolling up and down quickly
+nnoremap <C-j> 7j
+nnoremap <C-k> 7k
+
 " Next/prev result with up and down arrows
 map <down> :cn<CR>
 map <up> :cp<CR>
@@ -211,7 +211,6 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 endif
 
 " Move a line of text up and down using <Leader>+[jk]
-nnoremap <Leader>j :m .+1<CR>==
 nnoremap <Leader>k :m .-2<CR>==
 inoremap <Leader>j <Esc>:m .+1<CR>==gi
 inoremap <Leader>k <Esc>:m .-2<CR>==gi
