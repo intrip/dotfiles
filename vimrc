@@ -99,11 +99,13 @@ autocmd WinLeave * silent! wall                           " Automatically save c
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
+set synmaxcol=128                                         " Speedup syntax highlight
+syntax sync minlines=256
 set lazyredraw                                            " Speedup buf loading
 
 " Ruby folding
 let g:ruby_fold_lines_limit = 200   "limits max folding to 200
-set foldmethod=syntax
+set foldmethod=manual
 " automatically unfolds all items on open
 autocmd BufWinEnter * normal zR
 
