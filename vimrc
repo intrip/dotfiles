@@ -50,8 +50,6 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'tpope/vim-obsession'
 " Enables FocusLost and FocusGained events
 Plug 'sjl/vitality.vim'
-" Ruby folding
-Plug 'bruno-/vim-ruby-fold'
 " Run async commands in the quickfix windows
 Plug 'skywind3000/asyncrun.vim'
 " Handles test interaction with many backends
@@ -100,10 +98,9 @@ syntax sync minlines=256                                  " Only searches back 2
 set lazyredraw                                            " Speedup buf loading
 
 " Ruby folding
-let g:ruby_fold_lines_limit = 200   "limits max folding to 200
-set foldmethod=manual
+"set foldmethod=indent
 " automatically unfolds all items on open
-autocmd BufWinEnter * normal zR
+"autocmd BufWinEnter * normal zR
 
 " Hisory, cursor, rules
 set history=100                                           " Remember last 100 commands
@@ -138,10 +135,6 @@ set incsearch                                             " Makes search act lik
 set ignorecase                                            " Searches are case insensitive...
 set smartcase                                             " ... unless they contain at least one capital letter
 set showmatch                                             " Shows the matching ()
-
-" highlight the 101 column
-"set colorcolumn=101
-"highlight ColorColumn ctermbg=236
 
 set undofile                " Save undos after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
@@ -193,10 +186,6 @@ map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
-
-" For scrolling up and down quickly
-nnoremap <C-j> 7j
-nnoremap <C-k> 7k
 
 " Next/prev result with up and down arrows
 map <down> :cn<CR>
