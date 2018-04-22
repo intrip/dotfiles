@@ -171,6 +171,10 @@ autocmd BufNewFile,BufRead *.vue set syntax=javascript
 " Quick switch between numbers ruler
 noremap <silent> <F12> :set number!<CR>
 
+" Move to next/previous method start with { }
+nmap } ]m
+nmap { [m
+
 " Buffer commands
 " Map Alt + h
 nnoremap ∆ :bprevious!<CR>
