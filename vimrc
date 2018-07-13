@@ -60,14 +60,14 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-rails'
 " Allow to quick jump between files, use :A to jump to the spec for example
 Plug 'tpope/vim-projectionist'
-" Easy jump between files in the current directory
-Plug 'tpope/vim-vinegar'
 " Integrates bundler with Bopen or Bundle
 Plug 'tpope/vim-bundler'
 " Dim inactive windows
 Plug 'blueyed/vim-diminactive'
 " Autoclose HTML tags
 Plug 'alvan/vim-closetag'
+" Vue.js integration
+Plug 'posva/vim-vue'
 
 augroup END
 " Initialize plugin system
@@ -162,8 +162,6 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
-" Vue JS syntax
-autocmd BufNewFile,BufRead *.vue set syntax=javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -331,6 +329,15 @@ endif
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
+" Vim Vue
+let g:vue_disable_pre_processors=1
+" Allows html js and css in vue files
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+autocmd FileType vue syntax sync fromstart
+
+" Javascript
+" disables JS syntax for html files: due to vue template files being very slow
+autocmd FileType html syntax clear javascript
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS
