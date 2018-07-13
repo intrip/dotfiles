@@ -146,3 +146,5 @@ export PATH=$PATH:~/.bin
 
 # Local .bin/ folder for path
 export PATH=$PATH:./bin
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
