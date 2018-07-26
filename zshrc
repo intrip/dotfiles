@@ -6,7 +6,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="cloud-custom"
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="spaceship"
 
 # CASE_SENSITIVE="true"
 
@@ -148,3 +149,8 @@ export PATH=$PATH:~/.bin
 export PATH=$PATH:./bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# iubenda development-kit
+set -a
+source ~/iubendacode/iubenda_utils/docker_utils.sh
+set +a
