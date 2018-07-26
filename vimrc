@@ -269,7 +269,15 @@ let g:vim_markdown_folding_disabled = 1
 map <F8> :NERDTreeToggle<cr>
 " NERDTree in current directory triggered with F7
 map <F7> :NERDTreeFind<cr>
+" Automatically close NERDTree when opening a new file
+let NERDTreeQuitOnOpen = 1
+" Automatically delte buffer on delete
+let NERDTreeAutoDeleteBuffer = 1
+" Goes up a directory with -
 let NERDTreeMapUpdir='-'
+" Prettier Look & Feel
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 " Tagbar triggered with F10
 nmap <F10> :TagbarToggle<CR>
