@@ -94,7 +94,7 @@ set autowriteall                                          " Automatically save b
 autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
-syntax sync minlines=256                                  " Only searches back 256 lines for indentation (better performance)
+syntax sync minlines=500                                  " Only searches back 256 lines for indentation (better performance)
 set lazyredraw                                            " Speedup buf loading
 
 " Ruby folding
@@ -118,7 +118,6 @@ set shiftwidth=2                                          " Use 2 space tabs by 
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
 " we use ascii chars because special chars are slow on OSX, ref: https://github.com/tpope/vim-sensible/issues/57
-"set listchars=eol:⏎,tab:␉·,trail:·,nbsp:⎵                 " Highligth special characters and trailing whitespaces
 set listchars=tab:>\ ,trail:-,nbsp:_,precedes:<           " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
 set tw=200                                                " Breaks line at 200 chars
@@ -308,7 +307,7 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" Searches word under cursor with Ack
+" Searches word under cursor with K
 nnoremap <silent> K :call SearchWordWithAg()<CR>
 function! SearchWordWithAg()
   execute 'Ack' expand('<cword>')
