@@ -2,10 +2,11 @@
 	name = Jacopo
 	email = beschi.jacopo@gmail.com
 [core]
-	filemode = false
+	filemode = true
 	excludesfile = ~/.gitignore_global
-	filemode = false
 [color]
 	ui = true
 [push]
 	default = simple
+[merge]
+	tool = vimdiff
