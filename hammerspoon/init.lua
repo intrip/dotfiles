@@ -7,7 +7,7 @@ local mashalt = {"cmd", "alt", "ctrl"}
 
 -- window hints
 hs.hints.showTitleThresh = 0
-hs.hotkey.bind(mash, 'i', hs.hints.windowHints)
+hs.hotkey.bind(mashalt, 'i', hs.hints.windowHints)
 
 -- Change screen
 -- TODO Currently not working, need to fix it
