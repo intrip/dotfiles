@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
 " Fuzzy search
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Status bar, remember to install the patched powerline fonts: https://github.com/powerline/fonts
 Plug 'bling/vim-airline'
 " Status bar custom colors
@@ -68,6 +68,8 @@ Plug 'blueyed/vim-diminactive'
 Plug 'alvan/vim-closetag'
 " Vue.js integration
 Plug 'posva/vim-vue'
+" Jump between diff conflitcs
+Plug 'tpope/vim-unimpaired'
 
 augroup END
 " Initialize plugin system
@@ -313,17 +315,9 @@ function! SearchWordWithAg()
   execute 'Ack' expand('<cword>')
 endfunction
 
-" CtrlP
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
+" Fzf
+let g:fzf_layout = { 'down': '~40%' }
+nnoremap <C-p> :FZF<cr>
 
 " Projectionist
 if exists("g:loaded_projectionist")
@@ -380,3 +374,4 @@ autocmd FileType html syntax clear javascript
 " prepend with silent if you need to mass replace
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
 " rename html tag: cstt
+" jump between git diff using ]n and [n and [n
