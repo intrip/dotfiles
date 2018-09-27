@@ -98,6 +98,9 @@ alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 # Copy current branch name
 alias gbc='git rev-parse --abbrev-ref HEAD | pbcopy'
 
+# Gitlab
+alias gl-install='bundle && rdm && yarn install'
+
 ###
 # RVM
 ###
