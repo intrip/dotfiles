@@ -97,7 +97,7 @@ autocmd WinLeave * silent! wall                           " Automatically save c
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=500                                  " Only searches back 256 lines for indentation (better performance)
-set lazyredraw                                            " Speedup buf loading
+set regexpengine=1                                        " Force old regex engine > more performant for now
 
 " Ruby folding
 "set foldmethod=indent
@@ -245,6 +245,13 @@ function! ToggleList(bufname, pfx)
 endfunction
 
 nmap <silent> <F9> :call ToggleList("Quickfix List", 'c')<CR>
+
+" ProfileMe and ProfileStop to start and stop profiling
+command! ProfileStart :profile start profile.log <bar> profile func * <bar> profile file *
+command! ProfileStop :profile pause
+
+" handles typo for :E as :e
+cnoreabbrev E e
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
