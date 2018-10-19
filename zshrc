@@ -99,7 +99,7 @@ alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gbc='git rev-parse --abbrev-ref HEAD | pbcopy'
 
 # Gitlab
-alias gl-install='bundle && rdm && yarn install'
+alias gl-install='spring stop && bundle && rdm && yarn install'
 
 ###
 # RVM
