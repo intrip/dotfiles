@@ -254,8 +254,9 @@ nmap <silent> <F9> :call ToggleList("Quickfix List", 'c')<CR>
 command! ProfileStart :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
 
-" handles typo for :E as :e
+" handles typo for :E as :e and :W as :w
 cnoreabbrev E e
+cnoreabbrev W w
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
@@ -386,3 +387,4 @@ autocmd FileType html syntax clear javascript
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
 " rename html tag: cstt
 " jump between git diff using ]n and [n and [n
+" ciw caw to change inner and outer word
