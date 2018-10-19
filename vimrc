@@ -379,6 +379,8 @@ autocmd FileType html syntax clear javascript
 " ciw caw to change inner and outer word
 " zz / t / b to show in top middle center a method
 " HML to move to top middle and bottom
+" Case sensitive search with \C at start for example \CTest
+" gT and gt to change tabs and CWt to move window into a new tab
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
