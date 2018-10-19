@@ -127,7 +127,7 @@ set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
 
 " Indentation
-set autoindent                                            " Automatically guess the indentation given the previous line inden
+set autoindent                                            " Automatically guess the indentation given the previous line indent
 set smartindent
 
 " Search
@@ -137,6 +137,7 @@ set ignorecase                                            " Searches are case in
 set smartcase                                             " ... unless they contain at least one capital letter
 set showmatch                                             " Shows the matching ()
 
+" Undos
 set undofile                " Save undos after file closes
 set undodir=$HOME/.vim/undo " where to save undo histories
 set undolevels=1000         " How many undos
@@ -151,6 +152,9 @@ autocmd FileType go set nolist
 
 " Crontab specific settings
 autocmd filetype crontab setlocal nobackup nowritebackup
+
+" Keep syntax in sync
+autocmd BufEnter * :syntax sync fromstart
 
 " Define what to save with :mksession
 " blank - empty windows
