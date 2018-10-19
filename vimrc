@@ -198,8 +198,8 @@ map <C-L> <C-W>l
 map <down> :cn<CR>
 map <up> :cp<CR>
 
-" Use <S-L> to clear the highlighting of :set hlsearch.
-nnoremap <silent> <S-L> :nohlsearch<CR>
+" Use <S-B> to clear the highlighting of :set hlsearch.
+nnoremap <silent> <S-B> :nohlsearch<CR>
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -353,7 +353,7 @@ autocmd FileType vue syntax sync fromstart
 autocmd FileType html syntax clear javascript
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" DOCS
+" DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " :Ack to search files, press up and down to swap between results
@@ -363,7 +363,7 @@ autocmd FileType html syntax clear javascript
 " Useful keywords to remember associated to Plugins:
 " CTRL+] to jump to linked file such as CTRL+Click, remember to rebuild CTAGS when needed with <Leader> rt,
 " you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
-" SHIFT+L clears search (nohls)
+" SHIFT+B clears search (nohls)
 " F10 to navigate methods
 " F10 to toggle quickfix window
 " F8 for NERDTree
@@ -374,17 +374,20 @@ autocmd FileType html syntax clear javascript
 " :A or :AV to open/open in vsplit the alternate file for example the spec
 " CTRL+O CTRL+I to move between cursor jumps
 " use * to go to next occurrence of the word under cursor
-
-" Setup notes:
-" - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
-" - you need to install the_silver_searcher
-" - in order to have persistent undo run: mkdir ~/.vim/undo
+" rename html tag: cstt
+" jump between git diff using ]n and [n and [n
+" ciw caw to change inner and outer word
+" zz / t / b to show in top middle center a method
+" HML to move to top middle and bottom
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
 " bufdo %s/pattern/replace/gc | update
 " prepend with silent if you need to mass replace
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
-" rename html tag: cstt
-" jump between git diff using ]n and [n and [n
-" ciw caw to change inner and outer word
+"
+" Setup_notes:
+" - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
+" - you need to install the_silver_searcher
+" - in order to have persistent undo run: mkdir ~/.vim/undo
+
