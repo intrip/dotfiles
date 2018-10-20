@@ -206,13 +206,6 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
-" Move a line of text up and down using <Leader>+[jk]
-nnoremap <Leader>k :m .-2<CR>==
-inoremap <Leader>j <Esc>:m .+1<CR>==gi
-inoremap <Leader>k <Esc>:m .-2<CR>==gi
-vnoremap <Leader>j :m '>+1<CR>gv=gv
-vnoremap <Leader>k :m '<-2<CR>gv=gv
-
 " easy way to edit reload .vimrc
 nmap <Leader>V :source $MYVIMRC<cr>
 nmap <Leader>v :e $MYVIMRC<cr>
