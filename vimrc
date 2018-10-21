@@ -98,8 +98,9 @@ autocmd FocusLost * silent! wall                          " Automatically save c
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=500                                  " Only searches back 256 lines for indentation (better performance)
 set regexpengine=1                                        " Force old regex engine > more performant for now
+set scrolloff=3                                           " Always show 3 lines below the cursor
 
-" Ruby folding
+" Folding
 "set foldmethod=indent
 " automatically unfolds all items on open
 "autocmd BufWinEnter * normal zR
