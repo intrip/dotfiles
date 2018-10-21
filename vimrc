@@ -115,7 +115,6 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"                  " Thin cursor shape in
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"                  " Fat cursor shape in normal mode
 
 " Tabs and white spaces
-set nowrap                                                " No wrap lines
 set shiftwidth=2                                          " Use 2 space tabs by default
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
@@ -208,12 +207,13 @@ endif
 
 " easy way to edit reload .vimrc
 nmap <Leader>V :source $MYVIMRC<cr>
-nmap <Leader>v :e $MYVIMRC<cr>
+nmap <Leader>v :tabe $MYVIMRC<cr>
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
 nmap <F2> :.w !pbcopy<CR><CR>
 vmap <F2> :w !pbcopy<CR><CR>
 
+" Show tests results
 function! GetBufferList()
   redir =>buflist
   silent! ls!
@@ -240,7 +240,6 @@ function! ToggleList(bufname, pfx)
     wincmd p
   endif
 endfunction
-
 nmap <silent> <F9> :call ToggleList("Quickfix List", 'c')<CR>
 
 " ProfileMe and ProfileStop to start and stop profiling
@@ -250,6 +249,22 @@ command! ProfileStop :profile pause
 " handles typo for :E as :e and :W as :w
 cnoreabbrev E e
 cnoreabbrev W w
+
+" Moves up and down between wrapped lines 1 step at time
+nmap j gj
+nmap k gk
+
+" Toggles on and off line wrap
+function! ToggleWrap()
+  if &wrap == 1
+    set nowrap
+    echo "line wrap off"
+  else
+    set wrap
+    echo "line wrap on"
+  endif
+endfunction
+nmap <F11> :call ToggleWrap()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
