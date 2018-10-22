@@ -267,6 +267,18 @@ function! ToggleWrap()
 endfunction
 nmap <F11> :call ToggleWrap()<CR>
 
+" Toggles on and off relative line numbers
+function! ToggleRelativeLineNumbers()
+  if &rnu == 0
+    set rnu
+    echo "relative line numbers off"
+  else
+    set nornu
+    echo "relative line numbers on"
+  endif
+endfunction
+nmap <F6> :call ToggleRelativeLineNumbers()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
