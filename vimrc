@@ -30,8 +30,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-endwise'
 " Haml and Scss
 Plug 'tpope/vim-haml'
-" Better Comment handling
-Plug 'scrooloose/nerdcommenter'
+" Commment handling
+Plug 'tpope/vim-commentary'
 " Vim snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -70,6 +70,8 @@ Plug 'alvan/vim-closetag'
 Plug 'posva/vim-vue'
 " Jump between diff conflitcs
 Plug 'tpope/vim-unimpaired'
+" Allows to repeat with . also some Plugin commands such as vim.sorround ones
+Plug 'tpope/vim-repeat'
 
 augroup END
 " Initialize plugin system
@@ -373,6 +375,12 @@ autocmd FileType vue syntax sync fromstart
 " disables JS syntax for html files: due to vue template files being very slow
 autocmd FileType html syntax clear javascript
 
+" Set syntax highlighting for specific file types
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+autocmd BufRead,BufNewFile aliases.local,zshrc.local,*/zsh/configs/* set filetype=sh
+autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -390,7 +398,7 @@ autocmd FileType html syntax clear javascript
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
 " F12 for line number
-" <Leader>ci or space to toggle comment
+" gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file
 " :A or :AV to open/open in vsplit the alternate file for example the spec
 " CTRL+O CTRL+I to move between cursor jumps
