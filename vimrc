@@ -72,6 +72,8 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-unimpaired'
 " Allows to repeat with . also some Plugin commands such as vim.sorround ones
 Plug 'tpope/vim-repeat'
+" Async lint engine
+Plug 'w0rp/ale'
 
 augroup END
 " Initialize plugin system
@@ -399,7 +401,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " F7 for NERDTree in current buffer folder
 " F12 for line number
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
-" gf to open the related file
+" gf to open the related file, 2gf to open the second related file, g] to show all the results
 " :A or :AV to open/open in vsplit the alternate file for example the spec
 " CTRL+O CTRL+I to move between cursor jumps
 " use * to go to next occurrence of the word under cursor
