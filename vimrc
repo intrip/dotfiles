@@ -367,6 +367,11 @@ endif
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
+" Ale
+let g:ale_linters = {
+\   'ruby': ['ruby'],
+\}
+
 " Vim Vue
 let g:vue_disable_pre_processors=1
 " Allows html js and css in vue files
