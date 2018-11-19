@@ -74,6 +74,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 " Async lint engine
 Plug 'w0rp/ale'
+" Cool dev icons
+Plug 'ryanoasis/vim-devicons'
 
 augroup END
 " Initialize plugin system
@@ -91,7 +93,7 @@ colorscheme solarized
 set background=dark
 
 set nocp                                                  " Set no compatibilty mode
-set encoding=utf-8                                        " Uses utf-8 encoding
+set encoding=UTF-8                                        " Uses utf-8 encoding
 set noswapfile                                            " Disable swap file
 set nobackup                                              " Don't backup
 set nowritebackup                                         " Write file in place
@@ -355,6 +357,8 @@ endfunction
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
 nnoremap <C-p> :FZF<cr>
+" Enables history navigation
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Projectionist
 if exists("g:loaded_projectionist")
@@ -377,6 +381,11 @@ let g:vue_disable_pre_processors=1
 " Allows html js and css in vue files
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 autocmd FileType vue syntax sync fromstart
+
+" Rvm ctags
+autocmd FileType ruby
+      \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
+      \ let &path .= "," . $MY_RUBY_HOME . "/lib"
 
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
@@ -417,6 +426,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " HML to move to top middle and bottom
 " Case sensitive search with \C at start for example \CTest
 " gT and gt to change tabs and CWt to move window into a new tab
+" use rvm_ctags when installing new ruby
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
@@ -428,4 +438,4 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
 " - you need to install the_silver_searcher
 " - in order to have persistent undo run: mkdir ~/.vim/undo
-
+" - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
