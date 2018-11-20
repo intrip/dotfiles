@@ -10,6 +10,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" FZF vim settings
+Plug 'junegunn/fzf.vim'
 " Status bar, remember to install the patched powerline fonts: https://github.com/powerline/fonts
 Plug 'bling/vim-airline'
 " Status bar custom colors
@@ -24,8 +26,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'vim-ruby/vim-ruby'
 " Javascript syntax
 Plug 'pangloss/vim-javascript'
-" Error checking
-Plug 'vim-syntastic/syntastic'
 " Automatic end complete
 Plug 'tpope/vim-endwise'
 " Haml and Scss
@@ -40,8 +40,6 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 " Easy quote and parenthesis
 Plug 'tpope/vim-surround'
-" Vim method navigation with CTAGS
-Plug 'majutsushi/tagbar'
 " JSON formatting
 Plug 'elzr/vim-json'
 " Golang extension
@@ -72,6 +70,9 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-unimpaired'
 " Allows to repeat with . also some Plugin commands such as vim.sorround ones
 Plug 'tpope/vim-repeat'
+" LSP support
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 " Async lint engine
 Plug 'w0rp/ale'
 " Cool dev icons
@@ -271,7 +272,7 @@ function! ToggleWrap()
     echo "line wrap on"
   endif
 endfunction
-nmap <F11> :call ToggleWrap()<CR>
+nmap <F10> :call ToggleWrap()<CR>
 
 " Toggles on and off relative line numbers
 function! ToggleRelativeLineNumbers()
@@ -291,10 +292,8 @@ nmap <F6> :call ToggleRelativeLineNumbers()<CR>
 
 " AirLine
 let g:airline_theme='solarized'                              " Airline color scheme
-let g:airline#extensions#syntastic#enabled = 1            " Syntastic integration
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
-let g:syntastic_quiet_messages = { 'regex': 'SC2148', '!level': 'errors' }    " Turn of some warnings, check out: https://stackoverflow.com/questions/28282315/how-can-i-turn-off-specific-messages-in-syntastic-vim
 let g:airline_powerline_fonts = 1                         " Allows the fancy powerline fonts
 
 " UtilSnips
@@ -319,9 +318,6 @@ let NERDTreeMapUpdir='-'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-" Tagbar triggered with F10
-nmap <F10> :TagbarToggle<CR>
-
 " Ctags
 map <silent> <Leader>rt :call BuildCtags()<cr>
 
@@ -329,12 +325,6 @@ map <silent> <Leader>rt :call BuildCtags()<cr>
 function! BuildCtags()
   !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
 endfunction
-
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
 
 " RSpec.vim mappings
 map <Leader>e :TestFile <CR>
@@ -356,7 +346,7 @@ endfunction
 
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
-nnoremap <C-p> :FZF<cr>
+nnoremap <C-p> :Files<cr>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
@@ -373,8 +363,30 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
 " Ale
 let g:ale_linters = {
-\   'ruby': ['ruby'],
+\   'ruby': ['solargraph'],
 \}
+" Shows ALE errors in vim airline
+let g:airline#extensions#ale#enabled = 1
+" Uses the quickfix window instead of loclist
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+" Shows the errors in the quickfix window
+let g:ale_open_list = 1
+" Show 8 lines of errors (default: 10)
+let g:ale_list_window_size = 8
+" Enables autocomplete using solargraph
+if executable('solargraph')
+    " gem install solargraph
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'solargraph',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+        \ 'initialization_options': {"diagnostics": "true"},
+        \ 'whitelist': ['ruby'],
+        \ })
+endif
+let g:ale_completion_enabled = 1
+let g:ale_ruby_solargraph_host = '127.0.0.1'
+let g:ale_ruby_solargraph_port = '7658'
 
 " Vim Vue
 let g:vue_disable_pre_processors=1
@@ -404,15 +416,16 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " :Ack to search files, press up and down to swap between results
 " K to search with Ack the word under cursor
 " :Ag to search in files like with Ctrl+p
-" Ctrp+p for fuzzy search files from name
+" :Rg to searhc in files using regex
+" Ctrp+p for fuzzy search files from name, repeat Ctrl+p and Ctrl+n to search inside the history
 " Useful keywords to remember associated to Plugins:
 " CTRL+] to jump to linked file such as CTRL+Click, remember to rebuild CTAGS when needed with <Leader> rt,
 " you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
 " SHIFT+B clears search (nohls)
-" F10 to navigate methods
-" F10 to toggle quickfix window
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
+" F9 to show quickfix window
+" F10 to toggle line wrap
 " F12 for line number
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file, 2gf to open the second related file, g] to show all the results
