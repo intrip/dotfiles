@@ -363,7 +363,7 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
 " Ale
 let g:ale_linters = {
-\   'ruby': ['solargraph'],
+\   'ruby': ['ruby'],
 \}
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
@@ -374,19 +374,6 @@ let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 " Show 8 lines of errors (default: 10)
 let g:ale_list_window_size = 8
-" Enables autocomplete using solargraph
-if executable('solargraph')
-    " gem install solargraph
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['ruby'],
-        \ })
-endif
-let g:ale_completion_enabled = 1
-let g:ale_ruby_solargraph_host = '127.0.0.1'
-let g:ale_ruby_solargraph_port = '7658'
 
 " Vim Vue
 let g:vue_disable_pre_processors=1
