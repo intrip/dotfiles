@@ -367,14 +367,9 @@ let g:ale_linters = {
 \}
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
-" Uses the quickfix window instead of loclist
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-" Shows the errors in the quickfix window
-let g:ale_open_list = 1
-" Show 8 lines of errors (default: 10)
-let g:ale_list_window_size = 8
-
+" Move to next/prev error with Alt+j/k
+nmap <silent> º <Plug>(ale_previous_wrap)
+nmap <silent> ª <Plug>(ale_next_wrap)
 " Vim Vue
 let g:vue_disable_pre_processors=1
 " Allows html js and css in vue files
