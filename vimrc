@@ -178,6 +178,9 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 " Quick commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Map Esc with jk
+imap jk <Esc>
+
 " Quick switch between numbers ruler
 noremap <silent> <F12> :set number!<CR>
 
@@ -347,6 +350,7 @@ endfunction
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
 nnoremap <C-p> :Files<cr>
+nnoremap <C-b> :Buf<cr>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
