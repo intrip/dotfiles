@@ -79,6 +79,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# vim mode with jk so that can get to prev command with jkk
+
+bindkey jk vi-cmd-mode
+
 ###
 # GIT
 ###
@@ -100,6 +104,12 @@ alias gbc='git rev-parse --abbrev-ref HEAD | pbcopy'
 
 # Gitlab
 alias gl-install='spring stop && bundle && rdm && yarn install'
+
+###
+# RUBY
+###
+
+alias b=bundle
 
 ###
 # RVM
@@ -125,7 +135,6 @@ export PATH="$HOME/gocode/bin:$PATH"
 ###
 
 alias tmux="TERM=screen-256color-bce tmux"
-
 
 #####
 # MYSQL
