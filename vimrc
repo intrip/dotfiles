@@ -77,6 +77,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'w0rp/ale'
 " Cool dev icons
 Plug 'ryanoasis/vim-devicons'
+" Automatically rebuild ctags
+Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 
 augroup END
 " Initialize plugin system
@@ -321,14 +323,6 @@ let NERDTreeMapUpdir='-'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-" Ctags
-map <silent> <Leader>rt :call BuildCtags()<cr>
-
-" Build Ctags for ruby
-function! BuildCtags()
-  !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
-endfunction
-
 " RSpec.vim mappings
 map <Leader>e :TestFile <CR>
 map <Leader>s :TestNearest<CR>
@@ -425,7 +419,6 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " HML to move to top middle and bottom
 " Case sensitive search with \C at start for example \CTest
 " gT and gt to change tabs and CWt to move window into a new tab
-" use rvm_ctags when installing new ruby
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
@@ -435,6 +428,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 "
 " Setup_notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
+" - universal ctags are needed https://github.com/universal-ctags/ctags
 " - you need to install the_silver_searcher
 " - in order to have persistent undo run: mkdir ~/.vim/undo
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
