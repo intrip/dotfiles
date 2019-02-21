@@ -24,6 +24,10 @@ Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
 " Ruby extension
 Plug 'vim-ruby/vim-ruby'
+" Rails vim integration
+Plug 'tpope/vim-rails'
+" Rspec and vim integration
+Plug 'thoughtbot/vim-rspec'
 " Javascript syntax
 Plug 'pangloss/vim-javascript'
 " Automatic end complete
@@ -48,14 +52,8 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'tpope/vim-obsession'
 " Enables FocusLost and FocusGained events
 Plug 'sjl/vitality.vim'
-" Run async commands in the quickfix windows
-Plug 'skywind3000/asyncrun.vim'
-" Handles test interaction with many backends
-Plug 'janko-m/vim-test'
 " Ag search like
 Plug 'mileszs/ack.vim'
-" Rails vim integration
-Plug 'tpope/vim-rails'
 " Allow to quick jump between files, use :A to jump to the spec for example
 Plug 'tpope/vim-projectionist'
 " Integrates bundler with Bopen or Bundle
@@ -70,7 +68,7 @@ Plug 'posva/vim-vue'
 Plug 'tpope/vim-unimpaired'
 " Allows to repeat with . also some Plugin commands such as vim.sorround ones
 Plug 'tpope/vim-repeat'
-" LSP support
+" LSP support: needed for Ale
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 " Async lint engine
@@ -79,6 +77,8 @@ Plug 'w0rp/ale'
 Plug 'ryanoasis/vim-devicons'
 " Automatically rebuild ctags
 Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
+" Extends vim Async features
+Plug 'tpope/vim-dispatch'
 
 augroup END
 " Initialize plugin system
@@ -105,14 +105,9 @@ set autowriteall                                          " Automatically save b
 autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
 autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
 syntax enable                                             " Enables syntax highlight
-syntax sync minlines=500                                  " Only searches back 256 lines for indentation (better performance)
+syntax sync minlines=500                                  " Only searches back 500 lines for indentation (better performance)
 set regexpengine=1                                        " Force old regex engine > more performant for now
 set scrolloff=3                                           " Always show 3 lines below the cursor
-
-" Folding
-"set foldmethod=indent
-" automatically unfolds all items on open
-"autocmd BufWinEnter * normal zR
 
 " Hisory, cursor, rules
 set history=100                                           " Remember last 100 commands
@@ -206,7 +201,7 @@ map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-L> <C-W>l
 
-" Next/prev result with up and down arrows
+" Next/prev quickfix result with up and down arrows
 map <down> :cn<CR>
 map <up> :cp<CR>
 
@@ -225,35 +220,6 @@ nmap <Leader>v :tabe $MYVIMRC<cr>
 " <F2> Copy the current line in normal mode and the selected text in visual mode
 nmap <F2> :.w !pbcopy<CR><CR>
 vmap <F2> :w !pbcopy<CR><CR>
-
-" Show tests results
-function! GetBufferList()
-  redir =>buflist
-  silent! ls!
-  redir END
-  return buflist
-endfunction
-
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
-      return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != winnr
-    wincmd p
-  endif
-endfunction
-nmap <silent> <F9> :call ToggleList("Quickfix List", 'c')<CR>
 
 " ProfileMe and ProfileStop to start and stop profiling
 command! ProfileStart :profile start profile.log <bar> profile func * <bar> profile file *
@@ -291,6 +257,11 @@ function! ToggleRelativeLineNumbers()
 endfunction
 nmap <F6> :call ToggleRelativeLineNumbers()<CR>
 
+" Uses patience algorithm for diff
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:patience
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -324,15 +295,17 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 " RSpec.vim mappings
-map <Leader>e :TestFile <CR>
-map <Leader>s :TestNearest<CR>
-map <Leader>l :TestLast<CR>
-map <Leader>a :TestSuite<CR>
-let test#strategy = "asyncrun"
+map <Leader>e :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+let g:rspec_command = "!bin/rspec {spec}"
 
 " Ack.vim
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
+  " Uses vim.dispatch
+  let g:ack_use_dispatch = 1
 endif
 
 " Searches word under cursor with K
@@ -404,7 +377,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " SHIFT+B clears search (nohls)
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
-" F9 to show quickfix window
+" F9 free for now: can use to toggle quickfix
 " F10 to toggle line wrap
 " F12 for line number
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
@@ -432,3 +405,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " - you need to install the_silver_searcher
 " - in order to have persistent undo run: mkdir ~/.vim/undo
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
+"
+" TODO:
+"   - Use Make to run test and also rubocop?
+"   - Toggle quickfix
