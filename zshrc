@@ -101,6 +101,11 @@ alias gpa=git_push_all
 alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 # Copy current branch name
 alias gbc='git rev-parse --abbrev-ref HEAD | pbcopy'
+# git fetch origin
+function git_fetch_origin() {
+  git fetch origin $1:$1
+}
+alias gfo=git_fetch_origin
 
 # Gitlab
 alias gl-install='spring stop && bundle && rdm && yarn install'
@@ -197,3 +202,5 @@ export FZF_DEFAULT_OPTS="
 }
 
 _gen_fzf_default_opts
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
