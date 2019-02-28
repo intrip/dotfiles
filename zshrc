@@ -110,6 +110,9 @@ alias gfo=git_fetch_origin
 # Gitlab
 alias gl-install='spring stop && bundle && rdm && yarn install'
 
+# Rubocop on last commit files. Ignores `db/schema.rb` as Rubocop normally does.
+alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
+
 ###
 # RUBY
 ###
