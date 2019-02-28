@@ -48,12 +48,8 @@ Plug 'tpope/vim-surround'
 Plug 'elzr/vim-json'
 " Golang extension
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-" Extension to vim session
-Plug 'tpope/vim-obsession'
 " Enables FocusLost and FocusGained events
 Plug 'sjl/vitality.vim'
-" Ag search like
-Plug 'mileszs/ack.vim'
 " Allow to quick jump between files, use :A to jump to the spec for example
 Plug 'tpope/vim-projectionist'
 " Integrates bundler with Bopen or Bundle
@@ -257,6 +253,35 @@ function! ToggleRelativeLineNumbers()
 endfunction
 nmap <F6> :call ToggleRelativeLineNumbers()<CR>
 
+" Toggle quickfix window
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <F9> :call ToggleList("Quickfix List", 'c')<CR>
+
 " Uses patience algorithm for diff
 if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
@@ -301,18 +326,20 @@ map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 let g:rspec_command = "!bin/rspec {spec}"
 
-" Ack.vim
+" The Silver Searcher
+" Inspired by http://robots.thoughtbot.com/faster-grepping-in-vim/
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-  " Uses vim.dispatch
-  let g:ack_use_dispatch = 1
-endif
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor\ --path-to-ignore\ $HOME/.agignore
 
-" Searches word under cursor with K
-nnoremap <silent> K :call SearchWordWithAg()<CR>
-function! SearchWordWithAg()
-  execute 'Ack' expand('<cword>')
-endfunction
+  " bind K to grep word under cursor
+  nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+  " bind , (backward slash) to grep shortcut
+  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+  nnoremap , :Ag<SPACE>
+endif
 
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
@@ -366,8 +393,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" :Ack to search files, press up and down to swap between results
-" K to search with Ack the word under cursor
+" K to search with ag the word under cursor
 " :Ag to search in files like with Ctrl+p
 " :Rg to searhc in files using regex
 " Ctrp+p for fuzzy search files from name, repeat Ctrl+p and Ctrl+n to search inside the history
