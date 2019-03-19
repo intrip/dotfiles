@@ -75,6 +75,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 " Extends vim Async features
 Plug 'tpope/vim-dispatch'
+" Useful vim mappings
+Plug 'tpope/vim-unimpaired'
 
 augroup END
 " Initialize plugin system
@@ -154,7 +156,7 @@ autocmd FileType go set nolist
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 " Keep syntax in sync
-autocmd BufEnter * :syntax sync fromstart
+" autocmd BufEnter * :syntax sync fromstart
 
 " Define what to save with :mksession
 " blank - empty windows
@@ -365,9 +367,6 @@ let g:ale_linters = {
 \}
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
-" Move to next/prev error with Alt+j/k
-nmap <silent> º <Plug>(ale_previous_wrap)
-nmap <silent> ª <Plug>(ale_next_wrap)
 " Vim Vue
 let g:vue_disable_pre_processors=1
 " Allows html js and css in vue files
@@ -418,11 +417,15 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " HML to move to top middle and bottom
 " Case sensitive search with \C at start for example \CTest
 " gT and gt to change tabs and CWt to move window into a new tab
+" ]space [space add space before/after
+" ]e [e move current line up or below
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
 " bufdo %s/pattern/replace/gc | update
 " prepend with silent if you need to mass replace
+" you can also do :Ag text and then run :cfdo %s/pattern/replace/gc
+" :cfdo iterates over results in the quickfix window
 " to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
 "
 " Setup_notes:
