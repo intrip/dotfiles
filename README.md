@@ -10,6 +10,10 @@ Set zsh as your login shell:
 
     chsh -s $(which zsh)
 
+Install spaceshift prompt:
+
+    https://denysdovhan.com/spaceship-prompt/#installing
+
 Install
 -------
 
