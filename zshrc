@@ -5,8 +5,6 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="cloud-custom"
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="spaceship"
 
 # CASE_SENSITIVE="true"
@@ -24,7 +22,7 @@ ZSH_THEME="spaceship"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="false"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -58,26 +56,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=it_IT.UTF-8
 
 # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
  else
-   export EDITOR='/usr/local/bin/vim'
- fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+  export EDITOR='/usr/local/bin/vim'
+fi
 
 # vim mode with jk so that can get to prev command with jkk
 
@@ -140,17 +123,10 @@ export ENABLE_SPRING='1'
 export GOPATH=$HOME/gocode:$HOME/gitlab-development-kit/gitaly
 export PATH="$HOME/gocode/bin:$PATH"
 
-###
-# Vim and Tmux intergration
-###
-
-alias tmux="TERM=screen-256color-bce tmux"
-
 #####
 # MYSQL
 #####
 
-#MYSQL=/usr/local/Cellar/mysql@5.5/5.5.57/bin
 MYSQL=/usr/local/Cellar/mysql/5.7.19/bin
 export PATH=$PATH:$MYSQL
 
@@ -160,10 +136,7 @@ export PATH=$PATH:$MYSQL
 
 export PATH=/usr/local/bin:$PATH
 
-###
 # High sierra forking fix: https://github.com/puma/puma/issues/1421
-###
-
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Dotfiles bin path
