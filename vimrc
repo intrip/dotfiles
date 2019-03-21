@@ -303,6 +303,12 @@ let g:airline_powerline_fonts = 1                         " Allows the fancy pow
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" UltiSnips runs a check on every key press thus overloads the CPU when typing: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt#L1698
+" this fixes the issue
+augroup ultisnips_no_auto_expansion
+  au!
+  au VimEnter * au! UltiSnips_AutoTrigger
+augroup END
 
 " Vim Markdown
 let g:vim_markdown_folding_disabled = 1
