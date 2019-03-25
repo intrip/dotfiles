@@ -191,7 +191,7 @@ nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nmap <Leader>q :%bd\|e# <CR>                             " Closes all buffer except current
 " Copy file name to clipboard
-nnoremap <Leader>c :!echo -n % \| pbcopy<CR>
+nnoremap <Leader>c!pbcopy< :!echo -n % \| pbcopy<CR>
 
 " Changes window with CTRL+H,J,K,L
 map <C-H> <C-W>h
@@ -216,8 +216,11 @@ nmap <Leader>V :source $MYVIMRC<cr>
 nmap <Leader>v :tabe $MYVIMRC<cr>
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
-nmap <F2> :.w !pbcopy<CR><CR>
-vmap <F2> :w !pbcopy<CR><CR>
+" clipboard feature needs to be enabled
+if has("clipboard")
+  nmap <F2> "*yy
+  vmap <F2> "*y
+endif
 
 " ProfileMe and ProfileStop to start and stop profiling
 command! ProfileStart :profile start profile.log <bar> profile func * <bar> profile file *
@@ -292,6 +295,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+" Diminactive
+let g:diminactive_enable_focus = 1
 
 " AirLine
 let g:airline_theme='solarized'                              " Airline color scheme
