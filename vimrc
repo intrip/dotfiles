@@ -357,7 +357,7 @@ endif
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
 nnoremap <C-p> :Files<cr>
-nnoremap <C-b> :Buf<cr>
+nnoremap <C-x> :Buf<cr>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
@@ -407,6 +407,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " :Ag to search in files like with Ctrl+p
 " :Rg to searhc in files using regex
 " Ctrp+p for fuzzy search files from name, repeat Ctrl+p and Ctrl+n to search inside the history
+" Ctrl+x to search inside buffers
 " Useful keywords to remember associated to Plugins:
 " CTRL+] to jump to linked file such as CTRL+Click, remember to rebuild CTAGS when needed with <Leader> rt,
 " you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
