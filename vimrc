@@ -191,7 +191,7 @@ nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nmap <Leader>q :%bd\|e# <CR>                             " Closes all buffer except current
 " Copy file name to clipboard
-nnoremap <Leader>c!pbcopy< :!echo -n % \| pbcopy<CR>
+nnoremap <Leader>c :let @*=expand("%")<CR>
 
 " Changes window with CTRL+H,J,K,L
 map <C-H> <C-W>h
