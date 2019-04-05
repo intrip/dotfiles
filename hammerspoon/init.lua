@@ -11,7 +11,7 @@ hs.hotkey.bind(mashalt, 'i', hs.hints.windowHints)
 
 -- Change screen
 -- TODO Currently not working, need to fix it
---hs.hotkey.bind(mash, 'o', grid.pushwindow_nextscreen)
+--hs.hotkey.bind(mash, 'p', grid.pushwindow_nextscreen)
 
 -- Snap Window
 hs.hotkey.bind(mash, 'h', grid.snap_west)
@@ -24,4 +24,4 @@ hs.hotkey.bind(mashalt, 'k', grid.snap_northeast)
 hs.hotkey.bind(mashalt, 'j', grid.snap_southwest)
 hs.hotkey.bind(mashalt, 'l', grid.snap_southeast)
 
-hs.hotkey.bind(mash, 'u', grid.maximize_window)
+hs.hotkey.bind(mash, 'o', grid.maximize_window)
