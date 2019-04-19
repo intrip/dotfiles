@@ -317,6 +317,8 @@ augroup END
 
 " Vim Markdown
 let g:vim_markdown_folding_disabled = 1
+" highlights code in Markdown fenced code blocks
+let g:markdown_fenced_languages = ['ruby', 'sql', 'go', 'yaml']
 
 " NERDTree triggered with F8
 map <F8> :NERDTreeToggle<cr>
@@ -399,6 +401,9 @@ autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 autocmd BufRead,BufNewFile aliases.local,zshrc.local,*/zsh/configs/* set filetype=sh
 autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 
+" Gutentags
+let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'public', '*.json', '*.svg']
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -431,6 +436,7 @@ autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 " gT and gt to change tabs and CWt to move window into a new tab
 " ]space [space add space before/after
 " ]e [e move current line up or below
+" \"*yy or prepend anything with \"* (unescaped) to use the system clipboard
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
