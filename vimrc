@@ -190,8 +190,13 @@ nnoremap ∆ :bprevious!<CR>
 nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nmap <Leader>q :%bd\|e# <CR>                             " Closes all buffer except current
-" Copy file name to clipboard
+
+" Copy file name with/without absolute path to clipboard
 nnoremap <Leader>c :let @*=expand("%")<CR>
+nnoremap <Leader>C :let @*=expand("%:t")<CR>
+
+" Remove trailing whitespaces on current line
+nnoremap <Leader>x :let _s=@/ <Bar> :s/\s\+$//ge <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " Changes window with CTRL+H,J,K,L
 map <C-H> <C-W>h
