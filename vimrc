@@ -176,6 +176,11 @@ set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 " Map Esc with jk
 imap jk <Esc>
 
+" Make program
+autocmd User Rails setlocal makeprg=bundle\ exec\ rubocop\ -a\ \%
+map <Leader>r :Make<CR>
+map <Leader>R :make<CR>
+
 " Quick switch between numbers ruler
 noremap <silent> <F12> :set number!<CR>
 
@@ -304,7 +309,7 @@ endif
 let g:diminactive_enable_focus = 1
 
 " AirLine
-let g:airline_theme='solarized'                              " Airline color scheme
+let g:airline_theme='solarized'                           " Airline color scheme
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
 let g:airline_powerline_fonts = 1                         " Allows the fancy powerline fonts
@@ -442,6 +447,7 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 " ]space [space add space before/after
 " ]e [e move current line up or below
 " \"*yy or prepend anything with \"* (unescaped) to use the system clipboard
+" <Leader>r to run makeprg > rubucop for .ruby files
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
@@ -459,5 +465,5 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
 " TODO:
-"   - Use Make to run test and also rubocop?
-"   - Toggle quickfix
+"   - vim better status bar more lean
+"   - vim check the 2 plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
