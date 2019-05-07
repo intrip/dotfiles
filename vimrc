@@ -202,6 +202,8 @@ nnoremap <Leader>C :let @*=expand("%:t")<CR>
 
 " Remove trailing whitespaces on current line
 nnoremap <Leader>x :let _s=@/ <Bar> :s/\s\+$//ge <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" Remove trailing whitespaces on whole file
+nnoremap <Leader>X :let _s=@/ <Bar> :%s/\s\+$//ge <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " Changes window with CTRL+H,J,K,L
 map <C-H> <C-W>h
@@ -236,9 +238,11 @@ endif
 command! ProfileStart :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
 
-" handles typo for :E as :e and :W as :w
+" handles typo for :E as :e and :W as :w and :Vs :vS
 cnoreabbrev E e
 cnoreabbrev W w
+cnoreabbrev Vs vs
+cnoreabbrev vS vs
 
 " Moves up and down between wrapped lines 1 step at time
 nmap j gj
@@ -420,22 +424,23 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 
 " K to search with ag the word under cursor
 " :Ag to search in files like with Ctrl+p
-" :Rg to searhc in files using regex
+" :Rg to search in files using regex automatically showing results on change like with Ctrl+p
 " Ctrp+p for fuzzy search files from name, repeat Ctrl+p and Ctrl+n to search inside the history
-" Ctrl+x to search inside buffers
+" Ctrl+x to search inside open buffers
+"
 " Useful keywords to remember associated to Plugins:
-" CTRL+] to jump to linked file such as CTRL+Click, remember to rebuild CTAGS when needed with <Leader> rt,
+" CTRL+] to jump to linked file such as CTRL+Click
 " you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
 " SHIFT+B clears search (nohls)
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
-" F9 free for now: can use to toggle quickfix
+" F9 toggle quickfix
 " F10 to toggle line wrap
-" F12 for line number
+" F12 toggle line number
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file, 2gf to open the second related file, g] to show all the results
 " :A or :AV to open/open in vsplit the alternate file for example the spec
-" CTRL+O CTRL+I to move between cursor jumps
+" CTRL+O CTRL+I to move between cursor jumps in history
 " use * to go to next occurrence of the word under cursor
 " rename html tag: cstt
 " jump between git diff using ]n and [n and [n
@@ -453,14 +458,14 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
 " bufdo %s/pattern/replace/gc | update
 " prepend with silent if you need to mass replace
-" you can also do :Ag text and then run :cfdo %s/pattern/replace/gc
+" Or you can also do :Ag text and then run :cfdo %s/pattern/replace/gc
 " :cfdo iterates over results in the quickfix window
-" to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html
+" to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html or use third party app such ask Marked.app
 "
 " Setup_notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
 " - universal ctags are needed https://github.com/universal-ctags/ctags
-" - you need to install the_silver_searcher
+" - you need to install fzf
 " - in order to have persistent undo run: mkdir ~/.vim/undo
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
