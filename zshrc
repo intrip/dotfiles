@@ -83,7 +83,7 @@ alias gpa=git_push_all
 # pull current branch
 alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 # Copy current branch name
-alias gbc='git rev-parse --abbrev-ref HEAD | pbcopy'
+alias gbc='git rev-parse --abbrev-ref HEAD | tr -d "\n" | pbcopy'
 # git fetch origin
 function git_fetch_origin() {
   git fetch origin $1:$1
@@ -135,6 +135,10 @@ export PATH=$PATH:$MYSQL
 ###
 
 export PATH=/usr/local/bin:$PATH
+
+
+# PIP binary paths
+export PATH=/Users/jbeschi/Library/Python/3.7/bin:$PATH
 
 # High sierra forking fix: https://github.com/puma/puma/issues/1421
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
