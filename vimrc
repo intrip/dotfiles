@@ -116,6 +116,7 @@ set mouse=a                                               " Enable mouse movemen
 set cursorline                                            " Highlight current cursor line
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"                  " Thin cursor shape in insert mode
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"                  " Fat cursor shape in normal mode
+set cc=80                                                 " Vertical line at 80 characters
 
 " Tabs and white spaces
 set shiftwidth=2                                          " Use 2 space tabs by default
@@ -131,6 +132,10 @@ set splitright                                            " Always open vsplit t
 " Indentation
 set autoindent                                            " Automatically guess the indentation given the previous line indent
 set smartindent
+
+" Folding
+set nofen                                                 " Disables folding when opening a file
+set foldmethod=indent                                     " Folds everything indented by 2 spaces
 
 " Search
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
@@ -369,11 +374,11 @@ if executable('ag')
 
   nnoremap , :Ag<SPACE>
 endif
-
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
 nnoremap <C-p> :Files<cr>
-nnoremap <C-x> :Buf<cr>
+" Alt+p
+nnoremap π :Buf<cr>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
@@ -414,6 +419,7 @@ autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 autocmd BufRead,BufNewFile aliases.local,zshrc.local,*/zsh/configs/* set filetype=sh
 autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
+autocmd BufRead,BufNewFile Dangerfile set syntax=ruby
 
 " Gutentags
 let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'public', '*.json', '*.svg']
@@ -426,7 +432,7 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 " :Ag to search in files like with Ctrl+p
 " :Rg to search in files using regex automatically showing results on change like with Ctrl+p
 " Ctrp+p for fuzzy search files from name, repeat Ctrl+p and Ctrl+n to search inside the history
-" Ctrl+x to search inside open buffers
+" Alt+p search inside open buffers
 "
 " Useful keywords to remember associated to Plugins:
 " CTRL+] to jump to linked file such as CTRL+Click
