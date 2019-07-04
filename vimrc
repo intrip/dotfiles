@@ -108,7 +108,7 @@ set regexpengine=1                                        " Force old regex engi
 set scrolloff=3                                           " Always show 3 lines below the cursor
 
 " Hisory, cursor, rules
-set history=100                                           " Remember last 100 commands
+set history=200                                           " Remember last 100 commands
 set laststatus=2                                          " Status bar always visible
 set number                                                " to show the current line number
 set showcmd                                               " Show current cursor info
@@ -322,7 +322,8 @@ let g:airline_theme='solarized'                           " Airline color scheme
 let g:airline#extensions#tabline#enabled = 1              " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filename
 let g:airline_powerline_fonts = 1                         " Allows the fancy powerline fonts
-
+" truncate brach name to 16 chars
+let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -423,6 +424,8 @@ autocmd BufRead,BufNewFile Dangerfile set syntax=ruby
 
 " Gutentags
 let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'public', '*.json', '*.svg']
+" triggers a manual tags update on all the project
+nmap <Leader>rt :GutentagsUpdate!<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
@@ -476,5 +479,6 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
 " TODO:
-"   - vim better status bar more lean
-"   - vim check the 2 plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
+"   - check the 2 plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
+"   - better abbrev for frozen sring lit and attr_reader/writer and also some basic templates for files
+"   - http://rsense.github.io/
