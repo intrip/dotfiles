@@ -1,0 +1,23 @@
+extends ruby
+
+snippet froz "frozen_string literal comment" (b)
+# frozen_string_literal: true
+
+
+endsnippet
+
+snippet tclass "frozen_string ... class <class_name> end end"
+# frozen_string_literal: true
+
+class ${1:class_name}
+  $0
+end
+endsnippet
+
+snippet trspec "frozen_string ... require 'spec_helper'"
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+
+endsnippet

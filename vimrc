@@ -136,6 +136,7 @@ set smartindent
 " Folding
 set nofen                                                 " Disables folding when opening a file
 set foldmethod=indent                                     " Folds everything indented by 2 spaces
+set foldlevel=1
 
 " Search
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
@@ -480,5 +481,4 @@ nmap <Leader>rt :GutentagsUpdate!<CR>
 "
 " TODO:
 "   - check the 2 plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
-"   - better abbrev for frozen sring lit and attr_reader/writer and also some basic templates for files
 "   - http://rsense.github.io/

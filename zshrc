@@ -98,6 +98,9 @@ alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "
 # Rubocop on all the changed files between the current branch and master. Ignores `db/schema.rb` as Rubocop normally does.
 alias rubocop-master='git diff --name-only master | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
 
+# Papertrail CLI
+export PAPERTRAIL_API_TOKEN=V7YbJmgnhViAYwpY9PM0
+
 ###
 # RUBY
 ###
@@ -122,6 +125,9 @@ export ENABLE_SPRING='1'
 
 export GOPATH=$HOME/gocode:$HOME/gitlab-development-kit/gitaly
 export PATH="$HOME/gocode/bin:$PATH"
+
+# to build icu4d
+export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 #####
 # MYSQL
