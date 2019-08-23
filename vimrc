@@ -77,6 +77,8 @@ Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 Plug 'tpope/vim-dispatch'
 " Useful vim mappings
 Plug 'tpope/vim-unimpaired'
+" Visual graphic of undo tree
+Plug 'mbbill/undotree'
 
 augroup END
 " Initialize plugin system
@@ -146,11 +148,11 @@ set smartcase                                             " ... unless they cont
 set showmatch                                             " Shows the matching ()
 
 " Undos
-set undofile                " Save undos after file closes
-set undodir=$HOME/.vim/undo " where to save undo histories
-set undolevels=1000         " How many undos
-set undoreload=10000        " number of lines to save for undo
+set undofile                                              " Save undos after file closes
+set undodir=$HOME/.vim/undo                               " where to save undo histories
+set undolevels=1000                                       " How many undos
 
+set lazyredraw                                            " Do not redraw in the middle of a macro
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Identantion spaces length depending on file format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -427,6 +429,9 @@ autocmd BufRead,BufNewFile Dangerfile set syntax=ruby
 let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'public', '*.json', '*.svg']
 " triggers a manual tags update on all the project
 nmap <Leader>rt :GutentagsUpdate!<CR>
+
+" Show UndoTree with F10
+nmap <F10> :UndotreeToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
