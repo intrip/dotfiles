@@ -81,6 +81,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'mbbill/undotree'
 " Changes to single/multiple line if
 Plug 'AndrewRadev/splitjoin.vim'
+" Switch code segments such as true/false
+Plug 'AndrewRadev/switch.vim'
 
 augroup END
 " Initialize plugin system
@@ -456,6 +458,7 @@ nmap <F10> :UndotreeToggle<CR>
 " F12 toggle line number
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file, 2gf to open the second related file, g] to show all the results
+" gJ or gS to split/join if into 1 or multiple lines
 " :A or :AV to open/open in vsplit the alternate file for example the spec
 " CTRL+O CTRL+I to move between cursor jumps in history
 " use * to go to next occurrence of the word under cursor
@@ -487,7 +490,4 @@ nmap <F10> :UndotreeToggle<CR>
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
 " TODO:
-"   - check the plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
-"   - http://rsense.github.io/
-"   - https://github.com/AndrewRadev/deleft.vim
-"   - https://github.com/AndrewRadev/switch.vim
+" - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
