@@ -79,6 +79,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 " Visual graphic of undo tree
 Plug 'mbbill/undotree'
+" Changes to single/multiple line if
+Plug 'AndrewRadev/splitjoin.vim'
 
 augroup END
 " Initialize plugin system
@@ -485,5 +487,7 @@ nmap <F10> :UndotreeToggle<CR>
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
 " TODO:
-"   - check the 2 plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
+"   - check the plugins: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
 "   - http://rsense.github.io/
+"   - https://github.com/AndrewRadev/deleft.vim
+"   - https://github.com/AndrewRadev/switch.vim
