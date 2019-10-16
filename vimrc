@@ -267,7 +267,7 @@ function! ToggleWrap()
     echo "line wrap on"
   endif
 endfunction
-nmap <F10> :call ToggleWrap()<CR>
+nmap <F11> :call ToggleWrap()<CR>
 
 " Toggles on and off relative line numbers
 function! ToggleRelativeLineNumbers()
@@ -452,7 +452,8 @@ nmap <F10> :UndotreeToggle<CR>
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
 " F9 toggle quickfix
-" F10 to toggle line wrap
+" F10 to toggle history
+" F11 to toggle line wrap
 " F12 toggle line number
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file, 2gf to open the second related file, g] to show all the results
