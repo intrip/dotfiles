@@ -54,8 +54,6 @@ Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-projectionist'
 " Integrates bundler with Bopen or Bundle
 Plug 'tpope/vim-bundler'
-" Dim inactive windows
-Plug 'blueyed/vim-diminactive'
 " Autoclose HTML tags
 Plug 'alvan/vim-closetag'
 " Vue.js integration
@@ -122,7 +120,6 @@ set mouse=a                                               " Enable mouse movemen
 set cursorline                                            " Highlight current cursor line
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"                  " Thin cursor shape in insert mode
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"                  " Fat cursor shape in normal mode
-set cc=80                                                 " Vertical line at 80 characters
 
 " Tabs and white spaces
 set shiftwidth=2                                          " Use 2 space tabs by default
@@ -318,11 +315,16 @@ if has("patch-8.1.0360")
     set diffopt+=internal,algorithm:patience
 endif
 
+" Highlight current window bit showing cc
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cc=100
+    autocmd WinLeave * set cc=0
+augroup END
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
-" Diminactive
-let g:diminactive_enable_focus = 1
 
 " AirLine
 let g:airline_theme='solarized'                           " Airline color scheme
@@ -390,14 +392,6 @@ nnoremap π :Buf<cr>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" Projectionist
-if exists("g:loaded_projectionist")
-  let g:projectionist_heuristics['*.go'] = {
-      \ '*.go': { 'alternate': '{}_test.go', 'type': 'source' },
-      \ '*_test.go': { 'alternate': '{}.go', 'type': 'test' }
-      \ }
-endif
-
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
@@ -417,6 +411,10 @@ autocmd FileType vue syntax sync fromstart
 autocmd FileType ruby
       \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
       \ let &path .= "," . $MY_RUBY_HOME . "/lib"
+
+" Remap alternate
+autocmd FileType go
+      \ nnoremap :A :GoAlternate
 
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
@@ -491,3 +489,4 @@ nmap <F10> :UndotreeToggle<CR>
 "
 " TODO:
 " - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
+"   RSpec VIM formatter: autocmd FileType rspec setlocal makeprg=bundle\ exec\ rspec\ --require\ ~/.dotfiles/config/vim/quickfix_formatter.rb\ --format\ QuickfixFormatter\ 1>/dev/null\ %
