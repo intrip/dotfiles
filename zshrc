@@ -44,7 +44,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails bundler)
+plugins=(git rails bundler kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -119,13 +119,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 export ENABLE_SPRING='1'
 
-###
-# GOLANG
-####
-
-export GOPATH=$HOME/gocode:$HOME/gitlab-development-kit/gitaly
-export PATH="$HOME/gocode/bin:$PATH"
-
 # to build icu4d
 export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 
@@ -194,3 +187,25 @@ export FZF_DEFAULT_OPTS="
 _gen_fzf_default_opts
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# Kube
+
+kill_pod() {
+ eval "kubectl exec -it $1 -- /bin/sh -c 'kill 1'"
+}
+
+alias kube_token='kubectl -n kube-system describe secret marzi-token-9zm75'
+alias k_pod=kill_pod
+
+###
+# GOLANG
+####
+
+# load gvm
+[[ -s "/Users/jbeschi/.gvm/scripts/gvm" ]] && source "/Users/jbeschi/.gvm/scripts/gvm"
+
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
+
