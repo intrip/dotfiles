@@ -90,7 +90,7 @@ call plug#end()
 " VIM OPTIONS BEGIN
 """""""""""""""""""""""
 
-let mapleader = "-"          " Maps - as leader character
+let mapleader = "-"                                       " Maps - as leader character
 
 " Colorscheme
 "let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal e.g. Iterm
@@ -128,13 +128,14 @@ set expandtab                                             " Expand tabs into spa
 " we use ascii chars because special chars are slow on OSX, ref: https://github.com/tpope/vim-sensible/issues/57
 set listchars=tab:>\ ,trail:-,nbsp:_,precedes:<           " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
-set tw=200                                                " Breaks line at 200 chars
+set tw=120                                                " Breaks line at 120 chars
 set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
 
 " Indentation
 set autoindent                                            " Automatically guess the indentation given the previous line indent
 set smartindent
+set textwidth=100                                         " Automatically breaks new line after 100 chars
 
 " Folding
 set nofen                                                 " Disables folding when opening a file
@@ -178,12 +179,17 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
+" Toggle insert mode only caps lock with Ctrl+6
+" Execute 'lnoremap x X' and 'lnoremap X x' for each letter a-z.
+for c in range(char2nr('A'), char2nr('Z'))
+  execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
+  execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
+endfor
+" Kill the capslock when leaving insert mode.
+autocmd InsertLeave * set iminsert=0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Quick commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Map Esc with jk
-imap jk <Esc>
 
 " Make program
 autocmd User Rails setlocal makeprg=bundle\ exec\ rubocop\ -a\ \%
@@ -318,7 +324,7 @@ endif
 " Highlight current window bit showing cc
 augroup BgHighlight
     autocmd!
-    autocmd WinEnter * set cc=100
+    autocmd WinEnter * set cc=120
     autocmd WinLeave * set cc=0
 augroup END
 
@@ -402,7 +408,7 @@ let g:ale_linters = {
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
 " Vim Vue
-let g:vue_disable_pre_processors=1
+let g:vue_pre_processors = 'detect_on_enter'
 " Allows html js and css in vue files
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 autocmd FileType vue syntax sync fromstart
@@ -489,5 +495,6 @@ nmap <F10> :UndotreeToggle<CR>
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
 " TODO:
-" - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim
+" - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
 "   RSpec VIM formatter: autocmd FileType rspec setlocal makeprg=bundle\ exec\ rspec\ --require\ ~/.dotfiles/config/vim/quickfix_formatter.rb\ --format\ QuickfixFormatter\ 1>/dev/null\ %
+"   Check why Gutentags sometimes doesn't work well

@@ -136,7 +136,7 @@ export PATH=$PATH:$MYSQL
 export PATH=/usr/local/bin:$PATH
 
 # Node10
-export PATH="/usr/local/opt/node@10/bin:$PATH"
+# export PATH="/usr/local/opt/node@10/bin:$PATH"
 
 # PIP binary paths
 export PATH=/Users/jbeschi/Library/Python/3.7/bin:$PATH
