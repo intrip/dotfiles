@@ -1,6 +1,5 @@
 
 ---
-gem: --no-ri --no-rdoc
 search: --remote
 update_sources: true
 benchmark: false
