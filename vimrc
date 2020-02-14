@@ -422,7 +422,7 @@ autocmd FileType ruby
 
 " Remap alternate
 autocmd FileType go
-      \ nnoremap :A :GoAlternate
+      \ :command! A GoAlternate
 
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
