@@ -112,7 +112,7 @@ set regexpengine=1                                        " Force old regex engi
 set scrolloff=3                                           " Always show 3 lines below the cursor
 
 " Hisory, cursor, rules
-set history=200                                           " Remember last 100 commands
+set history=1000                                           " Remember last 100 commands
 set laststatus=2                                          " Status bar always visible
 set number                                                " to show the current line number
 set showcmd                                               " Show current cursor info
@@ -153,6 +153,8 @@ set showmatch                                             " Shows the matching (
 set undofile                                              " Save undos after file closes
 set undodir=$HOME/.vim/undo                               " where to save undo histories
 set undolevels=1000                                       " How many undos
+
+set wildmenu                                              " Command line auto completation with tab
 
 set lazyredraw                                            " Do not redraw in the middle of a macro
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -496,5 +498,5 @@ nmap <F10> :UndotreeToggle<CR>
 "
 " TODO:
 " - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
-"   RSpec VIM formatter: autocmd FileType rspec setlocal makeprg=bundle\ exec\ rspec\ --require\ ~/.dotfiles/config/vim/quickfix_formatter.rb\ --format\ QuickfixFormatter\ 1>/dev/null\ %
+"   RSpec VIM formatter: autocmd FileType rspec setlocal makeprg=bundle\ exec\ rspec\ --require\ ~/.dotfiles/rspec_quickfix_formatter.rb\ --format\ QuickfixFormatter\ 1>/dev/null\ %
 "   Check why Gutentags sometimes doesn't work well
