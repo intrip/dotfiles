@@ -110,6 +110,7 @@ syntax enable                                             " Enables syntax highl
 syntax sync minlines=500                                  " Only searches back 500 lines for indentation (better performance)
 set regexpengine=1                                        " Force old regex engine > more performant for now
 set scrolloff=3                                           " Always show 3 lines below the cursor
+set rnu                                                   " Enables relative line numbers
 
 " Hisory, cursor, rules
 set history=1000                                           " Remember last 100 commands
@@ -128,7 +129,6 @@ set expandtab                                             " Expand tabs into spa
 " we use ascii chars because special chars are slow on OSX, ref: https://github.com/tpope/vim-sensible/issues/57
 set listchars=tab:>\ ,trail:-,nbsp:_,precedes:<           " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
-set tw=120                                                " Breaks line at 120 chars
 set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
 
