@@ -70,17 +70,15 @@ Plug 'w0rp/ale'
 " Cool dev icons
 Plug 'ryanoasis/vim-devicons'
 " Automatically rebuild ctags
-Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
+Plug 'ludovicchabant/vim-gutentags'
 " Extends vim Async features
 Plug 'tpope/vim-dispatch'
 " Useful vim mappings
 Plug 'tpope/vim-unimpaired'
 " Visual graphic of undo tree
 Plug 'mbbill/undotree'
-" Changes to single/multiple line if
+" Changes to single/multiple line if using gJ and gS
 Plug 'AndrewRadev/splitjoin.vim'
-" Switch code segments such as true/false
-Plug 'AndrewRadev/switch.vim'
 
 augroup END
 " Initialize plugin system
@@ -499,4 +497,6 @@ nmap <F10> :UndotreeToggle<CR>
 " TODO:
 " - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
 "   RSpec VIM formatter: autocmd FileType rspec setlocal makeprg=bundle\ exec\ rspec\ --require\ ~/.dotfiles/rspec_quickfix_formatter.rb\ --format\ QuickfixFormatter\ 1>/dev/null\ %
-"   Check why Gutentags sometimes doesn't work well
+"  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
+"  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?
+"  - https://github.com/jiangmiao/auto-pairs
