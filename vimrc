@@ -124,8 +124,8 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"                  " Fat cursor shape in 
 set shiftwidth=2                                          " Use 2 space tabs by default
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
-" we use ascii chars because special chars are slow on OSX, ref: https://github.com/tpope/vim-sensible/issues/57
-set listchars=tab:>\ ,trail:-,nbsp:_,precedes:<           " Highligth special characters and trailing whitespaces
+set showbreak=↪\                                          " When text is wrapped
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨   " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
 set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
@@ -161,6 +161,9 @@ set lazyredraw                                            " Do not redraw in the
 " Go specific settings
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType go set nolist
+
+" Python specific settings
+autocmd BufNewFile,BufRead *.py setlocal shiftwidth=4
 
 " Crontab specific settings
 autocmd filetype crontab setlocal nobackup nowritebackup
@@ -353,7 +356,7 @@ augroup END
 " Vim Markdown
 let g:vim_markdown_folding_disabled = 1
 " highlights code in Markdown fenced code blocks
-let g:markdown_fenced_languages = ['ruby', 'sql', 'go', 'yaml']
+let g:markdown_fenced_languages = ['ruby', 'python', 'sql', 'go', 'yaml']
 
 " NERDTree triggered with F8
 map <F8> :NERDTreeToggle<cr>
@@ -405,6 +408,14 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 let g:ale_linters = {
 \   'ruby': ['ruby'],
 \}
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '●'
+let g:ale_virtualtext_cursor = 0
+let g:ale_echo_msg_format = '[%linter%]: %s'
+let g:ale_lint_on_enter = 1
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
 " Vim Vue
