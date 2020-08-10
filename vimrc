@@ -501,7 +501,7 @@ nmap <F10> :UndotreeToggle<CR>
 " Setup_notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
 " - universal ctags are needed https://github.com/universal-ctags/ctags
-" - you need to install fzf
+" - you need to install fzf and the_silver_searcher
 " - in order to have persistent undo run: mkdir ~/.vim/undo
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 "
