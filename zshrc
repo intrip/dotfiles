@@ -209,3 +209,4 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOPATH/bin
 
+export PATH="/usr/local/opt/libiconv/bin:$PATH"
