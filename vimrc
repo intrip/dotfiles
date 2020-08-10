@@ -79,6 +79,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'mbbill/undotree'
 " Changes to single/multiple line if using gJ and gS
 Plug 'AndrewRadev/splitjoin.vim'
+" Switch true/false symbol/hashrocket etc with gs
+Plug 'AndrewRadev/switch.vim'
 
 augroup END
 " Initialize plugin system
@@ -243,7 +245,7 @@ endif
 
 " easy way to edit reload .vimrc
 nmap <Leader>V :source $MYVIMRC<cr>
-nmap <Leader>v :tabe $MYVIMRC<cr>
+nmap <Leader>v :vs $MYVIMRC<cr>
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
 " clipboard feature needs to be enabled
@@ -406,18 +408,19 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
 " Ale
 let g:ale_linters = {
-\   'ruby': ['ruby'],
+\   'ruby': ['ruby', 'rubocop'],
+\   'eruby': ['erubis']
 \}
+let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '●'
 let g:ale_virtualtext_cursor = 0
 let g:ale_echo_msg_format = '[%linter%]: %s'
 let g:ale_lint_on_enter = 1
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_text_changed = 1
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
+
 " Vim Vue
 let g:vue_pre_processors = 'detect_on_enter'
 " Allows html js and css in vue files
@@ -511,3 +514,4 @@ nmap <F10> :UndotreeToggle<CR>
 "  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
 "  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?
 "  - https://github.com/jiangmiao/auto-pairs
+"  https://solargraph.org/guides for autocomplete, renames etc
