@@ -137,6 +137,11 @@ export PATH=/usr/local/bin:$PATH
 
 # Node10
 # export PATH="/usr/local/opt/node@10/bin:$PATH"
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 
 # PIP binary paths
 export PATH=/Users/jbeschi/Library/Python/3.7/bin:$PATH
@@ -181,7 +186,6 @@ export FZF_DEFAULT_OPTS="
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
-  --preview 'cat {}'
 "
 }
 
