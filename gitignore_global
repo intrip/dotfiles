@@ -3,6 +3,7 @@
 .idea/
 tags
 todo
+jtodo
 *.swo
 *.swn
 Session.vim

@@ -81,6 +81,8 @@ Plug 'mbbill/undotree'
 Plug 'AndrewRadev/splitjoin.vim'
 " Switch true/false symbol/hashrocket etc with gs
 Plug 'AndrewRadev/switch.vim'
+" Automatically position on a given line/col
+Plug 'wsdjeg/vim-fetch'
 
 augroup END
 " Initialize plugin system
@@ -110,7 +112,7 @@ syntax enable                                             " Enables syntax highl
 syntax sync minlines=500                                  " Only searches back 500 lines for indentation (better performance)
 set regexpengine=1                                        " Force old regex engine > more performant for now
 set scrolloff=3                                           " Always show 3 lines below the cursor
-set rnu                                                   " Enables relative line numbers
+" set rnu                                                   " Enables relative line numbers
 
 " Hisory, cursor, rules
 set history=1000                                           " Remember last 100 commands
@@ -246,6 +248,9 @@ endif
 " easy way to edit reload .vimrc
 nmap <Leader>V :source $MYVIMRC<cr>
 nmap <Leader>v :vs $MYVIMRC<cr>
+
+" Moves to end of line in insert mode whilst in insert mode
+inoremap <C-e> <C-o>A
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
 " clipboard feature needs to be enabled
