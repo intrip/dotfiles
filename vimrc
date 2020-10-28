@@ -441,6 +441,10 @@ autocmd FileType ruby
 autocmd FileType go
       \ :command! A GoAlternate
 
+autocmd FileType go
+      \ :command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+
+
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
 autocmd FileType html syntax clear javascript
