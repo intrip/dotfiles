@@ -176,6 +176,8 @@ set -a
 source ~/iubendacode/iubenda_utils/docker_utils.sh
 set +a
 
+alias work='cd ~/iubendacode/mater'
+
 # Fzf
 _gen_fzf_default_opts() {
 
