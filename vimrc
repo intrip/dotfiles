@@ -83,6 +83,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 " Automatically position on a given line/col
 Plug 'wsdjeg/vim-fetch'
+" C ruby
+Plug 'mrkn/vim-cruby'
 
 augroup END
 " Initialize plugin system
@@ -129,7 +131,7 @@ set shiftwidth=2                                          " Use 2 space tabs by 
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
 set showbreak=↪\                                          " When text is wrapped
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨   " Highligth special characters and trailing whitespaces
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨   " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
 set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
@@ -218,7 +220,7 @@ nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nmap <Leader>q :%bd\|e# <CR>                             " Closes all buffer except current
 
-" Copy file name with/without absolute path to clipboard
+" Copy file name with/without absolute pat?h to clipboard
 nnoremap <Leader>c :let @*=expand("%")<CR>
 nnoremap <Leader>C :let @*=expand("%:t")<CR>
 
@@ -380,10 +382,10 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 " RSpec.vim mappings
-map <Leader>e :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+au Filetype ruby map <Leader>e :call RunCurrentSpecFile()<CR>
+au Filetype ruby map <Leader>s :call RunNearestSpec()<CR>
+au Filetype ruby map <Leader>l :call RunLastSpec()<CR>
+au Filetype ruby map <Leader>a :call RunAllSpecs()<CR>
 let g:rspec_command = "!bin/rspec {spec}"
 
 " The Silver Searcher
@@ -416,6 +418,8 @@ let g:ale_linters = {
 \   'ruby': ['ruby', 'rubocop'],
 \   'eruby': ['erubis']
 \}
+" Disable slow ALE linters
+let g:ale_linters_ignore = ['tslint', 'tidy', 'tsserver']
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '●'
@@ -425,9 +429,13 @@ let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 1
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
+" Disable autocompletion
+let g:ale_completion_enabled = 0
 
 " Vim Vue
 let g:vue_pre_processors = 'detect_on_enter'
+let g:vue_pre_processors = ['haml']
+
 " Allows html js and css in vue files
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 autocmd FileType vue syntax sync fromstart
@@ -437,12 +445,18 @@ autocmd FileType ruby
       \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
       \ let &path .= "," . $MY_RUBY_HOME . "/lib"
 
+" Golang
 " Remap alternate
 autocmd FileType go
       \ :command! A GoAlternate
 
 autocmd FileType go
       \ :command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+
+" Avoid using location list for errors
+let g:go_list_type = "quickfix"
+
+autocmd Filetype go map <Leader>e <Plug>(go-test)
 
 
 " Javascript
@@ -523,4 +537,5 @@ nmap <F10> :UndotreeToggle<CR>
 "  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
 "  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?
 "  - https://github.com/jiangmiao/auto-pairs
+"  - https://github.com/raghur/vim-ghost
 "  https://solargraph.org/guides for autocomplete, renames etc
