@@ -27,3 +27,5 @@
 	templatedir = ~/.git_template
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[pull]
+	ff = only
