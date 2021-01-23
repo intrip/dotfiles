@@ -351,6 +351,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'          " Show just the filena
 let g:airline_powerline_fonts = 1                         " Allows the fancy powerline fonts
 " truncate brach name to 16 chars
 let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
+" remove the file percentage
+let g:airline_section_z = '%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%v'
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -416,7 +418,8 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 " Ale
 let g:ale_linters = {
 \   'ruby': ['ruby', 'rubocop'],
-\   'eruby': ['erubis']
+\   'eruby': ['erubis'],
+\   'yaml': ['yamllint']
 \}
 " Disable slow ALE linters
 let g:ale_linters_ignore = ['tslint', 'tidy', 'tsserver']
@@ -462,6 +465,10 @@ autocmd Filetype go map <Leader>e <Plug>(go-test)
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
 autocmd FileType html syntax clear javascript
+
+" C
+au FileType c setl ts=8 sw=4 expandtab
+au FileType ruby setl nowrap tabstop=8 tw=0 sw=2 expandtab
 
 " Set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
@@ -533,9 +540,7 @@ nmap <F10> :UndotreeToggle<CR>
 "
 " TODO:
 " - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
-"   RSpec VIM formatter: autocmd FileType rspec setlocal makeprg=bundle\ exec\ rspec\ --require\ ~/.dotfiles/rspec_quickfix_formatter.rb\ --format\ QuickfixFormatter\ 1>/dev/null\ %
 "  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
 "  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?
-"  - https://github.com/jiangmiao/auto-pairs
 "  - https://github.com/raghur/vim-ghost
-"  https://solargraph.org/guides for autocomplete, renames etc
+"  - https://solargraph.org/guides for autocomplete, renames etc
