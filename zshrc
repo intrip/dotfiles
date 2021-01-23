@@ -99,8 +99,10 @@ git_push_all() {
 alias gpa=git_push_all
 # pull current branch
 alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
+# Print current branch name
+alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
 # Copy current branch name
-alias gbc='git rev-parse --abbrev-ref HEAD | tr -d "\n" | pbcopy'
+alias gbc='gbp | pbcopy'
 # git fetch origin
 function git_fetch_origin() {
   git fetch origin $1:$1
