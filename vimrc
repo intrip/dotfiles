@@ -85,6 +85,10 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'wsdjeg/vim-fetch'
 " C ruby
 Plug 'mrkn/vim-cruby'
+" Simpler ruby folding
+Plug 'vim-utils/vim-ruby-fold'
+" Open GH at the given line
+Plug 'ruanyl/vim-gh-line'
 
 augroup END
 " Initialize plugin system
@@ -142,9 +146,9 @@ set smartindent
 set textwidth=100                                         " Automatically breaks new line after 100 chars
 
 " Folding
-set nofen                                                 " Disables folding when opening a file
-set foldmethod=indent                                     " Folds everything indented by 2 spaces
-set foldlevel=1
+set fen                                                   " Enable folding when opening a file
+set foldmethod=manual                                     " Folds everything indented by 2 spaces
+set foldlevel=0
 
 " Search
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
@@ -204,6 +208,10 @@ autocmd InsertLeave * set iminsert=0
 autocmd User Rails setlocal makeprg=bundle\ exec\ rubocop\ -a\ \%
 map <Leader>r :Make<CR>
 map <Leader>R :make<CR>
+
+" Open fold with space
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+hi Folded ctermfg=32
 
 " Quick switch between numbers ruler
 noremap <silent> <F12> :set number!<CR>
@@ -522,6 +530,7 @@ nmap <F10> :UndotreeToggle<CR>
 " ]e [e move current line up or below
 " \"*yy or prepend anything with \"* (unescaped) to use the system clipboard
 " <Leader>r to run makeprg > rubucop for .ruby files
+" <Leager>gb/gb open GH at git page or blame
 "
 " Tips:
 " to do find and replace: ag -l pattern | xargs -o vim   # and then do your
