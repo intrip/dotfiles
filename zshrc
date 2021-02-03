@@ -87,8 +87,6 @@ bindkey jk vi-cmd-mode
 # GIT
 ###
 
-# push current branch
-alias gph='git push origin HEAD'
 # auto push to all remotes branches
 git_push_all() {
   for i in $(git remote -v | cut -f1 | sort -u)
@@ -108,6 +106,11 @@ function git_fetch_origin() {
   git fetch origin $1:$1
 }
 alias gfo=git_fetch_origin
+
+# push current branch
+alias gph='git push origin HEAD'
+# push current branch in fork
+alias gphf='git push fork $(gbp)'
 
 # Gitlab
 alias gl-install='spring stop && bundle && rdm && yarn install'
