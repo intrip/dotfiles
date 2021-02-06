@@ -89,6 +89,8 @@ Plug 'mrkn/vim-cruby'
 Plug 'vim-utils/vim-ruby-fold'
 " Open GH at the given line
 Plug 'ruanyl/vim-gh-line'
+" Show all Ctags in a window, also useful for status bar
+Plug 'preservim/tagbar'
 
 augroup END
 " Initialize plugin system
@@ -361,6 +363,9 @@ let g:airline_powerline_fonts = 1                         " Allows the fancy pow
 let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
 " remove the file percentage
 let g:airline_section_z = '%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%v'
+" show current class.function in vim airline
+let g:airline#extensions#tagbar#flags = 'f'
+
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
