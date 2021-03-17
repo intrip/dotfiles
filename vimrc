@@ -91,6 +91,8 @@ Plug 'vim-utils/vim-ruby-fold'
 Plug 'ruanyl/vim-gh-line'
 " Show all Ctags in a window, also useful for status bar
 Plug 'preservim/tagbar'
+" Leader<b> to swap ruby block syntax
+Plug 'jgdavey/vim-blockle'
 
 augroup END
 " Initialize plugin system
@@ -148,7 +150,7 @@ set smartindent
 set textwidth=100                                         " Automatically breaks new line after 100 chars
 
 " Folding
-set fen                                                   " Enable folding when opening a file
+set nofen                                                   " Disable folding when opening a file
 set foldmethod=manual                                     " Folds everything indented by 2 spaces
 set foldlevel=0
 
@@ -284,6 +286,9 @@ cnoreabbrev vS vs
 " Moves up and down between wrapped lines 1 step at time
 nmap j gj
 nmap k gk
+
+" Paste always last yanked test
+nmap P "0p
 
 " Toggles on and off line wrap
 function! ToggleWrap()
