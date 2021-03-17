@@ -141,6 +141,11 @@ export ENABLE_SPRING='1'
 # to build icu4d
 export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 
+
+# Serve HTML page with WebRick
+
+alias served="ruby -r webrick -e \"s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start\""
+
 #####
 # MYSQL
 #####
@@ -181,7 +186,7 @@ set -a
 source ~/iubendacode/iubenda_utils/docker_utils.sh
 set +a
 
-alias work='cd ~/iubendacode/mater'
+alias work='cd ~/iubendacode'
 
 # Fzf
 _gen_fzf_default_opts() {
