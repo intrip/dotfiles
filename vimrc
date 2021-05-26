@@ -39,9 +39,9 @@ Plug 'tpope/vim-commentary'
 " Vim snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" Syntax highlighting, matching rules and mappings for Markdown files
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+" Markdown live editing, need `npm install -g livedown`
+Plug 'shime/vim-livedown'
 " Easy quote and parenthesis
 Plug 'tpope/vim-surround'
 " JSON formatting
@@ -503,6 +503,9 @@ nmap <Leader>rt :GutentagsUpdate!<CR>
 " Show UndoTree with F10
 nmap <F10> :UndotreeToggle<CR>
 
+" gm for Markdown preview toggle
+nmap gm :LivedownToggle
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -556,6 +559,7 @@ nmap <F10> :UndotreeToggle<CR>
 " - you need to install fzf and the_silver_searcher
 " - in order to have persistent undo run: mkdir ~/.vim/undo
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
+" - install livedown `npm install -g livedown`
 "
 " TODO:
 " - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
