@@ -158,6 +158,9 @@ export PATH=$PATH:$MYSQL
 ###
 
 export PATH=/usr/local/bin:$PATH
+# Disable analytics
+export HOMEBREW_NO_ANALYTICS=1
+
 
 # Node10
 # export PATH="/usr/local/opt/node@10/bin:$PATH"
@@ -166,9 +169,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-
 # PIP binary paths
 export PATH=/Users/jbeschi/Library/Python/3.7/bin:$PATH
+export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
 # High sierra forking fix: https://github.com/puma/puma/issues/1421
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
@@ -185,6 +188,10 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 set -a
 source ~/iubendacode/iubenda_utils/docker_utils.sh
 set +a
+
+# Used for docker-compose and SSH key
+export ssh_prv_key="$(cat ~/.ssh/id_rsa)"
+export ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
 
 alias work='cd ~/iubendacode'
 
