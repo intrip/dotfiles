@@ -19,8 +19,8 @@ SPACESHIP_PROMPT_ORDER=(
   exec_time     # Execution time
   line_sep      # Line break
   vi_mode       # Vi-mode indicator
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
+  #jobs          # Background jobs indicator
+  #exit_code     # Exit code section
   char          # Prompt character
 )
 
@@ -61,7 +61,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails bundler kubectl)
+plugins=(git rails kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,7 +80,6 @@ if [[ -n $SSH_CONNECTION ]]; then
 fi
 
 # vim mode with jk so that can get to prev command with jkk
-
 bindkey jk vi-cmd-mode
 
 ###
@@ -183,11 +182,6 @@ export PATH=$PATH:~/.bin
 export PATH=$PATH:./bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# iubenda development-kit
-set -a
-source ~/iubendacode/iubenda_utils/docker_utils.sh
-set +a
 
 # Used for docker-compose and SSH key
 export ssh_prv_key="$(cat ~/.ssh/id_rsa)"
