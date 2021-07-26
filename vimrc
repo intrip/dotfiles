@@ -18,6 +18,8 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Git integration
 Plug 'tpope/vim-fugitive'
+" Show diff from a ref
+Plug 'airblade/vim-gitgutter'
 " Custom color schemes
 Plug 'flazz/vim-colorschemes'
 " Solarized color scheme
@@ -42,6 +44,7 @@ Plug 'honza/vim-snippets'
 Plug 'godlygeek/tabular'
 " Markdown live editing, need `npm install -g livedown`
 Plug 'shime/vim-livedown'
+Plug 'plasticboy/vim-markdown'
 " Easy quote and parenthesis
 Plug 'tpope/vim-surround'
 " JSON formatting
@@ -250,6 +253,9 @@ map <C-L> <C-W>l
 " Next/prev quickfix result with up and down arrows
 map <down> :cn<CR>
 map <up> :cp<CR>
+" Next/prev locationlist with shift + up and down arrows
+map <S-down> :lnext<CR>
+map <S-up> :lprev<CR>
 
 " Use <S-B> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-B> :nohlsearch<CR>
@@ -314,7 +320,7 @@ function! ToggleRelativeLineNumbers()
 endfunction
 nmap <F6> :call ToggleRelativeLineNumbers()<CR>
 
-" Toggle quickfix window
+" Toggle QuickfixList
 function! GetBufferList()
   redir =>buflist
   silent! ls!
@@ -340,8 +346,10 @@ function! ToggleList(bufname, pfx)
     wincmd p
   endif
 endfunction
-
 nmap <F9> :call ToggleList("Quickfix List", 'c')<CR>
+
+" Open LocationList
+nmap <S-F9> :lopen<CR>
 
 " Uses patience algorithm for diff
 if has("patch-8.1.0360")
@@ -387,6 +395,9 @@ let g:vim_markdown_folding_disabled = 1
 " highlights code in Markdown fenced code blocks
 let g:markdown_fenced_languages = ['ruby', 'python', 'sql', 'go', 'yaml']
 
+" Enable code syntax in markdown (this is bultin in vim)
+let g:markdown_fenced_languages = ['html', 'ruby']
+
 " NERDTree triggered with F8
 map <F8> :NERDTreeToggle<cr>
 " NERDTree in current directory triggered with F7
@@ -425,10 +436,11 @@ endif
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
 nnoremap <C-p> :Files<cr>
-" Alt+p
-nnoremap π :Buf<cr>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" Alt+p
+nnoremap π :Buf<cr>
 
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
@@ -474,9 +486,6 @@ autocmd FileType go
 autocmd FileType go
       \ :command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 
-" Avoid using location list for errors
-let g:go_list_type = "quickfix"
-
 autocmd Filetype go map <Leader>e <Plug>(go-test)
 
 
@@ -505,6 +514,10 @@ nmap <F10> :UndotreeToggle<CR>
 
 " gm for Markdown preview toggle
 nmap gm :LivedownToggle
+
+" git diff
+" let g:gitgutter_diff_base = 'master'
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
@@ -562,6 +575,9 @@ nmap gm :LivedownToggle
 " - install livedown `npm install -g livedown`
 "
 " TODO:
+" - fix <p> indent for html and ERB
+" - fix folding to also hide comments
+" - configure the git diff plugin
 " - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
 "  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
 "  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?

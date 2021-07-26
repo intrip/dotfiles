@@ -111,6 +111,9 @@ alias gph='git push origin HEAD'
 # push current branch in fork
 alias gphf='git push fork $(gbp)'
 
+# open with vi changes files
+alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o vi'
+
 # Gitlab
 alias gl-install='spring stop && bundle && rdm && yarn install'
 
@@ -187,48 +190,57 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export ssh_prv_key="$(cat ~/.ssh/id_rsa)"
 export ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
 
+### Iubenda
+#
 alias work='cd ~/iubendacode'
+# Open in chrome all the asana task for the last release
+asana_release() {
+head -n 100 CHANGELOG.md |
+  ruby -e 'a = ARGF.to_a; e = a.find_index { |x| x =~ /^\s*\n$/ }; puts a[2..e]' |
+  ruby -e 'puts ARGF.map { |l| l =~ /(https:\/\/app\.asana.*)\n/ && $1 }.compact' | xargs open -a "Google Chrome"
+}
+alias asana_release=asana_release()
 
 # Fzf
-_gen_fzf_default_opts() {
+# Colors
+local base03="234"
+local base02="235"
+local base01="240"
+local base00="241"
+local base0="244"
+local base1="245"
+local base2="254"
+local base3="230"
+local yellow="136"
+local orange="166"
+local red="160"
+local magenta="125"
+local violet="61"
+local blue="33"
+local cyan="37"
+local green="64"
 
-local color00='#002b36'
-local color01='#073642'
-local color02='#586e75'
-local color03='#657b83'
-local color04='#839496'
-local color05='#93a1a1'
-local color06='#eee8d5'
-local color07='#fdf6e3'
-local color08='#dc322f'
-local color09='#cb4b16'
-local color0A='#b58900'
-local color0B='#859900'
-local color0C='#2aa198'
-local color0D='#268bd2'
-local color0E='#6c71c4'
-local color0F='#d33682'
+# Comment and uncomment below for the light theme.
 
+# Solarized Dark color scheme for fzf
 export FZF_DEFAULT_OPTS="
-  --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
-  --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
-  --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
+--color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
+--color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
 "
-}
-
-_gen_fzf_default_opts
+# Solarized Light color scheme for fzf
+#export FZF_DEFAULT_OPTS="
+#  --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
+#  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+#"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Bat
+export BAT_THEME="Solarized (dark)"
 
 # Kube
 
-kill_pod() {
- eval "kubectl exec -it $1 -- /bin/sh -c 'kill 1'"
-}
-
-alias kube_token='kubectl -n kube-system describe secret marzi-token-9zm75'
-alias k_pod=kill_pod
+alias kc='kubectx'
 
 ###
 # GOLANG
