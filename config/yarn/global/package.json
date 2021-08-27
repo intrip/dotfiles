@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "node-gyp": "^3.6.2",
+    "showdown": "^1.9.1"
+  }
+}
