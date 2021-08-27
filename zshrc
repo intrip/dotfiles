@@ -74,9 +74,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
  else
-  export EDITOR='/usr/local/bin/vim'
+  export EDITOR='/usr/local/bin/nvim'
 fi
 
 # vim mode with jk so that can get to prev command with jkk

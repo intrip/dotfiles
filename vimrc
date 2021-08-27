@@ -7,95 +7,93 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" File navigation
 Plug 'scrooloose/nerdtree'
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" FZF vim settings
 Plug 'junegunn/fzf.vim'
+
 " Status bar, remember to install the patched powerline fonts: https://github.com/powerline/fonts
 Plug 'bling/vim-airline'
 " Status bar custom colors
 Plug 'vim-airline/vim-airline-themes'
+
 " Git integration
 Plug 'tpope/vim-fugitive'
 " Show diff from a ref
 Plug 'airblade/vim-gitgutter'
+
 " Custom color schemes
 Plug 'flazz/vim-colorschemes'
 " Solarized color scheme
 Plug 'altercation/vim-colors-solarized'
-" Ruby extension
+" Cool dev icons
+Plug 'ryanoasis/vim-devicons'
+
+" Ruby
 Plug 'vim-ruby/vim-ruby'
-" Rails vim integration
+" Rails
 Plug 'tpope/vim-rails'
-" Rspec and vim integration
-Plug 'thoughtbot/vim-rspec'
-" Test integration
-Plug 'vim-test/vim-test'
-" Javascript syntax
+" Javascript
 Plug 'pangloss/vim-javascript'
-" Automatic end complete
-Plug 'tpope/vim-endwise'
 " Haml and Scss
 Plug 'tpope/vim-haml'
+" Golang extension
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+" C ruby
+Plug 'mrkn/vim-cruby'
+" Vue.js integration
+Plug 'posva/vim-vue'
+" JSON formatting
+Plug 'elzr/vim-json'
+" Markdown live editing, need `npm install -g livedown`
+Plug 'shime/vim-livedown'
+Plug 'plasticboy/vim-markdown'
+" Automatically rebuild ctags
+Plug 'ludovicchabant/vim-gutentags'
+
+" Automatic end complete
+Plug 'tpope/vim-endwise'
+" Autoclose HTML tags
+Plug 'alvan/vim-closetag'
 " Commment handling
 Plug 'tpope/vim-commentary'
 " Vim snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'godlygeek/tabular'
-" Markdown live editing, need `npm install -g livedown`
-Plug 'shime/vim-livedown'
-Plug 'plasticboy/vim-markdown'
 " Easy quote and parenthesis
 Plug 'tpope/vim-surround'
-" JSON formatting
-Plug 'elzr/vim-json'
-" Golang extension
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-" Enables FocusLost and FocusGained events
-Plug 'sjl/vitality.vim'
-" Allow to quick jump between files, use :A to jump to the spec for example
-Plug 'tpope/vim-projectionist'
-" Integrates bundler with Bopen or Bundle
-Plug 'tpope/vim-bundler'
-" Autoclose HTML tags
-Plug 'alvan/vim-closetag'
-" Vue.js integration
-Plug 'posva/vim-vue'
-" Jump between diff conflitcs
-Plug 'tpope/vim-unimpaired'
+" Changes to single/multiple line if using gJ and gS
+Plug 'AndrewRadev/splitjoin.vim'
+" Switch true/false symbol/hashrocket etc with gs
+Plug 'AndrewRadev/switch.vim'
 " Allows to repeat with . also some Plugin commands such as vim.sorround ones
 Plug 'tpope/vim-repeat'
+
 " LSP support: needed for Ale
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 " Async lint engine
 Plug 'w0rp/ale'
-" Cool dev icons
-Plug 'ryanoasis/vim-devicons'
-" Automatically rebuild ctags
-Plug 'ludovicchabant/vim-gutentags'
-" Extends vim Async features
-Plug 'tpope/vim-dispatch'
+
+" Test
+Plug 'vim-test/vim-test'
+
+" Enables FocusLost and FocusGained events
+Plug 'sjl/vitality.vim'
+" Allow to quick jump between files, use :A to jump to the spec for example
+Plug 'tpope/vim-projectionist'
+" Jump between diff conflitcs
+Plug 'tpope/vim-unimpaired'
 " Useful vim mappings
 Plug 'tpope/vim-unimpaired'
-" Changes to single/multiple line if using gJ and gS
-Plug 'AndrewRadev/splitjoin.vim'
-" Switch true/false symbol/hashrocket etc with gs
-Plug 'AndrewRadev/switch.vim'
 " Automatically position on a given line/col
 Plug 'wsdjeg/vim-fetch'
-" C ruby
-Plug 'mrkn/vim-cruby'
 " Simpler ruby folding
 Plug 'vim-utils/vim-ruby-fold'
 " Open GH at the given line
 Plug 'ruanyl/vim-gh-line'
-" Show all Ctags in a window, also useful for status bar
-Plug 'preservim/tagbar'
-" Leader<b> to swap ruby block syntax
-Plug 'jgdavey/vim-blockle'
 
 augroup END
 " Initialize plugin system
@@ -125,10 +123,10 @@ syntax enable                                             " Enables syntax highl
 syntax sync minlines=500                                  " Only searches back 500 lines for indentation (better performance)
 set regexpengine=1                                        " Force old regex engine > more performant for now
 set scrolloff=3                                           " Always show 3 lines below the cursor
-" set rnu                                                   " Enables relative line numbers
+set rnu                                                   " Enables relative line numbers
 
 " Hisory, cursor, rules
-set history=1000                                           " Remember last 100 commands
+set history=100                                           " Remember last 100 commands
 set laststatus=2                                          " Status bar always visible
 set number                                                " to show the current line number
 set showcmd                                               " Show current cursor info
@@ -136,6 +134,7 @@ set mouse=a                                               " Enable mouse movemen
 set cursorline                                            " Highlight current cursor line
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"                  " Thin cursor shape in insert mode
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"                  " Fat cursor shape in normal mode
+set cc=100                                                " Show column at 100
 
 " Tabs and white spaces
 set shiftwidth=2                                          " Use 2 space tabs by default
@@ -173,7 +172,7 @@ set wildmenu                                              " Command line auto co
 
 set lazyredraw                                            " Do not redraw in the middle of a macro
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Identantion spaces length depending on file format
+" Identation spaces length depending on file format
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Go specific settings
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
@@ -182,12 +181,14 @@ autocmd FileType go set nolist
 " Python specific settings
 autocmd BufNewFile,BufRead *.py setlocal shiftwidth=4
 
+" C specific settings
+au FileType c setl ts=8 sw=4 expandtab
+au FileType ruby setl nowrap tabstop=8 tw=0 sw=2 expandtab
+
 " Crontab specific settings
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-" Keep syntax in sync
-" autocmd BufEnter * :syntax sync fromstart
-
+" Sessions:
 " Define what to save with :mksession
 " blank - empty windows
 " buffers - all buffers not only ones in a window
@@ -199,6 +200,10 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 " tabpages - all tab pages
 set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Bindings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Toggle insert mode only caps lock with Ctrl+6
 " Execute 'lnoremap x X' and 'lnoremap X x' for each letter a-z.
 for c in range(char2nr('A'), char2nr('Z'))
@@ -207,14 +212,10 @@ for c in range(char2nr('A'), char2nr('Z'))
 endfor
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Quick commands
-""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Make program
 autocmd User Rails setlocal makeprg=bundle\ exec\ rubocop\ -a\ \%
 map <Leader>r :Make<CR>
-map <Leader>R :make<CR>
 
 " Open fold with space
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -260,17 +261,9 @@ map <S-up> :lprev<CR>
 " Use <S-B> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-B> :nohlsearch<CR>
 
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
-
 " easy way to edit reload .vimrc
-nmap <Leader>V :source $MYVIMRC<cr>
-nmap <Leader>v :vs $MYVIMRC<cr>
-
-" Moves to end of line in insert mode whilst in insert mode
-inoremap <C-e> <C-o>A
+nmap <Leader>V :source ~/.vimrc<cr>
+nmap <Leader>v :vs ~/.vimrc<cr>
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
 " clipboard feature needs to be enabled
@@ -306,7 +299,7 @@ function! ToggleWrap()
     echo "line wrap on"
   endif
 endfunction
-nmap <F11> :call ToggleWrap()<CR>
+nmap <F10> :call ToggleWrap()<CR>
 
 " Toggles on and off relative line numbers
 function! ToggleRelativeLineNumbers()
@@ -351,18 +344,6 @@ nmap <F9> :call ToggleList("Quickfix List", 'c')<CR>
 " Open LocationList
 nmap <S-F9> :lopen<CR>
 
-" Uses patience algorithm for diff
-if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:patience
-endif
-
-" Highlight current window bit showing cc
-augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set cc=120
-    autocmd WinLeave * set cc=0
-augroup END
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -376,8 +357,6 @@ let g:airline_powerline_fonts = 1                         " Allows the fancy pow
 let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get_head(),120)}'
 " remove the file percentage
 let g:airline_section_z = '%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%v'
-" show current class.function in vim airline
-" let g:airline#extensions#tagbar#flags = 'f'
 
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -412,22 +391,15 @@ let NERDTreeMapUpdir='-'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-if filereadable("bin/rspec")
-  " RSpec.vim mappings
-  au Filetype ruby map <Leader>s :call RunNearestSpec()<CR>
-  au Filetype ruby map <Leader>e :call RunCurrentSpecFile()<CR>
-  au Filetype ruby map <Leader>a :call RunAllSpecs()<CR>
-  au Filetype ruby map <Leader>l :call RunLastSpec()<CR>
-  let g:rspec_command = "!bin/rspec {spec}"
-else
-  " Vim test
-  nmap <silent> <Leader>s :TestNearest<CR>
-  nmap <silent> <Leader>e :TestFile<CR>
-  nmap <silent> <Leader>a :TestSuite<CR>
-  nmap <silent> <Leader>l :TestLast<CR>
-  nmap <silent> <Leader>o :TestVisit<CR>
-  let test#strategy = "dispatch_background"
-endif
+" Vim test
+nmap <silent> <Leader>s :TestNearest<CR>
+nmap <silent> <Leader>e :TestFile<CR>
+nmap <silent> <Leader>a :TestSuite<CR>
+nmap <silent> <Leader>l :TestLast<CR>
+nmap <silent> <Leader>o :TestVisit<CR>
+let test#strategy = "neovim"
+" TODO use harpoon + configure it
+" let test#strategy = "harpoon"
 
 " The Silver Searcher
 " Inspired by http://robots.thoughtbot.com/faster-grepping-in-vim/
@@ -443,6 +415,7 @@ if executable('ag')
 
   nnoremap , :Ag<SPACE>
 endif
+
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
 nnoremap <C-p> :Files<cr>
@@ -502,10 +475,6 @@ autocmd Filetype go map <Leader>e <Plug>(go-test)
 " disables JS syntax for html files: due to vue template files being very slow
 autocmd FileType html syntax clear javascript
 
-" C
-au FileType c setl ts=8 sw=4 expandtab
-au FileType ruby setl nowrap tabstop=8 tw=0 sw=2 expandtab
-
 " Set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
@@ -528,8 +497,6 @@ nmap gm :LivedownToggle
 " Run sync
 let g:gitgutter_async = 0
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -547,9 +514,7 @@ let g:gitgutter_async = 0
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
 " F9 toggle quickfix
-" F10 to toggle history
-" F11 to toggle line wrap
-" F12 toggle line number
+" F10 to toggle line wrap
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file, 2gf to open the second related file, g] to show all the results
 " gJ or gS to split/join if into 1 or multiple lines
@@ -585,14 +550,17 @@ let g:gitgutter_async = 0
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 " - install livedown `npm install -g livedown`
 "
+"  For NeoVim:
+"  pip2 install pynvim
+"  pip3 install pynvim
+"
+"
 " TODO:
-" - try neovim
-" - install harpoon: require neovim
-"  -https://github.com/voldikss/vim-floaterm/blob/master/README.md
-" - autocomplete: COC and COQ vim
-" - fix <p> indent for html and ERB
+" - autocomplete: COC and COQ vim, https://solargraph.org/guides as LSP:
+"    configure correctly the preferred autocomplete
+" - use harpoon, configure it and also use it as test strategy
+" - refactor plugin settings by moving them to sub folders
 " - fix folding to also hide comments
-"  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
-"  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?
-"  - https://github.com/raghur/vim-ghost
-"  - https://solargraph.org/guides for autocomplete, renames etc
+" - floating terminal for fzfz ? https://github.com/voldikss/vim-floaterm/blob/master/README.md 
+"     https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
+" - fix <p> indent for html and ERB
