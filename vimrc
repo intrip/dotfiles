@@ -30,6 +30,8 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 " Rspec and vim integration
 Plug 'thoughtbot/vim-rspec'
+" Test integration
+Plug 'vim-test/vim-test'
 " Javascript syntax
 Plug 'pangloss/vim-javascript'
 " Automatic end complete
@@ -78,8 +80,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-dispatch'
 " Useful vim mappings
 Plug 'tpope/vim-unimpaired'
-" Visual graphic of undo tree
-Plug 'mbbill/undotree'
 " Changes to single/multiple line if using gJ and gS
 Plug 'AndrewRadev/splitjoin.vim'
 " Switch true/false symbol/hashrocket etc with gs
@@ -377,7 +377,7 @@ let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get
 " remove the file percentage
 let g:airline_section_z = '%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%v'
 " show current class.function in vim airline
-let g:airline#extensions#tagbar#flags = 'f'
+" let g:airline#extensions#tagbar#flags = 'f'
 
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -412,12 +412,22 @@ let NERDTreeMapUpdir='-'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-" RSpec.vim mappings
-au Filetype ruby map <Leader>e :call RunCurrentSpecFile()<CR>
-au Filetype ruby map <Leader>s :call RunNearestSpec()<CR>
-au Filetype ruby map <Leader>l :call RunLastSpec()<CR>
-au Filetype ruby map <Leader>a :call RunAllSpecs()<CR>
-let g:rspec_command = "!bin/rspec {spec}"
+if filereadable("bin/rspec")
+  " RSpec.vim mappings
+  au Filetype ruby map <Leader>s :call RunNearestSpec()<CR>
+  au Filetype ruby map <Leader>e :call RunCurrentSpecFile()<CR>
+  au Filetype ruby map <Leader>a :call RunAllSpecs()<CR>
+  au Filetype ruby map <Leader>l :call RunLastSpec()<CR>
+  let g:rspec_command = "!bin/rspec {spec}"
+else
+  " Vim test
+  nmap <silent> <Leader>s :TestNearest<CR>
+  nmap <silent> <Leader>e :TestFile<CR>
+  nmap <silent> <Leader>a :TestSuite<CR>
+  nmap <silent> <Leader>l :TestLast<CR>
+  nmap <silent> <Leader>o :TestVisit<CR>
+  let test#strategy = "dispatch_background"
+endif
 
 " The Silver Searcher
 " Inspired by http://robots.thoughtbot.com/faster-grepping-in-vim/
@@ -429,7 +439,7 @@ if executable('ag')
   nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
   " bind , (backward slash) to grep shortcut
-  command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+  command -nargs=+ -complete=file -bar Ag silent! grep! --hidden <args>|cwindow|redraw!
 
   nnoremap , :Ag<SPACE>
 endif
@@ -488,7 +498,6 @@ autocmd FileType go
 
 autocmd Filetype go map <Leader>e <Plug>(go-test)
 
-
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
 autocmd FileType html syntax clear javascript
@@ -509,14 +518,16 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 " triggers a manual tags update on all the project
 nmap <Leader>rt :GutentagsUpdate!<CR>
 
-" Show UndoTree with F10
-nmap <F10> :UndotreeToggle<CR>
-
 " gm for Markdown preview toggle
 nmap gm :LivedownToggle
 
 " git diff
 " let g:gitgutter_diff_base = 'master'
+" let g:gitgutter_highlight_lines = 1
+" let g:gitgutter_highlight_linenrs = 1
+" Run sync
+let g:gitgutter_async = 0
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -575,10 +586,12 @@ nmap gm :LivedownToggle
 " - install livedown `npm install -g livedown`
 "
 " TODO:
+" - try neovim
+" - install harpoon: require neovim
+"  -https://github.com/voldikss/vim-floaterm/blob/master/README.md
+" - autocomplete: COC and COQ vim
 " - fix <p> indent for html and ERB
 " - fix folding to also hide comments
-" - configure the git diff plugin
-" - check the plugin: https://github.com/neoclide/coc.nvim, https://github.com/Shougo/denite.nvim, https://tabnine.com/faq#simple
 "  - floating fzf https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
 "  - remove ruby and rails plugin and just use "  https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120 ?
 "  - https://github.com/raghur/vim-ghost
