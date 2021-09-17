@@ -5,20 +5,21 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+# ZSH_THEME="robbyrussell"
 ZSH_THEME="spaceship"
 
 SPACESHIP_PROMPT_ORDER=(
-  time          # Time stamps section
+  # time          # Time stamps section
   user          # Username section
   dir           # Current directory section
-  host          # Hostname section
+  # host          # Hostname section
   git           # Git section (git_branch + git_status)
   ruby          # Ruby section
-  golang        # Go section
-  pyenv         # Pyenv section
-  exec_time     # Execution time
-  line_sep      # Line break
-  vi_mode       # Vi-mode indicator
+  # golang        # Go section
+  # pyenv         # Pyenv section
+  # exec_time     # Execution time
+  # line_sep      # Line break
+  # vi_mode       # Vi-mode indicator
   #jobs          # Background jobs indicator
   #exit_code     # Exit code section
   char          # Prompt character
@@ -114,9 +115,6 @@ alias gphf='git push fork $(gbp)'
 # open with vi changes files
 alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o vi'
 
-# Gitlab
-alias gl-install='spring stop && bundle && rdm && yarn install'
-
 # Rubocop on last commit files. Ignores `db/schema.rb` as Rubocop normally does.
 alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
 # Rubocop on all the changed files between the current branch and master. Ignores `db/schema.rb` as Rubocop normally does.
@@ -174,9 +172,6 @@ export NVM_DIR="$HOME/.nvm"
 # PIP binary paths
 export PATH=/Users/jbeschi/Library/Python/3.7/bin:$PATH
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
-
-# High sierra forking fix: https://github.com/puma/puma/issues/1421
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Dotfiles bin path
 export PATH=$PATH:~/.bin

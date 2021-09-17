@@ -262,7 +262,7 @@ map <S-up> :lprev<CR>
 nnoremap <silent> <S-B> :nohlsearch<CR>
 
 " easy way to edit reload .vimrc
-nmap <Leader>V :source ~/.vimrc<cr>
+nmap <Leader>V :source $MYVIMRC<cr>
 nmap <Leader>v :vs ~/.vimrc<cr>
 
 " <F2> Copy the current line in normal mode and the selected text in visual mode
@@ -299,7 +299,7 @@ function! ToggleWrap()
     echo "line wrap on"
   endif
 endfunction
-nmap <F10> :call ToggleWrap()<CR>
+nmap <F11> :call ToggleWrap()<CR>
 
 " Toggles on and off relative line numbers
 function! ToggleRelativeLineNumbers()
@@ -342,7 +342,21 @@ endfunction
 nmap <F9> :call ToggleList("Quickfix List", 'c')<CR>
 
 " Open LocationList
-nmap <S-F9> :lopen<CR>
+nmap <F10> :lopen<CR>
+
+" Clear marks used for common files
+command! Clearm delm A S D F G H
+map <Leader>M :Clearm<CR>
+function! KeepMarks()
+  %bd
+  silent! 'A
+  silent! 'S
+  silent! 'D
+  silent! 'F
+  silent! 'G
+  silent! 'H
+endfunction
+map <Leader>Q :call KeepMarks()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN OPTIONS
@@ -398,8 +412,14 @@ nmap <silent> <Leader>a :TestSuite<CR>
 nmap <silent> <Leader>l :TestLast<CR>
 nmap <silent> <Leader>o :TestVisit<CR>
 let test#strategy = "neovim"
-" TODO use harpoon + configure it
+" TODO maybe use harpoon test terminal + configure it
 " let test#strategy = "harpoon"
+
+" if $DOCKE_APPNAME is set uses it with docker_compose
+if exists("$DOCKER_APPNAME")
+  let test#ruby#rspec#executable = 'docker-compose exec -e RAILS_ENV=test ${DOCKER_APPNAME} bundle exec rspec'
+  let test#ruby#minitest#executable = 'docker-compose exec -e RAILS_ENV=test ${DOCKER_APPNAME} bundle exec ruby -Itest'
+endif
 
 " The Silver Searcher
 " Inspired by http://robots.thoughtbot.com/faster-grepping-in-vim/
@@ -418,12 +438,13 @@ endif
 
 " Fzf
 let g:fzf_layout = { 'down': '~40%' }
-nnoremap <C-p> :Files<cr>
+nnoremap <C-p> :Files<CR>
 " Enables history navigation
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
 " Alt+p
 nnoremap π :Buf<cr>
+" Ctrl+'
+nnoremap  :BTags<CR>
 
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
@@ -488,7 +509,7 @@ let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'publi
 nmap <Leader>rt :GutentagsUpdate!<CR>
 
 " gm for Markdown preview toggle
-nmap gm :LivedownToggle
+nmap gm :LivedownToggle<CR>
 
 " git diff
 " let g:gitgutter_diff_base = 'master'
@@ -514,7 +535,8 @@ let g:gitgutter_async = 0
 " F8 for NERDTree
 " F7 for NERDTree in current buffer folder
 " F9 toggle quickfix
-" F10 to toggle line wrap
+" F10 toggle loclist
+" F11 to toggle line wrap
 " gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
 " gf to open the related file, 2gf to open the second related file, g] to show all the results
 " gJ or gS to split/join if into 1 or multiple lines
@@ -554,11 +576,11 @@ let g:gitgutter_async = 0
 "  pip2 install pynvim
 "  pip3 install pynvim
 "
-"
 " TODO:
 " - autocomplete: COC and COQ vim, https://solargraph.org/guides as LSP:
+" - Tree-setter?
 "    configure correctly the preferred autocomplete
-" - use harpoon, configure it and also use it as test strategy
+" - try telescope?
 " - refactor plugin settings by moving them to sub folders
 " - fix folding to also hide comments
 " - floating terminal for fzfz ? https://github.com/voldikss/vim-floaterm/blob/master/README.md 
