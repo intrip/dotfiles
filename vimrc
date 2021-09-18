@@ -575,12 +575,13 @@ let g:gitgutter_async = 0
 "  For NeoVim:
 "  pip2 install pynvim
 "  pip3 install pynvim
+"  In general run checkhealth provider and fix issues
 "
 " TODO:
 " - autocomplete: COC and COQ vim, https://solargraph.org/guides as LSP:
-" - Tree-setter?
 "    configure correctly the preferred autocomplete
-" - try telescope?
+" - Tree-setter?
+" - try telescope instead of fzf?
 " - refactor plugin settings by moving them to sub folders
 " - fix folding to also hide comments
 " - floating terminal for fzfz ? https://github.com/voldikss/vim-floaterm/blob/master/README.md 
