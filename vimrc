@@ -32,6 +32,9 @@ Plug 'ryanoasis/vim-devicons'
 
 " Ruby
 Plug 'vim-ruby/vim-ruby'
+" Helps for CTags tpope/vim-bundler
+Plug 'tpope/vim-bundler'
+
 " Rails
 Plug 'tpope/vim-rails'
 " Javascript
@@ -49,8 +52,6 @@ Plug 'elzr/vim-json'
 " Markdown live editing, need `npm install -g livedown`
 Plug 'shime/vim-livedown'
 Plug 'plasticboy/vim-markdown'
-" Automatically rebuild ctags
-Plug 'ludovicchabant/vim-gutentags'
 
 " Automatic end complete
 Plug 'tpope/vim-endwise'
@@ -141,7 +142,7 @@ set shiftwidth=2                                          " Use 2 space tabs by 
 set softtabstop=2
 set expandtab                                             " Expand tabs into spaces
 set showbreak=↪\                                          " When text is wrapped
-set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨   " Highligth special characters and trailing whitespaces
+set listchars=tab:→\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨ " Highligth special characters and trailing whitespaces
 set list                                                  " Activates highlight
 set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
@@ -152,7 +153,8 @@ set smartindent
 set textwidth=100                                         " Automatically breaks new line after 100 chars
 
 " Folding
-set nofen                                                   " Disable folding when opening a file
+" set fen                                                   " Enable folding when opening a file
+set nofen                                               " Disable folding when opening a file
 set foldmethod=manual                                     " Folds everything indented by 2 spaces
 set foldlevel=0
 
@@ -503,11 +505,6 @@ autocmd BufRead,BufNewFile aliases.local,zshrc.local,*/zsh/configs/* set filetyp
 autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 autocmd BufRead,BufNewFile Dangerfile set syntax=ruby
 
-" Gutentags
-let g:gutentags_ctags_exclude = ['target', 'tmp', 'spec', 'node_modules', 'public', '*.json', '*.svg']
-" triggers a manual tags update on all the project
-nmap <Leader>rt :GutentagsUpdate!<CR>
-
 " gm for Markdown preview toggle
 nmap gm :LivedownToggle<CR>
 
@@ -581,8 +578,5 @@ let g:gitgutter_async = 0
 " - Tree-setter?
 "    configure correctly the preferred autocomplete
 " - try telescope?
-" - refactor plugin settings by moving them to sub folders
-" - fix folding to also hide comments
 " - floating terminal for fzfz ? https://github.com/voldikss/vim-floaterm/blob/master/README.md 
 "     https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
-" - fix <p> indent for html and ERB
