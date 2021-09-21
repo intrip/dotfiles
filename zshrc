@@ -6,24 +6,6 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
-# ZSH_THEME="spaceship"
-
-SPACESHIP_PROMPT_ORDER=(
-  # time          # Time stamps section
-  user          # Username section
-  dir           # Current directory section
-  # host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  ruby          # Ruby section
-  # golang        # Go section
-  # pyenv         # Pyenv section
-  # exec_time     # Execution time
-  # line_sep      # Line break
-  # vi_mode       # Vi-mode indicator
-  #jobs          # Background jobs indicator
-  #exit_code     # Exit code section
-  char          # Prompt character
-)
 
 # CASE_SENSITIVE="true"
 
@@ -48,7 +30,7 @@ COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -62,7 +44,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails kubectl)
+plugins=(git rails)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -73,20 +55,17 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=it_IT.UTF-8
 
+# EDITOR
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
  else
   export EDITOR='/usr/local/bin/nvim'
 fi
-
 # vim mode with jk so that can get to prev command with jkk
 bindkey jk vi-cmd-mode
 
-###
 # GIT
-###
-
 # auto push to all remotes branches
 git_push_all() {
   for i in $(git remote -v | cut -f1 | sort -u)
@@ -97,21 +76,19 @@ git_push_all() {
 alias gpa=git_push_all
 # pull current branch
 alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
-# Print current branch name
-alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
-# Copy current branch name
-alias gbc='gbp | pbcopy'
 # git fetch origin
 function git_fetch_origin() {
   git fetch origin $1:$1
 }
 alias gfo=git_fetch_origin
-
 # push current branch
 alias gph='git push origin HEAD'
 # push current branch in fork
 alias gphf='git push fork $(gbp)'
-
+# Print current branch name
+alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
+# Copy current branch name
+alias gbc='gbp | pbcopy'
 # open with vi changes files
 alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o vi'
 
@@ -120,50 +97,30 @@ alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "
 # Rubocop on all the changed files between the current branch and master. Ignores `db/schema.rb` as Rubocop normally does.
 alias rubocop-master='git diff --name-only master | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
 
-###
 # RUBY
-###
-
 alias b=bundle
 
-###
 # RVM
-###
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-###
 # SPRING
-###
-
 export ENABLE_SPRING='1'
 
 # to build icu4d
 export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-
 # Serve HTML page with WebRick
-
 alias served="ruby -r webrick -e \"s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start\""
 
-#####
 # MYSQL
-#####
-
 MYSQL=/usr/local/Cellar/mysql/5.7.19/bin
 export PATH=$PATH:$MYSQL
 
-###
 # Homebrew
-###
-
 export PATH=/usr/local/bin:$PATH
 # Disable analytics
 export HOMEBREW_NO_ANALYTICS=1
 
-
-# Node10
-# export PATH="/usr/local/opt/node@10/bin:$PATH"
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -185,16 +142,15 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export ssh_prv_key="$(cat ~/.ssh/id_rsa)"
 export ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
 
-### Iubenda
-#
+# Iubenda
 alias work='cd ~/iubendacode'
 # Open in chrome all the asana task for the last release
-asana_release() {
-head -n 100 CHANGELOG.md |
-  ruby -e 'a = ARGF.to_a; e = a.find_index { |x| x =~ /^\s*\n$/ }; puts a[2..e]' |
-  ruby -e 'puts ARGF.map { |l| l =~ /(https:\/\/app\.asana.*)\n/ && $1 }.compact' | xargs open -a "Google Chrome"
-}
-alias asana_release=asana_release()
+# asana_release() {
+# head -n 100 CHANGELOG.md |
+#   ruby -e 'a = ARGF.to_a; e = a.find_index { |x| x =~ /^\s*\n$/ }; puts a[2..e]' |
+#   ruby -e 'puts ARGF.map { |l| l =~ /(https:\/\/app\.asana.*)\n/ && $1 }.compact' | xargs open -a "Google Chrome"
+# }
+# alias asana_release=asana_release()
 
 # Fzf
 # Colors
@@ -215,8 +171,7 @@ local blue="33"
 local cyan="37"
 local green="64"
 
-# Comment and uncomment below for the light theme.
-
+# Colors
 # Solarized Dark color scheme for fzf
 export FZF_DEFAULT_OPTS="
 --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
@@ -233,13 +188,8 @@ export FZF_DEFAULT_OPTS="
 # Bat
 export BAT_THEME="Solarized (dark)"
 
-# Kube
 
-alias kc='kubectx'
-
-###
 # GOLANG
-####
 
 # load gvm
 [[ -s "/Users/jbeschi/.gvm/scripts/gvm" ]] && source "/Users/jbeschi/.gvm/scripts/gvm"

@@ -34,7 +34,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'vim-ruby/vim-ruby'
 " Helps for CTags tpope/vim-bundler
 Plug 'tpope/vim-bundler'
-
 " Rails
 Plug 'tpope/vim-rails'
 " Javascript
@@ -45,8 +44,6 @@ Plug 'tpope/vim-haml'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 " C ruby
 Plug 'mrkn/vim-cruby'
-" Vue.js integration
-Plug 'posva/vim-vue'
 " JSON formatting
 Plug 'elzr/vim-json'
 " Markdown live editing, need `npm install -g livedown`
@@ -119,7 +116,7 @@ set nowritebackup                                         " Write file in place
 set autoread                                              " Automatically reload file changes
 set autowriteall                                          " Automatically save buffers.
 autocmd WinLeave * silent! wall                           " Automatically save changes before switching windows
-autocmd FocusLost * silent! wall                          " Automatically save changes when loosing focus
+autocmd FocusLost * silent! wall                          " Automatically save changes when losing focus
 syntax enable                                             " Enables syntax highlight
 syntax sync minlines=500                                  " Only searches back 500 lines for indentation (better performance)
 set regexpengine=1                                        " Force old regex engine > more performant for now
@@ -148,13 +145,13 @@ set lbr                                                   " Enables line break
 set splitright                                            " Always open vsplit to the right
 
 " Indentation
+set textwidth=100                                         " Automatically breaks new line after 100 chars
 set autoindent                                            " Automatically guess the indentation given the previous line indent
 set smartindent
-set textwidth=100                                         " Automatically breaks new line after 100 chars
 
 " Folding
 " set fen                                                   " Enable folding when opening a file
-set nofen                                               " Disable folding when opening a file
+set nofen                                                 " Disable folding when opening a file
 set foldmethod=manual                                     " Folds everything indented by 2 spaces
 set foldlevel=0
 
@@ -190,22 +187,9 @@ au FileType ruby setl nowrap tabstop=8 tw=0 sw=2 expandtab
 " Crontab specific settings
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-" Sessions:
-" Define what to save with :mksession
-" blank - empty windows
-" buffers - all buffers not only ones in a window
-" curdir - the current directory
-" folds - including manually created ones
-" help - the help window
-" options - all options and mapping
-" winsize - window sizes
-" tabpages - all tab pages
-set sessionoptions=blank,buffers,curdir,folds,help,options,winsize,tabpages
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " Bindings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Toggle insert mode only caps lock with Ctrl+6
 " Execute 'lnoremap x X' and 'lnoremap X x' for each letter a-z.
 for c in range(char2nr('A'), char2nr('Z'))
@@ -215,7 +199,7 @@ endfor
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
 
-" Make program
+" Make program: rubocop
 autocmd User Rails setlocal makeprg=bundle\ exec\ rubocop\ -a\ \%
 map <Leader>r :Make<CR>
 
@@ -238,7 +222,7 @@ nnoremap ¬ :bnext!<CR>
 nmap <Leader>w :bp\|bd #<CR>                             " Closes buffer without closing the split view
 nmap <Leader>q :%bd\|e# <CR>                             " Closes all buffer except current
 
-" Copy file name with/without absolute pat?h to clipboard
+" Copy file name with/without absolute path to clipboard
 nnoremap <Leader>c :let @*=expand("%")<CR>
 nnoremap <Leader>C :let @*=expand("%:t")<CR>
 
@@ -263,7 +247,7 @@ map <S-up> :lprev<CR>
 " Use <S-B> to clear the highlighting of :set hlsearch.
 nnoremap <silent> <S-B> :nohlsearch<CR>
 
-" easy way to edit reload .vimrc
+" Quick way to edit reload .vimrc
 nmap <Leader>V :source $MYVIMRC<cr>
 nmap <Leader>v :vs ~/.vimrc<cr>
 
@@ -283,6 +267,8 @@ cnoreabbrev E e
 cnoreabbrev W w
 cnoreabbrev Vs vs
 cnoreabbrev vS vs
+cnoreabbrev Q q
+cnoreabbrev Qa qa
 
 " Moves up and down between wrapped lines 1 step at time
 nmap j gj
@@ -399,9 +385,9 @@ map <F8> :NERDTreeToggle<cr>
 map <F7> :NERDTreeFind<cr>
 " Automatically close NERDTree when opening a new file
 let NERDTreeQuitOnOpen = 1
-" Automatically delte buffer on delete
+" Automatically delete buffer on delete
 let NERDTreeAutoDeleteBuffer = 1
-" Goes up a directory with -
+" Go up a directory with -
 let NERDTreeMapUpdir='-'
 " Prettier Look & Feel
 let NERDTreeMinimalUI = 1
@@ -459,7 +445,7 @@ let g:ale_linters = {
 \}
 " Disable slow ALE linters
 let g:ale_linters_ignore = ['tslint', 'tidy', 'tsserver']
-let g:ale_ruby_rubocop_executable = 'bundle'
+" let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '●'
 let g:ale_virtualtext_cursor = 0
@@ -479,11 +465,6 @@ let g:vue_pre_processors = ['haml']
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 autocmd FileType vue syntax sync fromstart
 
-" Rvm ctags
-autocmd FileType ruby
-      \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
-      \ let &path .= "," . $MY_RUBY_HOME . "/lib"
-
 " Golang
 " Remap alternate
 autocmd FileType go
@@ -491,8 +472,6 @@ autocmd FileType go
 
 autocmd FileType go
       \ :command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-
-autocmd Filetype go map <Leader>e <Plug>(go-test)
 
 " Javascript
 " disables JS syntax for html files: due to vue template files being very slow
@@ -519,53 +498,27 @@ let g:gitgutter_async = 0
 " DOCS:
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" K to search with ag the word under cursor
-" :Ag to search in files like with Ctrl+p
-" :Rg to search in files using regex automatically showing results on change like with Ctrl+p
-" Ctrp+p for fuzzy search files from name, repeat Ctrl+p and Ctrl+n to search inside the history
-" Alt+p search inside open buffers
-"
-" Useful keywords to remember associated to Plugins:
-" CTRL+] to jump to linked file such as CTRL+Click
-" you can jump back with CTRL+SHIFT+[ or CTRL+T. With g + CTRL+] you see the list of all the tags associated
-" SHIFT+B clears search (nohls)
-" F8 for NERDTree
-" F7 for NERDTree in current buffer folder
-" F9 toggle quickfix
-" F10 toggle loclist
-" F11 to toggle line wrap
-" gcc to toggle comment on a line, gc to comment on visual mode, gcap to toggle comment on a paragraph
-" gf to open the related file, 2gf to open the second related file, g] to show all the results
 " gJ or gS to split/join if into 1 or multiple lines
-" :A or :AV to open/open in vsplit the alternate file for example the spec
-" CTRL+O CTRL+I to move between cursor jumps in history
-" use * to go to next occurrence of the word under cursor
 " rename html tag: cstt
 " jump between git diff using ]n and [n and [n
 " ciw caw to change inner and outer word
 " zz / t / b to show in top middle center a method
 " HML to move to top middle and bottom
-" Case sensitive search with \C at start for example \CTest
-" gT and gt to change tabs and CWt to move window into a new tab
 " ]space [space add space before/after
 " ]e [e move current line up or below
-" \"*yy or prepend anything with \"* (unescaped) to use the system clipboard
 " <Leader>r to run makeprg > rubucop for .ruby files
-" <Leager>gb/gb open GH at git page or blame
+" <Leader>gb/gb open GH at git page or blame
 "
 " Tips:
-" to do find and replace: ag -l pattern | xargs -o vim   # and then do your
-" bufdo %s/pattern/replace/gc | update
-" prepend with silent if you need to mass replace
-" Or you can also do :Ag text and then run :cfdo %s/pattern/replace/gc
-" :cfdo iterates over results in the quickfix window
-" to create a markdown document: showdown makehtml -i tc_ui.md -o tc_ui.html or use third party app such ask Marked.app
+" to do find and replace:
+" - ag pattern
+" - cfdo %s/pattern/replace/gc
+"   prepend with silent if you need to mass replace
 "
 " Setup_notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
 " - universal ctags are needed https://github.com/universal-ctags/ctags
 " - you need to install fzf and the_silver_searcher
-" - in order to have persistent undo run: mkdir ~/.vim/undo
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 " - install livedown `npm install -g livedown`
 "
@@ -577,9 +530,10 @@ let g:gitgutter_async = 0
 " TODO:
 " - autocomplete: COC and COQ vim, https://solargraph.org/guides as LSP:
 "    configure correctly the preferred autocomplete
-" - Tree-setter?
-" - try telescope instead of fzf?
-" - refactor plugin settings by moving them to sub folders
 " - fix folding to also hide comments
 " - floating terminal for fzfz ? https://github.com/voldikss/vim-floaterm/blob/master/README.md 
 "     https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
+"  LATER:
+" - Tree-setter?
+" - try telescope instead of fzf?
+" - refactor plugin settings by moving them to sub folders

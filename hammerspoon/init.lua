@@ -23,5 +23,3 @@ hs.hotkey.bind(mashalt, 'h', grid.snap_northwest)
 hs.hotkey.bind(mashalt, 'k', grid.snap_northeast)
 hs.hotkey.bind(mashalt, 'j', grid.snap_southwest)
 hs.hotkey.bind(mashalt, 'l', grid.snap_southeast)
-
-hs.hotkey.bind(mash, 'o', grid.maximize_window)
