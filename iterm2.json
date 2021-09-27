@@ -132,6 +132,11 @@
   "Use Italic Font" : true,
   "Unlimited Scrollback" : false,
   "Keyboard Map" : {
+    "0xf703-0x280000-0x7c" : {
+      "Label" : "",
+      "Action" : 10,
+      "Text" : "f"
+    },
     "0xf712-0x40000" : {
       "Action" : 10,
       "Text" : "[28;5~"
@@ -279,6 +284,11 @@
     "0xf701-0x220000" : {
       "Action" : 10,
       "Text" : "[1;2B"
+    },
+    "0xf702-0x280000-0x7b" : {
+      "Label" : "",
+      "Action" : 10,
+      "Text" : "b"
     },
     "0xf708-0x40000" : {
       "Action" : 10,
