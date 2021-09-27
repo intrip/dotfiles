@@ -132,21 +132,21 @@
   "Use Italic Font" : true,
   "Unlimited Scrollback" : false,
   "Keyboard Map" : {
-    "0xf728-0x80000" : {
+    "0xf712-0x40000" : {
       "Action" : 10,
-      "Text" : "d"
+      "Text" : "[28;5~"
     },
-    "0xf702-0x280000" : {
+    "0xf70b-0x40000" : {
       "Action" : 10,
-      "Text" : "b"
+      "Text" : "[19;5~"
     },
     "0xf70d-0x20000" : {
       "Action" : 10,
       "Text" : "[21;2~"
     },
-    "0x7f-0x80000" : {
-      "Action" : 11,
-      "Text" : "0x1b 0x7f"
+    "0xf706-0x40000" : {
+      "Action" : 10,
+      "Text" : "[1;5R"
     },
     "0xf708-0x20000" : {
       "Action" : 10,
@@ -164,13 +164,25 @@
       "Action" : 10,
       "Text" : "[1;2H"
     },
+    "0xf70f-0x40000" : {
+      "Action" : 10,
+      "Text" : "[24;5~"
+    },
     "0xf702-0x260000" : {
       "Action" : 10,
       "Text" : "[1;6D"
     },
+    "0xf711-0x40000" : {
+      "Action" : 10,
+      "Text" : "[26;5~"
+    },
     "0x38-0x40000" : {
       "Action" : 11,
       "Text" : "0x7f"
+    },
+    "0xf70a-0x40000" : {
+      "Action" : 10,
+      "Text" : "[18;5~"
     },
     "0xf72b-0x40000" : {
       "Action" : 10,
@@ -179,6 +191,10 @@
     "0xf70c-0x20000" : {
       "Action" : 10,
       "Text" : "[20;2~"
+    },
+    "0xf705-0x40000" : {
+      "Action" : 10,
+      "Text" : "[1;5Q"
     },
     "0xf701-0x260000" : {
       "Action" : 10,
@@ -208,9 +224,17 @@
       "Action" : 11,
       "Text" : "0x1f"
     },
-    "0x3-0x200000" : {
-      "Action" : 11,
-      "Text" : "0xd"
+    "0xf70e-0x40000" : {
+      "Action" : 10,
+      "Text" : "[23;5~"
+    },
+    "0xf710-0x40000" : {
+      "Action" : 10,
+      "Text" : "[25;5~"
+    },
+    "0xf709-0x40000" : {
+      "Action" : 10,
+      "Text" : "[17;5~"
     },
     "0xf701-0x240000" : {
       "Action" : 10,
@@ -224,9 +248,9 @@
       "Action" : 10,
       "Text" : "[1;2C"
     },
-    "0xf739-0x0" : {
-      "Action" : 13,
-      "Text" : ""
+    "0xf704-0x40000" : {
+      "Action" : 10,
+      "Text" : "[1;5P"
     },
     "0xf706-0x20000" : {
       "Action" : 10,
@@ -244,6 +268,10 @@
       "Action" : 11,
       "Text" : "0x1e"
     },
+    "0xf70d-0x40000" : {
+      "Action" : 10,
+      "Text" : "[21;5~"
+    },
     "0xf70f-0x20000" : {
       "Action" : 10,
       "Text" : "[24;2~"
@@ -251,6 +279,10 @@
     "0xf701-0x220000" : {
       "Action" : 10,
       "Text" : "[1;2B"
+    },
+    "0xf708-0x40000" : {
+      "Action" : 10,
+      "Text" : "[15;5~"
     },
     "0xf70a-0x20000" : {
       "Action" : 10,
@@ -268,89 +300,43 @@
       "Action" : 10,
       "Text" : "[1;2A"
     },
-    "0x30-0x200000" : {
-      "Action" : 12,
-      "Text" : "0"
-    },
     "0xf705-0x20000" : {
       "Action" : 10,
       "Text" : "[1;2Q"
-    },
-    "0x31-0x200000" : {
-      "Action" : 12,
-      "Text" : "1"
-    },
-    "0x33-0x200000" : {
-      "Action" : 12,
-      "Text" : "3"
     },
     "0x35-0x40000" : {
       "Action" : 11,
       "Text" : "0x1d"
     },
-    "0x34-0x200000" : {
-      "Action" : 12,
-      "Text" : "4"
+    "0xf728-0x80000-0x75" : {
+      "Label" : "",
+      "Action" : 10,
+      "Text" : "d"
     },
-    "0x32-0x200000" : {
-      "Action" : 12,
-      "Text" : "2"
+    "0xf728-0x0-0x75" : {
+      "Label" : "",
+      "Action" : 11,
+      "Text" : "0x4"
     },
-    "0x35-0x200000" : {
-      "Action" : 12,
-      "Text" : "5"
-    },
-    "0x36-0x200000" : {
-      "Action" : 12,
-      "Text" : "6"
-    },
-    "0x37-0x200000" : {
-      "Action" : 12,
-      "Text" : "7"
+    "0xf70c-0x40000" : {
+      "Action" : 10,
+      "Text" : "[20;5~"
     },
     "0x2d-0x40000" : {
       "Action" : 11,
       "Text" : "0x1f"
     },
-    "0x38-0x200000" : {
-      "Action" : 12,
-      "Text" : "8"
-    },
-    "0x2a-0x200000" : {
-      "Action" : 12,
-      "Text" : "*"
-    },
-    "0x39-0x200000" : {
-      "Action" : 12,
-      "Text" : "9"
-    },
-    "0x2b-0x200000" : {
-      "Action" : 12,
-      "Text" : "+"
-    },
     "0xf70e-0x20000" : {
       "Action" : 10,
       "Text" : "[23;2~"
     },
-    "0x2e-0x200000" : {
-      "Action" : 12,
-      "Text" : "."
-    },
-    "0x2d-0x200000" : {
-      "Action" : 12,
-      "Text" : "-"
+    "0xf707-0x40000" : {
+      "Action" : 10,
+      "Text" : "[1;5S"
     },
     "0xf709-0x20000" : {
       "Action" : 10,
       "Text" : "[17;2~"
-    },
-    "0x7f-0x100000" : {
-      "Action" : 11,
-      "Text" : "0x15"
-    },
-    "0x2f-0x200000" : {
-      "Action" : 12,
-      "Text" : "\/"
     },
     "0xf704-0x20000" : {
       "Action" : 10,
@@ -359,10 +345,6 @@
     "0x34-0x40000" : {
       "Action" : 11,
       "Text" : "0x1c"
-    },
-    "0xf703-0x280000" : {
-      "Action" : 10,
-      "Text" : "f"
     }
   },
   "Window Type" : 0,
@@ -381,7 +363,7 @@
     "Alpha Component" : 0.5,
     "Green Component" : 0.1491314172744751
   },
-  "Scrollback Lines" : 10000,
+  "Scrollback Lines" : 1000,
   "Send Code When Idle" : false,
   "Close Sessions On End" : true,
   "Terminal Type" : "xterm-256color",
