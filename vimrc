@@ -439,23 +439,28 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
 " Ale
 let g:ale_linters = {
-\   'ruby': ['ruby', 'rubocop'],
+\   'ruby': ['ruby', 'rubocop', 'solargraph'],
 \   'eruby': ['erubis'],
 \   'yaml': ['yamllint']
 \}
-" Disable slow ALE linters
-let g:ale_linters_ignore = ['tslint', 'tidy', 'tsserver']
-" let g:ale_ruby_rubocop_executable = 'bundle'
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 1
+" Look & Feel
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '●'
 let g:ale_virtualtext_cursor = 0
 let g:ale_echo_msg_format = '[%linter%]: %s'
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_text_changed = 1
 " Shows ALE errors in vim airline
 let g:airline#extensions#ale#enabled = 1
-" Disable autocompletion
-let g:ale_completion_enabled = 0
+" Uses Ale to autocomplete with Ctrl+P
+set omnifunc=ale#completion#OmniFunc
+" CTRL+p for autocomplete with solargraph
+inoremap <C-p> <C-x><C-o>
+" Show docs
+map <Leader>h :ALEHover<CR>
 
 " Vim Vue
 let g:vue_pre_processors = 'detect_on_enter'
@@ -521,6 +526,8 @@ let g:gitgutter_async = 0
 " - you need to install fzf and the_silver_searcher
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 " - install livedown `npm install -g livedown`
+" - Solargraph for LSP, https://solargraph.org/guides/getting-started
+"   - run 'solargraph download-core' on new ruby installation
 "
 "  For NeoVim:
 "  pip2 install pynvim
@@ -528,12 +535,12 @@ let g:gitgutter_async = 0
 "  In general run checkhealth provider and fix issues
 "
 " TODO:
-" - autocomplete: COC and COQ vim, https://solargraph.org/guides as LSP:
-"    configure correctly the preferred autocomplete
-" - fix folding to also hide comments
-" - floating terminal for fzfz ? https://github.com/voldikss/vim-floaterm/blob/master/README.md 
-"     https://gitlab.com/yorickpeterse/dotfiles/blob/master/.config/nvim/init.vim#L107-120
 "  LATER:
-" - Tree-setter?
-" - try telescope instead of fzf?
-" - refactor plugin settings by moving them to sub folders
+"   - Configure ALE go to definition with solargraph: need better checks because it cannot navigate
+"   inside libs; on the other hand ctags navigation sometimes has too many results
+"   - Configure ALE for refactoring
+"   - Configure ALE for symbol search
+"   - Solagraph rails
+"   - Tree-setter?
+"   - try telescope instead of FZF? FZF so far is ok
+"   - refactor plugin settings by moving them to sub folders

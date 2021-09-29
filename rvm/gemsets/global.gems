@@ -4,3 +4,4 @@ rubygems-bundler
 rake
 rvm
 bundler
+solargraph
