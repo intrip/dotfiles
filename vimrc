@@ -89,7 +89,7 @@ Plug 'tpope/vim-unimpaired'
 " Automatically position on a given line/col
 Plug 'wsdjeg/vim-fetch'
 " Simpler ruby folding
-Plug 'vim-utils/vim-ruby-fold'
+Plug 'intrip/vim-ruby-fold'
 " Open GH at the given line
 Plug 'ruanyl/vim-gh-line'
 
@@ -150,10 +150,14 @@ set autoindent                                            " Automatically guess 
 set smartindent
 
 " Folding
-" set fen                                                   " Enable folding when opening a file
-set nofen                                                 " Disable folding when opening a file
-set foldmethod=manual                                     " Folds everything indented by 2 spaces
-set foldlevel=0
+set fen                                                   " Enable folding when opening a file
+" set nofen                                                 " Disable folding when opening a file
+set foldlevel=1
+" Check https://github.com/vim-ruby/vim-ruby/pull/272
+" For now I prefer to use my plugin fork because allows to have by default comment
+" as folded and by adding 1 more level you fold also the methods.
+let ruby_fold = 1
+let ruby_foldable_groups = 'def #'
 
 " Search
 set hlsearch                                              " Automatically highlights search results, to hide them run :noh
@@ -536,11 +540,10 @@ let g:gitgutter_async = 0
 "
 " TODO:
 "  LATER:
-"   - Configure ALE go to definition with solargraph: need better checks because it cannot navigate
-"   inside libs; on the other hand ctags navigation sometimes has too many results
+"   - refactor plugin settings by moving them to sub folders such as ftplugin
 "   - Configure ALE for refactoring
 "   - Configure ALE for symbol search
 "   - Solagraph rails
+"   - Configure ALE go to definition with solargraph: need better checks because it cannot navigate inside libs; on the other hand ctags navigation sometimes has too many results
 "   - Tree-setter?
 "   - try telescope instead of FZF? FZF so far is ok
-"   - refactor plugin settings by moving them to sub folders
