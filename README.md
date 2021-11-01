@@ -29,3 +29,7 @@ Install [rcm](https://github.com/thoughtbot/rcm):
 Install the dotfiles:
 
     env RCRC=$HOME/.dotfiles/rcrc rcup
+
+Install from a different folder (for overrides):
+
+    env RCRC=$HOME/.dotfiles/rcrc rcup -d dotfiles-local/
