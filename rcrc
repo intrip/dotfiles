@@ -1,1 +1,1 @@
-EXCLUDES="README*.md LICENSE iterm2.plist"
+EXCLUDES="README*.md LICENSE iterm2.plist iterm2.json"
