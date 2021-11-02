@@ -32,4 +32,4 @@ Install the dotfiles:
 
 Install from a different folder (for overrides):
 
-    env RCRC=$HOME/.dotfiles/rcrc rcup -d dotfiles-local/
+    env RCRC=$HOME/.dotfiles/rcrc rcup -d dotfiles-local
