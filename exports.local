@@ -1,3 +1,7 @@
+# Rosetta
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
+
 # EDITOR
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -5,6 +9,8 @@ if [[ -n $SSH_CONNECTION ]]; then
  else
   export EDITOR='/usr/local/bin/nvim'
 fi
+alias vim='nvim'
+alias vi='nvim'
 
 # GIT
 # auto push to all remotes branches
@@ -28,6 +34,8 @@ alias gph='git push origin HEAD'
 alias gphf='git push fork $(gbp)'
 # Print current branch name
 alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
+# Git checkout
+alias gco='git checkout'
 # Copy current branch name
 alias gbc='gbp | pbcopy'
 # status
@@ -40,6 +48,8 @@ alias gcmsg='git commit -m'
 alias gb='git branch'
 # add
 alias ga='git add'
+# diff
+alias gd='git diff'
 # open with vi changes files
 alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o vi'
 
