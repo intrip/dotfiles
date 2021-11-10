@@ -11,3 +11,5 @@ Session.vim
 tags.*
 pomodoros.md
 members
+.git_hooks
+*.tags
