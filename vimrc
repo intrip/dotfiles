@@ -413,6 +413,7 @@ if exists("$DOCKER_APPNAME")
   let test#ruby#minitest#executable = 'docker-compose exec -e RAILS_ENV=test ${DOCKER_APPNAME} bundle exec ruby -Itest'
 endif
 
+  let test#ruby#minitest#executable = 'bin/rails test'
 " The Silver Searcher
 " Inspired by http://robots.thoughtbot.com/faster-grepping-in-vim/
 if executable('ag')
@@ -437,6 +438,9 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 nnoremap π :Buf<cr>
 " Ctrl+'
 nnoremap  :BTags<CR>
+
+" Ctags
+map <silent> <Leader>rt :!retag<cr>
 
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
