@@ -90,7 +90,7 @@ alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
 # Copy current branch name
 alias gbc='gbp | pbcopy'
 # open with vi changes files
-alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o vi'
+alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o nvim'
 
 # Rubocop on last commit files. Ignores `db/schema.rb` as Rubocop normally does.
 alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
