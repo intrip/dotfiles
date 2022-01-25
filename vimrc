@@ -442,7 +442,7 @@ nnoremap π :Buf<cr>
 nnoremap  :BTags<CR>
 
 " Ctags
-map <silent> <Leader>rt :!retag<cr>
+map <silent> <Leader>rt :!.git/hooks/ctags<cr>
 
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
@@ -469,7 +469,7 @@ let g:airline#extensions#ale#enabled = 1
 set omnifunc=ale#completion#OmniFunc
 " CTRL+p for autocomplete with solargraph
 inoremap <C-p> <C-x><C-o>
-" Show docs
+" Show docs, requires solargraph download-core to be ran
 map <Leader>h :ALEHover<CR>
 
 " Vim Vue
