@@ -442,7 +442,7 @@ nnoremap π :Buf<cr>
 nnoremap  :BTags<CR>
 
 " Ctags
-map <silent> <Leader>rt :!.git/hooks/ctags<cr>
+map <silent> <Leader>rt :!~/.bin/retag<cr>
 
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
