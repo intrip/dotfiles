@@ -51,6 +51,8 @@ Plug 'elzr/vim-json'
 " Markdown live editing, need `npm install -g livedown`
 Plug 'shime/vim-livedown'
 Plug 'plasticboy/vim-markdown'
+" CSV queries/editing
+Plug 'mechatroner/rainbow_csv'
 
 " Automatic end complete
 Plug 'tpope/vim-endwise'
@@ -498,6 +500,9 @@ autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
 autocmd BufRead,BufNewFile aliases.local,zshrc.local,*/zsh/configs/* set filetype=sh
 autocmd BufRead,BufNewFile gitconfig.local set filetype=gitconfig
 autocmd BufRead,BufNewFile Dangerfile set syntax=ruby
+" Set auto complete
+autocmd FileType html,erb set omnifunc=htmlcomplete#CompleteTags
+
 
 " gm for Markdown preview toggle
 nmap gm :LivedownToggle<CR>
