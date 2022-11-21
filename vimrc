@@ -40,6 +40,8 @@ Plug 'tpope/vim-rails'
 Plug 'pangloss/vim-javascript'
 " Coffeescript
 Plug 'kchmck/vim-coffee-script'
+" Typescript
+Plug 'leafgarland/typescript-vim'
 " Haml and Scss
 Plug 'tpope/vim-haml'
 " Golang extension
