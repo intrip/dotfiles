@@ -98,6 +98,8 @@ Plug 'wsdjeg/vim-fetch'
 Plug 'intrip/vim-ruby-fold'
 " Open GH at the given line
 Plug 'ruanyl/vim-gh-line'
+" GH Copilot
+Plug 'github/copilot.vim'
 
 augroup END
 " Initialize plugin system
