@@ -2,14 +2,11 @@
 .DS_Store
 .idea/
 tags
-todo
-jtodo
+todo.md
 *.swo
 *.swn
 Session.vim
 .byebug_history
 tags.*
-pomodoros.md
-members
 .git_hooks
 *.tags
