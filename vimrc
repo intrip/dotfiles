@@ -372,6 +372,9 @@ let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get
 " remove the file percentage
 let g:airline_section_z = '%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%v'
 
+" GH Copilot
+let g:copilot_node_command = "/Users/jacopobeschi/.nodenv/versions/16.15.0/bin/node"
+
 " UtilSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
