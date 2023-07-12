@@ -12,58 +12,6 @@ fi
 alias vim='nvim'
 alias vi='nvim'
 
-# GIT
-# auto push to all remotes branches
-git_push_all() {
-  for i in $(git remote -v | cut -f1 | sort -u)
-  do
-      eval "git push $i $1"
-  done
-}
-alias gpa=git_push_all
-# pull current branch
-alias glh='git pull origin $(git rev-parse --abbrev-ref HEAD)'
-# git fetch origin
-function git_fetch_origin() {
-  git fetch origin $1:$1
-}
-alias gfo=git_fetch_origin
-# push current branch
-alias gph='git push origin HEAD'
-# push current branch in fork
-alias gphf='git push fork $(gbp)'
-# Print current branch name
-alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
-# Git checkout
-alias gco='git checkout'
-# Copy current branch name
-alias gbc='gbp | pbcopy'
-# status
-alias gst='git status'
-# commit
-alias gc='git commit -v'
-# commit msg
-alias gcmsg='git commit -m'
-# branch
-alias gb='git branch'
-# add
-alias ga='git add'
-# diff
-alias gd='git diff'
-# open with vi changes files
-alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o nvim'
-
-# Rubocop on last commit files. Ignores `db/schema.rb` as Rubocop normally does.
-alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
-# Rubocop on all the changed files between the current branch and master. Ignores `db/schema.rb` as Rubocop normally does.
-alias rubocop-master='git diff --name-only master | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
-
-# RUBY
-alias b=bundle
-
-# Serve HTML page with WebRick
-alias served="ruby -r webrick -e \"s = WEBrick::HTTPServer.new(:Port => 9090, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start\""
-
 # Dotfiles bin path
 export PATH=$PATH:~/.bin
 
