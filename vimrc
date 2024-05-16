@@ -23,10 +23,10 @@ Plug 'tpope/vim-fugitive'
 " Show diff from a ref
 Plug 'airblade/vim-gitgutter'
 
-" Custom color schemes
-Plug 'flazz/vim-colorschemes'
 " Solarized color scheme
-Plug 'altercation/vim-colors-solarized'
+Plug 'maxmx03/solarized.nvim'
+" Required for solarized.nvim
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Cool dev icons
 Plug 'ryanoasis/vim-devicons'
 
@@ -448,7 +448,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " Alt+p
 nnoremap π :Buf<cr>
 " Ctrl+'
-nnoremap  :BTags<CR>
+nnoremap <C-'> :BTags<CR>
 
 " Ctags
 map <silent> <Leader>rt :!~/.bin/retag<cr>
