@@ -7,7 +7,7 @@ alias ibrew='arch -x86_64 /usr/local/bin/brew'
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
  else
-  export EDITOR='/usr/local/bin/nvim'
+  export EDITOR='/opt/homebrew/bin/nvim'
 fi
 alias vim='nvim'
 alias vi='nvim'
