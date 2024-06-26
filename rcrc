@@ -1,2 +1,1 @@
-DOTFILES_DIRS="dotfiles-local dotfiles-orig"
 EXCLUDES="README*.md LICENSE iterm2.plist iterm2.json"
