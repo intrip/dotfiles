@@ -429,15 +429,15 @@ endif
 " Inspired by http://robots.thoughtbot.com/faster-grepping-in-vim/
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor\ --path-to-ignore\ $HOME/.agignore
+  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep\ --path-to-ignore\ $HOME/.agignore
 
   " bind K to grep word under cursor
   nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
   " bind , (backward slash) to grep shortcut
-  command -nargs=+ -complete=file -bar Ag silent! grep! --hidden <args>|cwindow|redraw!
+  command -nargs=+ -complete=file -bar Grep silent! grep! --hidden <args>|cwindow|redraw!
 
-  nnoremap , :Ag<SPACE>
+  nnoremap , :Grep<SPACE>
 endif
 
 " Fzf
@@ -548,8 +548,6 @@ let g:gitgutter_async = 0
 " - you need to install fzf and the_silver_searcher
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 " - install livedown `npm install -g livedown`
-" - Solargraph for LSP, https://solargraph.org/guides/getting-started
-"   - run 'solargraph download-core' on new ruby installation
 "
 "  For NeoVim:
 "  pip2 install pynvim
@@ -563,5 +561,4 @@ let g:gitgutter_async = 0
 "   - Configure ALE for symbol search
 "   - Solagraph rails
 "   - Configure ALE go to definition with solargraph: need better checks because it cannot navigate inside libs; on the other hand ctags navigation sometimes has too many results
-"   - Tree-setter?
 "   - try telescope instead of FZF? FZF so far is ok
