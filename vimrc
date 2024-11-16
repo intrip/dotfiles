@@ -180,6 +180,8 @@ autocmd BufNewFile,BufRead *.py setlocal shiftwidth=4
 
 " C specific settings
 au FileType c setl ts=8 sw=4 expandtab
+
+" Ruby specific settings
 au FileType ruby setl nowrap tabstop=8 tw=0 sw=2 expandtab
 
 " Crontab specific settings
