@@ -1,2 +1,1 @@
 DOTFILES_DIRS="~/.dotfiles /Users/jacopobeschi/Work/basecamp/shipyard/dotfiles"
-EXCLUDES="README*.md LICENSE iterm2.plist iterm2.json"
