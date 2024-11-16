@@ -26,7 +26,7 @@ Plug 'airblade/vim-gitgutter'
 " Solarized color scheme
 Plug 'maxmx03/solarized.nvim'
 " Required for Solarized color scheme
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Cool dev icons
 Plug 'ryanoasis/vim-devicons'
 
@@ -38,10 +38,6 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
 " Javascript
 Plug 'pangloss/vim-javascript'
-" Coffeescript
-Plug 'kchmck/vim-coffee-script'
-" Typescript
-Plug 'leafgarland/typescript-vim'
 " Haml and Scss
 Plug 'tpope/vim-haml'
 " Golang extension
@@ -62,9 +58,6 @@ Plug 'tpope/vim-endwise'
 Plug 'alvan/vim-closetag'
 " Commment handling
 Plug 'tpope/vim-commentary'
-" Vim snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'godlygeek/tabular'
 " Easy quote and parenthesis
 Plug 'tpope/vim-surround'
@@ -74,13 +67,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'AndrewRadev/switch.vim'
 " Allows to repeat with . also some Plugin commands such as vim.sorround ones
 Plug 'tpope/vim-repeat'
-
-" LSP support: needed for Ale
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-" Async lint engine
-Plug 'w0rp/ale'
-
 " Test
 Plug 'vim-test/vim-test'
 
@@ -90,9 +76,7 @@ Plug 'sjl/vitality.vim'
 Plug 'tpope/vim-projectionist'
 " Jump between diff conflitcs
 Plug 'tpope/vim-unimpaired'
-" Useful vim mappings
-Plug 'tpope/vim-unimpaired'
-" Automatically position on a given line/col
+" Automatically position on a given line/col, useful when opening a file at a specific line
 Plug 'wsdjeg/vim-fetch'
 " Simpler ruby folding
 Plug 'intrip/vim-ruby-fold'
@@ -100,6 +84,8 @@ Plug 'intrip/vim-ruby-fold'
 Plug 'ruanyl/vim-gh-line'
 " GH Copilot
 Plug 'github/copilot.vim'
+" LSP support
+Plug 'neovim/nvim-lspconfig'
 
 augroup END
 " Initialize plugin system
@@ -210,10 +196,6 @@ for c in range(char2nr('A'), char2nr('Z'))
 endfor
 " Kill the capslock when leaving insert mode.
 autocmd InsertLeave * set iminsert=0
-
-" Make program: rubocop
-autocmd User Rails setlocal makeprg=bundle\ exec\ rubocop\ -a\ \%
-map <Leader>r :Make<CR>
 
 " Open fold with space
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -372,20 +354,6 @@ let g:airline_section_b  = '%.16{airline#util#wrap(airline#extensions#branch#get
 " remove the file percentage
 let g:airline_section_z = '%#__accent_bold#%{g:airline_symbols.linenr}%l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%v'
 
-" GH Copilot
-let g:copilot_node_command = "/Users/jacopobeschi/.nodenv/versions/16.15.0/bin/node"
-
-" UtilSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" UltiSnips runs a check on every key press thus overloads the CPU when typing: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt#L1698
-" this fixes the issue
-augroup ultisnips_no_auto_expansion
-  au!
-  au VimEnter * au! UltiSnips_AutoTrigger
-augroup END
-
 " Vim Markdown
 let g:vim_markdown_folding_disabled = 1
 " highlights code in Markdown fenced code blocks
@@ -415,10 +383,8 @@ nmap <silent> <Leader>a :TestSuite<CR>
 nmap <silent> <Leader>l :TestLast<CR>
 nmap <silent> <Leader>o :TestVisit<CR>
 let test#strategy = "neovim"
-" TODO maybe use harpoon test terminal + configure it
-" let test#strategy = "harpoon"
 
-" if $DOCKE_APPNAME is set uses it with docker_compose
+" if $DOCKER_APPNAME is set uses it with docker_compose
 if exists("$DOCKER_APPNAME")
   let test#ruby#rspec#executable = 'docker-compose exec -e RAILS_ENV=test ${DOCKER_APPNAME} bundle exec rspec'
   let test#ruby#minitest#executable = 'docker-compose exec -e RAILS_ENV=test ${DOCKER_APPNAME} bundle exec ruby -Itest'
@@ -430,9 +396,6 @@ endif
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep\ --path-to-ignore\ $HOME/.agignore
-
-  " bind K to grep word under cursor
-  nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
   " bind , (backward slash) to grep shortcut
   command -nargs=+ -complete=file -bar Grep silent! grep! --hidden <args>|cwindow|redraw!
@@ -456,38 +419,56 @@ map <silent> <Leader>rt :!~/.bin/retag<cr>
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
-" Ale
-let g:ale_linters = {
-\   'ruby': ['ruby', 'rubocop', 'solargraph'],
-\   'eruby': ['erubis'],
-\   'yaml': ['yamllint']
-\}
-" Only run linters named in ale_linters settings.
-let g:ale_linters_explicit = 1
-let g:ale_ruby_rubocop_executable = 'bundle'
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_text_changed = 1
-" Look & Feel
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '●'
-let g:ale_virtualtext_cursor = 0
-let g:ale_echo_msg_format = '[%linter%]: %s'
-" Shows ALE errors in vim airline
-let g:airline#extensions#ale#enabled = 1
-" Uses Ale to autocomplete with Ctrl+P
-set omnifunc=ale#completion#OmniFunc
-" CTRL+p for autocomplete with solargraph
-inoremap <C-p> <C-x><C-o>
-" Show docs, requires solargraph download-core to be ran
-map <Leader>h :ALEHover<CR>
+" GH Copilot
+let g:copilot_node_command = "/Users/jacopobeschi/.local/share/mise/installs/node/lts/bin/node"
 
-" Vim Vue
-let g:vue_pre_processors = 'detect_on_enter'
-let g:vue_pre_processors = ['haml']
+" Vim LSP
+lua << EOF
+require'lspconfig'.ruby_lsp.setup{
+  cmd = { "ruby-lsp" }, -- Use 'bundle exec ruby-lsp' if installed locally
+  settings = {
+    ruby = {
+      enabledFeatures = {
+        "diagnostics",
+        "hover",
+        "codeActions",
+        "documentSymbols",
+        "foldingRanges",
+        "formatting",
+        "onTypeFormatting",
+        "rename",
+        "references",
+        "selectionRanges",
+        "semanticHighlighting",
+      },
+      formatting = {
+        command = "bundle exec rubocop", -- use 'rubocop' for formatting
+      },
+    },
+  },
+}
+EOF
 
-" Allows html js and css in vue files
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-autocmd FileType vue syntax sync fromstart
+" Setup LSP keybindings
+lua << EOF
+-- Essential Code Navigation
+vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })  -- Go to Definition
+vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }) -- Find References
+
+-- Diagnostics
+vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }) -- Previous Diagnostic
+vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true }) -- Next Diagnostic
+
+-- Documentation
+vim.api.nvim_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true }) -- Hover Documentation
+
+-- Refactoring
+vim.api.nvim_set_keymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true }) -- Code Actions
+vim.api.nvim_set_keymap('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true }) -- Rename Symbol
+
+-- Formatting
+vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true }) -- Format Buffer
+EOF
 
 " Golang
 " Remap alternate
@@ -496,10 +477,6 @@ autocmd FileType go
 
 autocmd FileType go
       \ :command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-
-" Javascript
-" disables JS syntax for html files: due to vue template files being very slow
-autocmd FileType html syntax clear javascript
 
 " Set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
@@ -533,12 +510,11 @@ let g:gitgutter_async = 0
 " HML to move to top middle and bottom
 " ]space [space add space before/after
 " ]e [e move current line up or below
-" <Leader>r to run makeprg > rubucop for .ruby files
 " <Leader>gb/gb open GH at git page or blame
 "
 " Tips:
 " to do find and replace:
-" - ag pattern
+" - :Grep pattern
 " - cfdo %s/pattern/replace/gc
 "   prepend with silent if you need to mass replace
 "
@@ -548,17 +524,7 @@ let g:gitgutter_async = 0
 " - you need to install fzf and the_silver_searcher
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 " - install livedown `npm install -g livedown`
-"
-"  For NeoVim:
-"  pip2 install pynvim
-"  pip3 install pynvim
-"  In general run checkhealth provider and fix issues
-"
-" TODO:
-"  LATER:
-"   - refactor plugin settings by moving them to sub folders such as ftplugin
-"   - Configure ALE for refactoring
-"   - Configure ALE for symbol search
-"   - Solagraph rails
-"   - Configure ALE go to definition with solargraph: need better checks because it cannot navigate inside libs; on the other hand ctags navigation sometimes has too many results
-"   - try telescope instead of FZF? FZF so far is ok
+" - install ruby lsp "gem install ruby_lsp"
+" -  pip2 install pynvim
+" -  pip3 install pynvim
+" -  In general run checkhealth provider and fix issues
