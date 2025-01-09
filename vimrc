@@ -38,6 +38,8 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
 " Javascript
 Plug 'pangloss/vim-javascript'
+" Legacy: Coffeescript
+Plug 'kchmck/vim-coffee-script'
 " Haml and Scss
 Plug 'tpope/vim-haml'
 " Golang extension
@@ -183,6 +185,9 @@ au FileType c setl ts=8 sw=4 expandtab
 
 " Ruby specific settings
 au FileType ruby setl nowrap tabstop=8 tw=0 sw=2 expandtab
+
+" CoffeeScript specific settings
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
 " Crontab specific settings
 autocmd filetype crontab setlocal nobackup nowritebackup
@@ -458,6 +463,15 @@ vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { no
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }) -- Find References
 
 -- Diagnostics
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●", -- Use a subtle prefix (e.g., ●, ◇, ⚠)
+    spacing = 2,  -- Add spacing between text and diagnostic
+  },
+  signs = true,  -- Keep signs in the gutter
+  underline = false, -- Disable underlining
+  update_in_insert = false, -- Do not update diagnostics in insert mode
+})
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true }) -- Previous Diagnostic
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true }) -- Next Diagnostic
 
