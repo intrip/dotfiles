@@ -420,9 +420,6 @@ nnoremap π :Buf<cr>
 " Ctrl+'
 nnoremap <C-'> :BTags<CR>
 
-" Ctags
-map <silent> <Leader>rt :!~/.bin/retag<cr>
-
 " Vim autoclose
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.html.erb'
 
@@ -431,8 +428,7 @@ let g:copilot_node_command = "/Users/jacopobeschi/.local/share/mise/installs/nod
 
 " Vim LSP
 lua << EOF
-require'lspconfig'.ruby_lsp.setup{
-  cmd = { "ruby-lsp" }, -- Use 'bundle exec ruby-lsp' if installed locally
+vim.lsp.config["lua_ls"] = {
   settings = {
     ruby = {
       enabledFeatures = {
@@ -452,15 +448,23 @@ require'lspconfig'.ruby_lsp.setup{
         command = "bundle exec rubocop", -- use 'rubocop' for formatting
       },
     },
-  },
+  }
 }
+
+-- Auto-start ruby_lsp when editing Ruby files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "ruby",
+  callback = function()
+    vim.lsp.start(vim.lsp.config["ruby_lsp"])
+  end,
+})
 EOF
 
 " Setup LSP keybindings
 lua << EOF
 -- Essential Code Navigation
-vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })  -- Go to Definition
-vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true }) -- Find References
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, { noremap = true, silent = true })
 
 -- Diagnostics
 vim.diagnostic.config({
@@ -536,7 +540,7 @@ let g:gitgutter_async = 0
 "
 " Setup_notes:
 " - in order to use the truecolor version of solarized you need to setup " solarized scheme for your terminal: http://ethanschoonover.com/solarized
-" - universal ctags are needed https://github.com/universal-ctags/ctags
+" - for ruby-lsp you need to install lua-language-server
 " - you need to install fzf and the_silver_searcher
 " - you need to install on Mac the Dejavu nerd fonts: https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf and set them on Iterm
 " - install livedown `npm install -g livedown`
