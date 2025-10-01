@@ -90,7 +90,7 @@ alias gbp='git rev-parse --abbrev-ref HEAD | tr -d "\n"'
 # Copy current branch name
 alias gbc='gbp | pbcopy'
 # open with vi changes files
-alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o vi'
+alias vigst='gst -s | grep -v "??" | awk '"'"'{ print $2}'"'"' | xargs -o nvim'
 
 # Rubocop on last commit files. Ignores `db/schema.rb` as Rubocop normally does.
 alias rubocop-head='git diff-tree --no-commit-id --name-only -r HEAD | grep -v "db/schema.rb" | xargs -o bundle exec rubocop -a'
@@ -102,9 +102,6 @@ alias b=bundle
 
 # RVM
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-# SPRING
-export ENABLE_SPRING='1'
 
 # to build icu4d
 export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
@@ -142,15 +139,8 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export ssh_prv_key="$(cat ~/.ssh/id_rsa)"
 export ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
 
-# Iubenda
-alias work='cd ~/iubendacode'
-# Open in chrome all the asana task for the last release
-# asana_release() {
-# head -n 100 CHANGELOG.md |
-#   ruby -e 'a = ARGF.to_a; e = a.find_index { |x| x =~ /^\s*\n$/ }; puts a[2..e]' |
-#   ruby -e 'puts ARGF.map { |l| l =~ /(https:\/\/app\.asana.*)\n/ && $1 }.compact' | xargs open -a "Google Chrome"
-# }
-# alias asana_release=asana_release()
+# DNS flush
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
 # Fzf
 # Colors

@@ -9,5 +9,4 @@ jtodo
 Session.vim
 .byebug_history
 tags.*
-pomodoros.md
-members
+.git_hooks
