@@ -100,8 +100,9 @@ alias rubocop-master='git diff --name-only master | grep -v "db/schema.rb" | xar
 # RUBY
 alias b=bundle
 
-# RVM
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# RBENV
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
 
 # to build icu4d
 export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
