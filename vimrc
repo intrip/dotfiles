@@ -101,7 +101,7 @@ let mapleader = "-"                                       " Maps - as leader cha
 
 " Colorscheme
 "let g:solarized_termcolors=256                           " Enable this if you don't have the solarize theme installed for your terminal e.g. Iterm
-colorscheme solarized
+colorscheme solarized8
 set background=dark
 
 set nocp                                                  " Set no compatibilty mode
