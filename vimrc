@@ -24,7 +24,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Solarized color scheme
-Plug 'maxmx03/solarized.nvim'
+Plug 'lifepillar/vim-solarized8'
 " Required for Solarized color scheme
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Cool dev icons
