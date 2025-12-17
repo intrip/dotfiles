@@ -136,10 +136,6 @@ export PATH=$PATH:./bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# Used for docker-compose and SSH key
-export ssh_prv_key="$(cat ~/.ssh/id_rsa)"
-export ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
-
 # DNS flush
 alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
@@ -204,3 +200,13 @@ export PATH=$PATH:$GOPATH/bin
 export PATH="/usr/local/opt/libiconv/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Local secrets (API keys, tokens, etc.)
+[ -f ~/.secrets.local ] && source ~/.secrets.local
+
+# Docker
+
+export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
+
+# Added by CheckThat setup
+eval "$(mise activate zsh)"

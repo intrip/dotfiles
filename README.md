@@ -29,3 +29,17 @@ Install [rcm](https://github.com/thoughtbot/rcm):
 Install the dotfiles:
 
     env RCRC=$HOME/.dotfiles/rcrc rcup
+
+Configuration
+-------------
+
+### Secrets (API keys, tokens)
+
+Create a `~/.secrets.local` file for sensitive environment variables (this file is not tracked by git):
+
+    touch ~/.secrets.local
+
+Add your API keys:
+
+    # OpenAI
+    export OPENAI_API_KEY="your-api-key-here"
