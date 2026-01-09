@@ -100,10 +100,6 @@ alias rubocop-master='git diff --name-only master | grep -v "db/schema.rb" | xar
 # RUBY
 alias b=bundle
 
-# RBENV
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - zsh)"
-
 # to build icu4d
 export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:$PKG_CONFIG_PATH"
 
@@ -210,3 +206,12 @@ export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
 
 # Added by CheckThat setup
 eval "$(mise activate zsh)"
+
+# Added by CheckThat setup
+eval "$(mise activate zsh)"
+
+# Added by CheckThat setup
+eval "$(mise activate zsh)"
+
+# direnv - load .env files into shell
+eval "$(direnv hook zsh)"
